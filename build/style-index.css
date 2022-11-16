@@ -1,0 +1,102 @@
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-create-block-amateur-tv {
+  background-color: #21759b;
+  color: #fff;
+  padding: 2px;
+}
+
+div.atv-cams-list {
+  gap: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+a.atv-cam {
+  position: relative;
+  max-width: 33%;
+  text-decoration: none !important;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 11px;
+}
+
+a.atv-cam img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  vertical-align: middle;
+  border-style: none;
+  max-width: 216px;
+  max-height: 115px;
+}
+
+span.atv-username {
+  top: 0;
+  left: 0;
+  z-index: 2;
+  position: absolute;
+  text-decoration: none !important;
+  padding: 1px 3px;
+}
+
+span.atv-live {
+  top: 0;
+  right: 5px;
+  padding: 1px 3px;
+  z-index: 2;
+  position: absolute;
+  text-transform: uppercase;
+  text-decoration: none !important;
+}
+
+span.atv-genre {
+  top: 10px;
+  left: 0;
+  padding: 1px 3px;
+  z-index: 2;
+  position: absolute;
+  text-transform: lowercase;
+  text-decoration: none !important;
+}
+
+span.atv-viewers {
+  top: 10px;
+  right: 5px;
+  z-index: 2;
+  position: absolute;
+  text-decoration: none !important;
+  height: 10px;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 11px;
+  width: 13%;
+}
+
+div.atv-topic {
+  bottom: 0;
+  left: 5px;
+  z-index: 2;
+  position: absolute;
+  max-width: 100%;
+  text-decoration: none !important;
+  text-overflow: ellipsis;
+  padding: 1px 3px;
+  width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+div.atv-front {
+  max-width: 70%;
+  margin: auto;
+}
+
+/*# sourceMappingURL=style-index.css.map*/

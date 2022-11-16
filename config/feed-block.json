@@ -1,0 +1,52 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "amateur-tv/feed",
+	"version": "0.1.0",
+	"title": "Amateur Tv Cams",
+	"category": "media",
+	"icon": "video-alt2",
+	"description": "Simple site builder using blocks with content from http://Amateur.tv to increase your profits as an affiliate. Online cams feed and live cam viewer ready to use on your WP site.",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"lang": {
+			"type": "array"
+		},
+		"genre": {
+			"type": "array"
+		},
+		"age": {
+			"type": "array"
+		},
+		"usernameColor": {
+			"type": "string"
+		},
+		"bgColor": {
+			"type": "string"
+		},
+		"topicColor": {
+			"type": "string"
+		},
+		"liveColor": {
+			"type": "string"
+		},
+		"displayLive": {
+			"type": "boolean"
+		},
+		"displayTopic": {
+			"type": "boolean"
+		},
+		"displayGenre": {
+			"type": "boolean"
+		},
+		"displayUsers": {
+			"type": "boolean"
+		}
+	},
+	"textdomain": "amateur-tv",
+	"editorScript": "file:../build/index.js",
+	"editorStyle": "file:../build/index.css",
+	"style": "file:../build/style-index.css"
+}
