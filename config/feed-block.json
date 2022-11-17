@@ -20,6 +20,13 @@
 		"age": {
 			"type": "array"
 		},
+		"link": {
+			"type": "string"
+		},
+		"targetNew": {
+			"type": "boolean",
+			"default": false
+		},
 		"usernameColor": {
 			"type": "string"
 		},

@@ -79,7 +79,9 @@ function FeedEdit(props) {
     bgColor,
     genre,
     age,
-    topicColor
+    topicColor,
+    link,
+    targetNew
   } = attributes;
   const changeURL = args => {
     let _url = url;
@@ -87,7 +89,11 @@ function FeedEdit(props) {
     if (!!args.multiple) {
       val = val.join(',');
     }
-    _url.searchParams.set(args.name, val);
+    if (!!val) {
+      _url.searchParams.set(args.name, val);
+    } else {
+      _url.searchParams.delete(args.name);
+    }
     setData(null);
     setURL(url);
     setLoading(true);
@@ -142,6 +148,16 @@ function FeedEdit(props) {
       multiple: true
     });
   };
+  const onChangeLink = link => {
+    setAttributes({
+      link: link
+    });
+  };
+  const onChangeTarget = target => {
+    setAttributes({
+      targetNew: target
+    });
+  };
   const onChangeDisplayLive = val => {
     setAttributes({
       displayLive: !displayLive
@@ -169,7 +185,7 @@ function FeedEdit(props) {
   });
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const options = {
-      method: "GET"
+      method: 'GET'
     };
     if (!loading) return;
     fetch(url, options).then(response => response.json()).then(response => {
@@ -255,7 +271,16 @@ function FeedEdit(props) {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show Topic', 'amateur-tv'),
     checked: !!displayTopic,
     onChange: onChangeDisplayTopic
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.PanelColorSettings, {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.Flex, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.FlexBlock, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.FlexItem, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Link', 'amateur-tv'),
+    value: link,
+    onChange: onChangeLink,
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Absolute or relative URL. Leave blank to use the link of the cam', 'amateur-tv')
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.FlexItem, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Open in new tab', 'amateur-tv'),
+    checked: !!targetNew,
+    onChange: onChangeTarget
+  })))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.PanelColorSettings, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Color Settings', 'amateur-tv'),
     initialOpen: false,
     colorSettings: [{
@@ -323,6 +348,172 @@ function FeedEdit(props) {
 
 /***/ }),
 
+/***/ "./src/iframe-edit.js":
+/*!****************************!*\
+  !*** ./src/iframe-edit.js ***!
+  \****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ IframeEdit; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__);
+
+/**
+ * Retrieves the translation of text.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
+ */
+
+
+/**
+ * React hook that is used to mark the block wrapper element.
+ * It provides all the necessary props like the class name.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
+ */
+
+
+/**
+ * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
+ * Those files can contain any CSS code that gets applied to the editor.
+ *
+ * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+ */
+
+
+/**
+ * The edit function describes the structure of your block in the context of the
+ * editor. This represents what the editor will render when the block is used.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
+ *
+ * @return {WPElement} Element to render.
+ */
+
+
+
+
+function IframeEdit(props) {
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)();
+  const {
+    attributes,
+    setAttributes
+  } = props;
+  const [loading, setLoading] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [url, setURL] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(new URL('https://www.amateur.tv/freecam/embed?width=890&height=580&lazyloadvideo=1&a_mute=1'));
+  let iframe = '<iframe width="890"height="580" src=' + url.toString() + ' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
+  const [html, setHTML] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(iframe);
+  const {
+    lang,
+    genre,
+    age
+  } = attributes;
+  const changeURL = args => {
+    let _url = url;
+    let val = args.val;
+    if (!!args.multiple) {
+      val = val.join(',');
+    }
+    _url.searchParams.set(args.name, val);
+    setURL(url);
+    setHTML('<iframe width="890"height="580" src=' + url.toString() + ' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>');
+    //setLoading(false);
+  };
+
+  const onChangeLang = lang => {
+    setAttributes({
+      lang: lang
+    });
+    changeURL({
+      name: 'lang',
+      val: lang,
+      multiple: false
+    });
+  };
+  const onChangeGender = gender => {
+    setAttributes({
+      genre: gender
+    });
+    changeURL({
+      name: 'genre',
+      val: gender,
+      multiple: true
+    });
+  };
+  const onChangeAge = age => {
+    setAttributes({
+      age: age
+    });
+    changeURL({
+      name: 'age',
+      val: age,
+      multiple: true
+    });
+  };
+  const siteLang = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => {
+    var _select$getSite;
+    let lang = (_select$getSite = select('core').getSite()) === null || _select$getSite === void 0 ? void 0 : _select$getSite.language;
+    return lang && lang.split('_')[0];
+  });
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Filters', 'amateur-tv'),
+    initialOpen: true
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Gender', 'amateur-tv'),
+    value: genre,
+    multiple: true,
+    options: [{
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Woman', 'amateur-tv'),
+      value: 'W'
+    }, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Couple', 'amateur-tv'),
+      value: 'C'
+    }, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Man', 'amateur-tv'),
+      value: 'M'
+    }, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Trans', 'amateur-tv'),
+      value: 'T'
+    }],
+    onChange: onChangeGender
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Age', 'amateur-tv'),
+    value: age,
+    multiple: true,
+    options: [{
+      label: '18-22',
+      value: '18-22'
+    }, {
+      label: '23-29',
+      value: '23-29'
+    }, {
+      label: '29-39',
+      value: '29-39'
+    }, {
+      label: '40',
+      value: '40'
+    }],
+    onChange: onChangeAge
+  }))), !!loading && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    key: "loading",
+    className: "wp-block-embed is-loading"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.Spinner, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Fetching...', 'amateur-tv'))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.RawHTML, null, html), ";"));
+}
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -334,6 +525,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
 /* harmony import */ var _feed_edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./feed-edit */ "./src/feed-edit.js");
+/* harmony import */ var _iframe_edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./iframe-edit */ "./src/iframe-edit.js");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -355,6 +547,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
 /**
  * Every block starts by registering a new block type definition.
  *
@@ -362,6 +555,12 @@ __webpack_require__.r(__webpack_exports__);
  */
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)('amateur-tv/feed', {
   edit: _feed_edit__WEBPACK_IMPORTED_MODULE_2__["default"],
+  save: function (props) {
+    return null;
+  }
+});
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)('amateur-tv/iframe', {
+  edit: _iframe_edit__WEBPACK_IMPORTED_MODULE_3__["default"],
   save: function (props) {
     return null;
   }

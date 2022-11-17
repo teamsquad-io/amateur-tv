@@ -29,245 +29,340 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-import { useEffect, useState } from "@wordpress/element";
-import { useSelect } from "@wordpress/data";
-import { InspectorControls, PanelColorSettings } from "@wordpress/block-editor";
-import { Spinner, SelectControl,CheckboxControl,	PanelBody,	ToggleControl   } from '@wordpress/components';
+import { useEffect, useState } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
+import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
+import {
+	Spinner,
+	SelectControl,
+	CheckboxControl,
+	PanelBody,
+	ToggleControl,
+	Flex,
+	FlexBlock,
+	FlexItem,
+	TextControl,
+} from '@wordpress/components';
 
-export default function FeedEdit(props) {
+export default function FeedEdit( props ) {
 	const blockProps = useBlockProps();
-  const { attributes, setAttributes } = props;
+	const { attributes, setAttributes } = props;
 
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
-  const [url, setURL] = useState(new URL('https://public-api.amateur.cash/v3/cache/affiliates/promo/json'));
+	const [ loading, setLoading ] = useState( true );
+	const [ data, setData ] = useState( null );
+	const [ url, setURL ] = useState(
+		new URL(
+			'https://public-api.amateur.cash/v3/cache/affiliates/promo/json'
+		)
+	);
 
+	const {
+		usernameColor,
+		lang,
+		liveColor,
+		displayLive,
+		displayTopic,
+		displayGenre,
+		displayUsers,
+		bgColor,
+		genre,
+		age,
+		topicColor,
+		link,
+		targetNew,
+	} = attributes;
 
-	const { usernameColor, lang, liveColor,displayLive, displayTopic, displayGenre, displayUsers, bgColor, genre, age, topicColor } = attributes;
-
-	const changeURL = (args) => {
+	const changeURL = ( args ) => {
 		let _url = url;
 		let val = args.val;
-		if(!!args.multiple){
-			val = val.join(',');
+		if ( !! args.multiple ) {
+			val = val.join( ',' );
 		}
-		_url.searchParams.set(args.name, val);
-		setData(null);
-		setURL(url);
-		setLoading(true);
-	}
+		if ( !! val ) {
+			_url.searchParams.set( args.name, val );
+		} else {
+			_url.searchParams.delete( args.name );
+		}
+		setData( null );
+		setURL( url );
+		setLoading( true );
+	};
 
-	const onChangeUsernameColor = (color) => {
-		setAttributes({usernameColor:color});
-	}
-	const onChangeTopicColor = (color) => {
-		setAttributes({topicColor:color});
-	}
-	const onChangeBgColor = (color) => {
-		setAttributes({bgColor:color});
-	}
+	const onChangeUsernameColor = ( color ) => {
+		setAttributes( { usernameColor: color } );
+	};
+	const onChangeTopicColor = ( color ) => {
+		setAttributes( { topicColor: color } );
+	};
+	const onChangeBgColor = ( color ) => {
+		setAttributes( { bgColor: color } );
+	};
 
-	const onChangeLiveColor = (color) => {
-		setAttributes({liveColor:color});
-	}
+	const onChangeLiveColor = ( color ) => {
+		setAttributes( { liveColor: color } );
+	};
 
-	const  onChangeLang = (lang) => {
-		setAttributes({lang: lang});
-		changeURL({name: 'lang', val: lang, multiple: false});
-	}
-	const  onChangeGender = (gender) => {
-		setAttributes({genre: gender});
-		changeURL({name: 'genre', val: gender, multiple: true});
-	}
-	const  onChangeAge = (age) => {
-		setAttributes({age: age});
-		changeURL({name: 'age', val: age, multiple: true});
-	}
+	const onChangeLang = ( lang ) => {
+		setAttributes( { lang: lang } );
+		changeURL( { name: 'lang', val: lang, multiple: false } );
+	};
+	const onChangeGender = ( gender ) => {
+		setAttributes( { genre: gender } );
+		changeURL( { name: 'genre', val: gender, multiple: true } );
+	};
+	const onChangeAge = ( age ) => {
+		setAttributes( { age: age } );
+		changeURL( { name: 'age', val: age, multiple: true } );
+	};
+	const onChangeLink = ( link ) => {
+		setAttributes( { link: link } );
+	};
+	const onChangeTarget = ( target ) => {
+		setAttributes( { targetNew: target } );
+	};
 
-	const  onChangeDisplayLive = (val) => {
-		setAttributes({displayLive: !displayLive});
-	}
-	const  onChangeDisplayTopic = (val) => {
-		setAttributes({displayTopic: !displayTopic});
-	}
-	const  onChangeDisplayGenre = (val) => {
-		setAttributes({displayGenre: !displayGenre});
-	}
-	const  onChangeDisplayUsers = (val) => {
-		setAttributes({displayUsers: !displayUsers});
-	}
+	const onChangeDisplayLive = ( val ) => {
+		setAttributes( { displayLive: ! displayLive } );
+	};
+	const onChangeDisplayTopic = ( val ) => {
+		setAttributes( { displayTopic: ! displayTopic } );
+	};
+	const onChangeDisplayGenre = ( val ) => {
+		setAttributes( { displayGenre: ! displayGenre } );
+	};
+	const onChangeDisplayUsers = ( val ) => {
+		setAttributes( { displayUsers: ! displayUsers } );
+	};
 
+	const siteLang = useSelect( ( select ) => {
+		let lang = select( 'core' ).getSite()?.language;
+		return lang && lang.split( '_' )[ 0 ];
+	} );
 
+	useEffect( () => {
+		const options = {
+			method: 'GET',
+		};
 
+		if ( ! loading ) return;
 
-const siteLang = useSelect( (select) => {
-    let lang = select( 'core' ).getSite()?.language;
-	return lang && lang.split('_')[0];
-} );
+		fetch( url, options )
+			.then( ( response ) => response.json() )
+			.then( ( response ) => {
+				let newData = { ...response };
+				setLoading( false );
+				setData( response.body );
+			} )
+			.catch( ( err ) => console.error( err ) );
+	}, [ loading, url ] );
 
-  useEffect(() => {
-    const options = {
-      method: "GET"
-    };
+	return (
+		<>
+			<InspectorControls>
+				<PanelBody
+					title={ __( 'Filters', 'amateur-tv' ) }
+					initialOpen={ true }
+				>
+					<SelectControl
+						label={ __( 'Gender', 'amateur-tv' ) }
+						value={ genre }
+						multiple
+						options={ [
+							{ label: __( 'Woman', 'amateur-tv' ), value: 'W' },
+							{ label: __( 'Couple', 'amateur-tv' ), value: 'C' },
+							{ label: __( 'Man', 'amateur-tv' ), value: 'M' },
+							{ label: __( 'Trans', 'amateur-tv' ), value: 'T' },
+						] }
+						onChange={ onChangeGender }
+					/>
+					<SelectControl
+						label={ __( 'Age', 'amateur-tv' ) }
+						value={ age }
+						multiple
+						options={ [
+							{ label: '18-22', value: '18-22' },
+							{ label: '23-29', value: '23-29' },
+							{ label: '29-39', value: '29-39' },
+							{ label: '40', value: '40' },
+						] }
+						onChange={ onChangeAge }
+					/>
+				</PanelBody>
 
-if(!loading) return;
+				<PanelBody
+					title={ __( 'Display Settings', 'amateur-tv' ) }
+					initialOpen={ true }
+				>
+					<SelectControl
+						label={ __( 'Language', 'amateur-tv' ) }
+						value={ !! lang ? lang : siteLang }
+						options={ [
+							{
+								label: __( 'English', 'amateur-tv' ),
+								value: 'en',
+							},
+							{
+								label: __( 'Spanish', 'amateur-tv' ),
+								value: 'es',
+							},
+							{
+								label: __( 'French', 'amateur-tv' ),
+								value: 'fr',
+							},
+							{
+								label: __( 'German', 'amateur-tv' ),
+								value: 'de',
+							},
+						] }
+						onChange={ onChangeLang }
+					/>
 
-    fetch(url, options)
-      .then( ( response ) => response.json() )
-      .then( ( response ) => {
-		let newData = { ...response };
-		setLoading(false);
-        setData( response.body );
-      })
-      .catch((err) => console.error(err));
+					<ToggleControl
+						label={ __( 'Show Live Label', 'amateur-tv' ) }
+						checked={ !! displayLive }
+						onChange={ onChangeDisplayLive }
+					/>
+					<ToggleControl
+						label={ __( 'Show Gender', 'amateur-tv' ) }
+						checked={ !! displayGenre }
+						onChange={ onChangeDisplayGenre }
+					/>
+					<ToggleControl
+						label={ __( 'Show Users', 'amateur-tv' ) }
+						checked={ !! displayUsers }
+						onChange={ onChangeDisplayUsers }
+					/>
+					<ToggleControl
+						label={ __( 'Show Topic', 'amateur-tv' ) }
+						checked={ !! displayTopic }
+						onChange={ onChangeDisplayTopic }
+					/>
+					<Flex>
+						<FlexBlock>
+							<FlexItem>
+								<TextControl
+									label={ __( 'Link', 'amateur-tv' ) }
+									value={ link }
+									onChange={ onChangeLink }
+									help={ __(
+										'Absolute or relative URL. Leave blank to use the link of the cam',
+										'amateur-tv'
+									) }
+								/>
+							</FlexItem>
+							<FlexItem>
+								<ToggleControl
+									label={ __(
+										'Open in new tab',
+										'amateur-tv'
+									) }
+									checked={ !! targetNew }
+									onChange={ onChangeTarget }
+								/>
+							</FlexItem>
+						</FlexBlock>
+					</Flex>
 
-}, [loading, url]);
+					<PanelColorSettings
+						title={ __( 'Color Settings', 'amateur-tv' ) }
+						initialOpen={ false }
+						colorSettings={ [
+							{
+								value: usernameColor,
+								onChange: onChangeUsernameColor,
+								label: __( 'Username/Gender', 'amateur-tv' ),
+							},
+							{
+								value: liveColor,
+								onChange: onChangeLiveColor,
+								label: __( 'Live Label', 'amateur-tv' ),
+							},
+							{
+								value: topicColor,
+								onChange: onChangeTopicColor,
+								label: __( 'Topic', 'amateur-tv' ),
+							},
+							{
+								value: bgColor,
+								onChange: onChangeBgColor,
+								label: __( 'Background', 'amateur-tv' ),
+							},
+						] }
+					/>
+				</PanelBody>
+			</InspectorControls>
 
-
-  return (
-    <>
-	  <InspectorControls>
-
-                    <PanelBody
-                        title={ __('Filters', 'amateur-tv') }
-                        initialOpen={ true }
-                    >
-
-<SelectControl
-            label={ __('Gender', 'amateur-tv') }
-            value={ genre }
-			multiple
-            options={ [
-                { label: __('Woman', 'amateur-tv'), value: 'W' },
-                { label: __('Couple', 'amateur-tv'), value: 'C' },
-                { label: __('Man', 'amateur-tv'), value: 'M' },
-                { label: __('Trans', 'amateur-tv'), value: 'T' },
-            ] }
-            onChange={onChangeGender}
-        />
-<SelectControl
-            label={ __('Age', 'amateur-tv') }
-            value={ age }
-			multiple
-            options={ [
-                { label: '18-22', value: '18-22' },
-                { label: '23-29', value: '23-29' },
-                { label: '29-39', value: '29-39' },
-                { label: '40', value: '40' },
-            ] }
-            onChange={onChangeAge}
-        />
-                    </PanelBody>
-
-                    <PanelBody
-                        title={ __('Display Settings', 'amateur-tv') }
-                        initialOpen={ true }
-                    >
-
-<SelectControl
-            label={ __('Language', 'amateur-tv') }
-            value={ !!lang ? lang : siteLang }
-            options={ [
-                { label: __('English', 'amateur-tv'), value: 'en' },
-                { label: __('Spanish', 'amateur-tv'), value: 'es' },
-                { label: __('French', 'amateur-tv'), value: 'fr' },
-                { label: __('German', 'amateur-tv'), value: 'de' },
-            ] }
-            onChange={onChangeLang}
-        />
-
-		<ToggleControl
-			label={ __('Show Live Label', 'amateur-tv') }
-			checked={ !! displayLive }
-			onChange={ onChangeDisplayLive }
-		/>
-		<ToggleControl
-			label={ __('Show Gender', 'amateur-tv') }
-			checked={ !! displayGenre }
-			onChange={ onChangeDisplayGenre }
-		/>
-		<ToggleControl
-			label={ __('Show Users', 'amateur-tv') }
-			checked={ !! displayUsers }
-			onChange={ onChangeDisplayUsers }
-		/>
-		<ToggleControl
-			label={ __('Show Topic', 'amateur-tv') }
-			checked={ !! displayTopic }
-			onChange={ onChangeDisplayTopic }
-		/>
-
-	  	<PanelColorSettings
-	  		title={ __('Color Settings', 'amateur-tv') }
-	  		initialOpen={false}
-	  		colorSettings={ [
-				{
-					value: usernameColor,
-					onChange: onChangeUsernameColor,
-					label: __('Username/Gender', 'amateur-tv')
-				},
-				{
-					value: liveColor,
-					onChange: onChangeLiveColor,
-					label: __('Live Label', 'amateur-tv')
-				},
-				{
-					value: topicColor,
-					onChange: onChangeTopicColor,
-					label: __('Topic', 'amateur-tv')
-				},
-				{
-					value: bgColor,
-					onChange: onChangeBgColor,
-					label: __('Background', 'amateur-tv')
-				},
-			] }
-	  	/>
-
-			</PanelBody>
-	  </InspectorControls>
-
-		{ !!loading &&
-		(
-			<div key="loading" className="wp-block-embed is-loading">
-				<Spinner />
-				<p>{ __( 'Fetching...', 'amateur-tv' ) }</p>
+			{ !! loading && (
+				<div key="loading" className="wp-block-embed is-loading">
+					<Spinner />
+					<p>{ __( 'Fetching...', 'amateur-tv' ) }</p>
+				</div>
+			) }
+			<div { ...useBlockProps() }>
+				<div
+					className="atv-cams-list"
+					style={ { backgroundColor: bgColor } }
+				>
+					{ !! data &&
+						data.map( ( item, i ) => {
+							return (
+								<a
+									key={ i }
+									target="_blank"
+									className="atv-cam"
+								>
+									<img
+										src={ item.image }
+										width="216"
+										height="115"
+									/>
+									{ !! displayLive && (
+										<span
+											className="atv-live"
+											style={ { color: liveColor } }
+										>
+											{ __( 'Live', 'amateur-tv' ) }
+										</span>
+									) }
+									{ !! displayGenre && (
+										<span
+											className="atv-genre"
+											style={ { color: usernameColor } }
+										>
+											{ __( item.genre, 'amateur-tv' ) }
+										</span>
+									) }
+									{ !! displayUsers && (
+										<span
+											className="atv-viewers dashicons dashicons-visibility"
+											style={ { color: liveColor } }
+										>
+											{ item.viewers }
+										</span>
+									) }
+									<span
+										className="atv-username"
+										style={ { color: usernameColor } }
+									>
+										{ item.username }
+									</span>
+									{ !! displayTopic && (
+										<div
+											className="atv-topic"
+											style={ { color: topicColor } }
+										>
+											{
+												item.topic[
+													!! lang ? lang : 'en'
+												]
+											}
+										</div>
+									) }
+								</a>
+							);
+						} ) }
+				</div>
 			</div>
-		)}
-		<div { ...useBlockProps() }>
-			<div className="atv-cams-list" style={ { backgroundColor: bgColor } }>
-
-	{ !!data && data.map( ( item, i ) => {
-				return (
-					<a key={i} target="_blank" className="atv-cam">
-						<img src={ item.image } width="216" height="115"/>
-					{
-							!!displayLive && (
-								<span className="atv-live" style={ { color: liveColor } }>{__('Live', 'amateur-tv' )}</span>
-							)
-					}
-					{
-							!!displayGenre && (
-								<span className="atv-genre" style={ { color: usernameColor } }>{ __( item.genre, 'amateur-tv' ) }</span>
-							)
-					}
-					{
-							!!displayUsers && (
-								<span className="atv-viewers dashicons dashicons-visibility" style={ { color: liveColor } }>{ item.viewers }</span>
-							)
-					}
-						<span className="atv-username" style={ { color: usernameColor } }>{item.username}</span>
-					{
-							!!displayTopic && (
-								<div className="atv-topic" style={ { color: topicColor } }>{ item.topic[!!lang ? lang : 'en'] }</div>
-							)
-					}
-					</a>
-				)
-			})
-		}
-		</div>
-		</div>
-    </>	  
-  );
+		</>
+	);
 }

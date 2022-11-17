@@ -4,7 +4,7 @@
  * Description:       Simple site builder using blocks with content from http://Amateur.tv to increase your profits as an affiliate. Online cams feed and live cam viewer ready to use on your WP site.
  * Requires at least: 6.0
  * Requires PHP:      7.0
- * Version:           0.1.0
+ * Version:           0.1.1
  * Author:            Amateur TV
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -82,24 +82,34 @@ function render_feed($attributes) {
 	$lang = explode( '-', get_bloginfo('language') );
 	$lang = reset($lang);
 
-  $url = add_query_arg( array( 
-	  'a' => get_option( 'atv_affiliate' ),
-	  'genre' => implode(',', ($attributes['genre'] ?? array())),
-	  'age' => implode(',', ($attributes['age'] ?? array())),
-	  'lang' => $attributes['lang'] ?? 'en',
-  ), 'https://public-api.amateur.cash/v3/cache/affiliates/promo/json' );
+	$genre = $attributes['genre'] ?? array();
+	$age = $attributes['age'] ?? array();
+
+	$args = array(
+		'a' => get_option( 'atv_affiliate' ),
+		'lang' => $attributes['lang'] ?? 'en',
+	);
+
+	if(!empty($genre)){
+		$args['genre'] = implode(',', $genre );
+	}
+	if(!empty($age)){
+		$args['age'] = implode(',', $age );
+	}
+
+  $url = add_query_arg( $args, 'https://public-api.amateur.cash/v3/cache/affiliates/promo/json' );
 
   $cams = null;
   $response = wp_remote_get( $url );
   if ( ( !is_wp_error($response)) && (200 === wp_remote_retrieve_response_code( $response ) ) ) {
 	  $responseBody = json_decode($response['body'], true);
-	  $cams = $responseBody['body'];
+	  $cams = $responseBody['body'] ?? null;
   }
   if ( ! $cams ) {
 	  return;
   }
 
-  $template = '<a href="%s" target="_blank" class="atv-cam">
+  $template = '<a href="%s" target="%s" class="atv-cam">
 						<img src="%s" width="216" height="115"/>
 						%s
 	</a>';
@@ -121,7 +131,16 @@ $final = '';
 		  $inner .= sprintf( '<div class="atv-topic" style="color: %s">%s</div>', $attributes['topicColor'] ?? '', $cam['topic'][$lang]);
 	  }
 	  $inner .= sprintf( '<span class="atv-username" style="color: %s">%s</span>', $attributes['usernameColor'] ?? '', $cam['username'] );
-	  $final .= sprintf( $template, $cam['url'], $cam['image'], $inner );
+
+	  $url = $cam['url'];
+	  $target = '';
+	  if($attributes['targetNew'] ?? false){
+		  $target = "_blank";
+	  }
+	  if($attributes['link'] ?? false){
+		  $url = strpos( $attributes['link'], 'http' ) === 0 ? $attributes['link'] : site_url( $attributes['link'] );
+	  }
+	  $final .= sprintf( $template, $url, $target, $cam['image'], $inner );
   }
 
   return sprintf( '<div class="atv-cams-list atv-front" style="background-color: %s">%s</div>', $attributes['bgColor'] ?? '', $final );

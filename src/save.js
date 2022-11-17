@@ -16,12 +16,12 @@ import { __ } from '@wordpress/i18n';
  *
  * @return {WPElement} Element to render.
  */
-export default function save({ attributes }) {
-  const blockProps = useBlockProps.save();
+export default function save( { attributes } ) {
+	const blockProps = useBlockProps.save();
 
 	return (
 		<p style={ { backgroundColor: attributes.usernameColor } }>
-	{ __( "Amateur Tv – hello from the saved content!", "amateur-tv" ) }
+			{ __( 'Amateur Tv – hello from the saved content!', 'amateur-tv' ) }
 		</p>
 	);
 }

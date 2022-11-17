@@ -19,15 +19,15 @@ import './style.scss';
  */
 import FeedEdit from './feed-edit';
 
-
 /**
  * Every block starts by registering a new block type definition.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 registerBlockType( 'amateur-tv/feed', {
-  edit: FeedEdit,
-  save: function( props ) {
+	edit: FeedEdit,
+	save: function ( props ) {
 		return null;
-	}
+	},
 } );
+
