@@ -71,9 +71,41 @@ function create_block_amateur_tv_block_init() {
   register_block_type( __DIR__ . '/config/feed-block.json', array(
     'render_callback' => 'render_feed'
   ));
+  register_block_type( __DIR__ . '/config/iframe-block.json', array(
+    'render_callback' => 'render_iframe'
+  ));
 }
 add_action( 'init', 'create_block_amateur_tv_block_init' );
 
+function render_iframe($attributes) {
+	if ( is_admin()){
+		return;
+	}
+
+	$genre = $attributes['genre'] ?? array();
+	$age = $attributes['age'] ?? array();
+
+	$args = array(
+		'a' => get_option( 'atv_affiliate' ),
+		'lang' => $attributes['lang'] ?? 'en',
+	);
+
+	if(!empty($genre)){
+		$args['genre'] = implode(',', $genre );
+	}
+	if(!empty($age)){
+		$args['age'] = implode(',', $age );
+	}
+
+	$domain = 'amateur'; // amateur
+
+	$url = add_query_arg( $args, sprintf( 'https://www.%s.tv/freecam/embed?width=890&height=580&lazyloadvideo=1&a_mute=1', $domain ) );
+
+	$iframe = sprintf( '<iframe width="890" height="580" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.%s.tv/js/IntersectionObserverIframe.js"></script>', $url, $domain );
+
+	return $iframe;
+
+}
 
 function render_feed($attributes) {
 	if ( is_admin()){

@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "amateur-tv/iframe",
+	"version": "0.1.0",
+	"title": "Amateur Tv Iframe",
+	"category": "media",
+	"icon": "video-alt2",
+	"description": "Simple site builder using blocks with content from http://Amateur.tv to increase your profits as an affiliate. Online cams feed and live cam viewer ready to use on your WP site.",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"lang": {
+			"type": "array"
+		},
+		"genre": {
+			"type": "array"
+		},
+		"age": {
+			"type": "array"
+		}
+	},
+	"textdomain": "amateur-tv"
+}

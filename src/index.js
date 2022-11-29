@@ -18,6 +18,7 @@ import './style.scss';
  * Internal dependencies
  */
 import FeedEdit from './feed-edit';
+import IframeEdit from './iframe-edit';
 
 /**
  * Every block starts by registering a new block type definition.
@@ -31,3 +32,9 @@ registerBlockType( 'amateur-tv/feed', {
 	},
 } );
 
+registerBlockType( 'amateur-tv/iframe', {
+	edit: IframeEdit,
+	save: function ( props ) {
+		return null;
+	},
+} );
