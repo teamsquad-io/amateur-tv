@@ -4,7 +4,7 @@ Tags: affiliate, affiliate, affiliation, adult, cam, cams, webcam, amateur
 Requires at least: 6.0
 Requires PHP: 7.0
 Tested PHP: 8.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL 2.0
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
