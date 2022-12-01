@@ -1,18 +1,17 @@
 <?php
 /**
- * Plugin Name:       Amateur Tv WP site builder for Affiliates
- * Description:       Simple site builder using blocks with content from http://Amateur.tv to increase your profits as an affiliate. Online cams feed and live cam viewer ready to use on your WP site.
+ * Plugin Name: amateur tv
+ * Description: Create your own amateur cam affiliate site, thanks to amateur.tv. Online cams feed and live cams viewer ready to use.
  * Requires at least: 6.0
- * Requires PHP:      7.0
- * Version:           0.1.1
- * Author:            Amateur TV
- * License:           GPL-2.0-or-later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       amateur-tv
+ * Requires PHP: 7.0
+ * Version: 1.0.1
+ * Author: amateur.cash
+ * License: GPL 2.0
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: amateur-tv
  *
- * @package           amateur-tv
+ * @package amateur-tv
  */
-
 
 add_action( 'admin_init', function () {
 	register_setting( 'atv-header', 'atv_affiliate' );
