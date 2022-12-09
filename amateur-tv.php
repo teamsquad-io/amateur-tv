@@ -4,7 +4,7 @@
  * Description: Create your own amateur cam affiliate site, thanks to amateur.tv. Online cams feed and live cams viewer ready to use.
  * Requires at least: 6.0
  * Requires PHP: 7.0
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: amateur.cash
  * License: GPL 2.0
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,11 +14,11 @@
  */
 
 add_action( 'admin_init', function () {
-	register_setting( 'atv-header', 'atv_affiliate' );
+	register_setting( 'amateurtv_header', 'amateurtv_affiliate' );
 } );
 
 add_action( 'admin_menu', function () {
-	add_options_page( __( 'Amateur TV Settings', 'amateur-tv'), __( 'Amateur TV', 'amateur-tv'), 'manage_options', 'atv-header', 'atv_settings' );
+	add_options_page( __( 'Amateur TV Settings', 'amateur-tv'), __( 'Amateur TV', 'amateur-tv'), 'manage_options', 'amateurtv_header', 'amateurtv_settings' );
 } );
 
 add_action( 'plugins_loaded', function() {
@@ -37,8 +37,8 @@ function atv_settings() {
 	<div class="wrap">
 		<h2><?php _e( 'Amateur TV Settings', 'amateur-tv');?></h2>
 		<form action="options.php" method="post">
-			<?php settings_fields( 'atv-header' ); ?>
-			<?php do_settings_fields( 'atv-header', '' ); ?>
+			<?php settings_fields( 'amateurtv_header' ); ?>
+			<?php do_settings_fields( 'amateurtv_header', '' ); ?>
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row">
@@ -47,7 +47,7 @@ function atv_settings() {
 						</label>
 					</th>
 					<td>
-						<input type="text" name="atv_affiliate" value="<?php echo esc_attr( get_option( 'atv_affiliate' ) ); ?>" />
+						<input type="text" name="amateurtv_affiliate" value="<?php echo esc_attr( get_option( 'amateurtv_affiliate' ) ); ?>" />
 					</td>
 				</tr>
 			</table>
@@ -66,17 +66,17 @@ function atv_settings() {
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function create_block_amateur_tv_block_init() {
+function amateurtv_create_block_init() {
   register_block_type( __DIR__ . '/config/feed-block.json', array(
-    'render_callback' => 'render_feed'
+    'render_callback' => 'amateurtv_render_feed'
   ));
   register_block_type( __DIR__ . '/config/iframe-block.json', array(
-    'render_callback' => 'render_iframe'
+    'render_callback' => 'amateurtv_render_iframe'
   ));
 }
-add_action( 'init', 'create_block_amateur_tv_block_init' );
+add_action( 'init', 'amateurtv_create_block_init' );
 
-function render_iframe($attributes) {
+function amateurtv_render_iframe($attributes) {
 	if ( is_admin()){
 		return;
 	}
@@ -85,7 +85,7 @@ function render_iframe($attributes) {
 	$age = $attributes['age'] ?? array();
 
 	$args = array(
-		'a' => get_option( 'atv_affiliate' ),
+		'a' => get_option( 'amateurtv_affiliate' ),
 		'lang' => $attributes['lang'] ?? 'en',
 	);
 
@@ -96,17 +96,15 @@ function render_iframe($attributes) {
 		$args['age'] = implode(',', $age );
 	}
 
-	$domain = 'amateur'; // amateur
+	$url = add_query_arg( $args, 'https://www.amateur.tv/freecam/embed?width=890&height=580&lazyloadvideo=1&a_mute=1' );
 
-	$url = add_query_arg( $args, sprintf( 'https://www.%s.tv/freecam/embed?width=890&height=580&lazyloadvideo=1&a_mute=1', $domain ) );
-
-	$iframe = sprintf( '<iframe width="890" height="580" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.%s.tv/js/IntersectionObserverIframe.js"></script>', $url, $domain );
+	$iframe = sprintf( '<iframe width="890" height="580" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>', $url );
 
 	return $iframe;
 
 }
 
-function render_feed($attributes) {
+function amateurtv_render_feed($attributes) {
 	if ( is_admin()){
 		return;
 	}
@@ -117,7 +115,7 @@ function render_feed($attributes) {
 	$age = $attributes['age'] ?? array();
 
 	$args = array(
-		'a' => get_option( 'atv_affiliate' ),
+		'a' => get_option( 'amateurtv_affiliate' ),
 		'lang' => $attributes['lang'] ?? 'en',
 	);
 
