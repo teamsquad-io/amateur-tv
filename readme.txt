@@ -2,9 +2,10 @@
 Contributors: amateurtv, javiercasares
 Tags: affiliate, affiliate, affiliation, adult, cam, cams, webcam, amateur
 Requires at least: 6.0
-Requires PHP: 7.0
+Tested up to: 6.1
+Requires PHP: 7.2
 Tested PHP: 8.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPL 2.0
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 

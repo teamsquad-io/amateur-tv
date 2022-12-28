@@ -3,8 +3,10 @@
  * Plugin Name: amateur tv
  * Description: Create your own amateur cam affiliate site, thanks to amateur.tv. Online cams feed and live cams viewer ready to use.
  * Requires at least: 6.0
- * Requires PHP: 7.0
- * Version: 1.0.3b2
+ * Tested up to: 6.1
+ * Requires PHP: 7.2
+ * Tested PHP: 8.1
+ * Version: 1.0.3.b2
  * Author: amateur.cash
  * License: GPL 2.0
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
