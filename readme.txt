@@ -5,7 +5,7 @@ Requires at least: 6.0
 Tested up to: 6.1
 Requires PHP: 7.2
 Tested PHP: 8.1
-Stable tag: 1.0.3
+Stable tag: 1.1.0
 License: GPL 2.0
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,12 +79,14 @@ We provide our users with a "denounce" button that sends an alert to the 24/7 Mo
 
 == Changelog ==
 
-= 1.0.3 =
+= 1.1.0 =
 
-* Background support
-* Font support
-* Spacing support
 * Gutenberg fixes
+* Color settings (Amateur TV Cams block)
+* Font settings (Amateur TV Cams block)
+* Spacing settings (Amateur TV Cams block)
+* Image size settings (Amateur TV Cams block)
+* Number of cams (Amateur TV Cams block)
 
 = 1.0.2 =
 
