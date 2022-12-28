@@ -15,11 +15,11 @@
 			"padding": true
 		},
 		"typography": {
-			"fontSize": true
+			"fontSize": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontStyle": true,
+			"__experimentalFontWeight": true
 		},
-		"__experimentalFontFamily": true,
-		"__experimentalFontStyle": true,
-        "__experimentalFontWeight": true,
 		"reusable": false
 	},
 	"attributes": {
@@ -78,6 +78,9 @@
 			"default": 115
 		},
 		"columnGap": {
+			"type": "number"
+		},
+		"count": {
 			"type": "number"
 		}
 	},

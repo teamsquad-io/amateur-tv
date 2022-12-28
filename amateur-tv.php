@@ -4,7 +4,7 @@
  * Description: Create your own amateur cam affiliate site, thanks to amateur.tv. Online cams feed and live cams viewer ready to use.
  * Requires at least: 6.0
  * Requires PHP: 7.0
- * Version: 1.0.3
+ * Version: 1.0.3b2
  * Author: amateur.cash
  * License: GPL 2.0
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -139,13 +139,17 @@ function amateurtv_render_feed($attributes) {
   }
 
   $template = '<a href="%s" target="%s" class="atv-cam">
-						<img src="%s" width="%d" height="%d"/>
+						<img src="%s" width="%d" height="%d" style="max-height: %dpx"/>/>
 						%s
 	</a>';
 
 
 $final = '';
-  foreach ( $cams as $cam ) {
+$final_cams = $cams;
+if ( $attributes['count'] > 0 ) {
+	$final_cams = array_slice( $final_cams, 0, $attributes['count'] );
+}
+  foreach ( $final_cams as $cam ) {
 	  $inner = '';
 	  if($attributes['displayLive'] ?? false){
 		  $inner .= sprintf( '<span class="atv-live" style="color: %s; background-color: %s;">%s</span>', $attributes['liveColor'] ?? '', $attributes['labelBgColor'] ?? '', __('Live', 'amateur-tv' ) );
@@ -169,7 +173,7 @@ $final = '';
 	  if($attributes['link'] ?? false){
 		  $url = strpos( $attributes['link'], 'http' ) === 0 ? $attributes['link'] : site_url( $attributes['link'] );
 	  }
-	  $final .= sprintf( $template, $url, $target, $cam['image'], $attributes['imageWidth'] ?? 216, $attributes['imageHeight'] ?? 115, $inner );
+	  $final .= sprintf( $template, $url, $target, $cam['image'], $attributes['imageWidth'] ?? 216, $attributes['imageHeight'] ?? 115, $attributes['imageHeight'] ?? 115, $inner );
   }
 
   $styles = $classes = array();

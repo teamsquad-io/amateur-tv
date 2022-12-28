@@ -41,8 +41,7 @@ import {
 	FlexBlock,
 	FlexItem,
 	TextControl,
-	RangeControl,
-	NumberControl
+	RangeControl
 } from '@wordpress/components';
 
 export default function FeedEdit( props ) {
@@ -74,7 +73,8 @@ export default function FeedEdit( props ) {
 		labelBgColor,
 		imageWidth,
 		imageHeight,
-		columnGap
+		columnGap,
+		count
 	} = attributes;
 
 	const changeURL = ( args ) => {
@@ -149,6 +149,9 @@ export default function FeedEdit( props ) {
 	const onChangeImageWidth = ( val ) => {
 		setAttributes( { imageWidth: val } );
 	};
+	const onChangeCount = ( val ) => {
+		setAttributes( { count: val } );
+	};
 
 
 	const siteLang = useSelect( ( select ) => {
@@ -203,6 +206,14 @@ export default function FeedEdit( props ) {
 							{ label: '40', value: '40' },
 						] }
 						onChange={ onChangeAge }
+					/>
+					<RangeControl
+						label={ __( 'Number of cams', 'amateur-tv' ) }
+						value={ count }
+						initialPosition={ !! data ? data.length : 0 }
+						onChange={ onChangeCount }
+						min={ 0 }
+						max={ !! data ? data.length : 0 }
 					/>
 				</PanelBody>
 
@@ -349,7 +360,7 @@ export default function FeedEdit( props ) {
 					style={ { backgroundColor: bgColor, gap: columnGap } }
 				>
 					{ !! data &&
-						data.map( ( item, i ) => {
+						data.slice(0, count > 0 ? count : data.length).map( ( item, i ) => {
 							return (
 								<a
 									key={ i }
@@ -360,6 +371,7 @@ export default function FeedEdit( props ) {
 										src={ item.image }
 										width={ imageWidth }
 										height={ imageHeight }
+										style={ { maxHeight: imageHeight } }
 									/>
 									{ !! displayLive && (
 										<span
