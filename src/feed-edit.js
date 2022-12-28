@@ -35,13 +35,13 @@ import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
 import {
 	Spinner,
 	SelectControl,
-	CheckboxControl,
 	PanelBody,
 	ToggleControl,
 	Flex,
 	FlexBlock,
 	FlexItem,
 	TextControl,
+	RangeControl
 } from '@wordpress/components';
 
 export default function FeedEdit( props ) {
@@ -70,6 +70,11 @@ export default function FeedEdit( props ) {
 		topicColor,
 		link,
 		targetNew,
+		labelBgColor,
+		imageWidth,
+		imageHeight,
+		columnGap,
+		count
 	} = attributes;
 
 	const changeURL = ( args ) => {
@@ -97,7 +102,9 @@ export default function FeedEdit( props ) {
 	const onChangeBgColor = ( color ) => {
 		setAttributes( { bgColor: color } );
 	};
-
+	const onChangeLabelBgColor = ( color ) => {
+		setAttributes( { labelBgColor: color } );
+	};
 	const onChangeLiveColor = ( color ) => {
 		setAttributes( { liveColor: color } );
 	};
@@ -133,6 +140,19 @@ export default function FeedEdit( props ) {
 	const onChangeDisplayUsers = ( val ) => {
 		setAttributes( { displayUsers: ! displayUsers } );
 	};
+	const onChangeGap = ( val ) => {
+		setAttributes( { columnGap: val } );
+	};
+	const onChangeImageHeight = ( val ) => {
+		setAttributes( { imageHeight: val } );
+	};
+	const onChangeImageWidth = ( val ) => {
+		setAttributes( { imageWidth: val } );
+	};
+	const onChangeCount = ( val ) => {
+		setAttributes( { count: val } );
+	};
+
 
 	const siteLang = useSelect( ( select ) => {
 		let lang = select( 'core' ).getSite()?.language;
@@ -186,6 +206,14 @@ export default function FeedEdit( props ) {
 							{ label: '40', value: '40' },
 						] }
 						onChange={ onChangeAge }
+					/>
+					<RangeControl
+						label={ __( 'Number of cams', 'amateur-tv' ) }
+						value={ count }
+						initialPosition={ !! data ? data.length : 0 }
+						onChange={ onChangeCount }
+						min={ 0 }
+						max={ !! data ? data.length : 0 }
 					/>
 				</PanelBody>
 
@@ -286,8 +314,36 @@ export default function FeedEdit( props ) {
 								value: bgColor,
 								onChange: onChangeBgColor,
 								label: __( 'Background', 'amateur-tv' ),
+							},{
+								value: labelBgColor,
+								onChange: onChangeLabelBgColor,
+								label: __( 'Label Background', 'amateur-tv' ),
 							},
 						] }
+					/>
+					<RangeControl
+						label={ __( 'Column Gap', 'amateur-tv' ) }
+						value={ columnGap }
+						initialPosition={ 3 }
+						onChange={ onChangeGap }
+						min={ 0 }
+						max={ 10 }
+					/>
+					<RangeControl
+						label={ __( 'Image Height', 'amateur-tv' ) }
+						value={ imageHeight }
+						initialPosition={ 115 }
+						onChange={ onChangeImageHeight }
+						min={ 115 }
+						max={ 500 }
+					/>
+					<RangeControl
+						label={ __( 'Image Width', 'amateur-tv' ) }
+						value={ imageWidth }
+						initialPosition={ 216 }
+						onChange={ onChangeImageWidth }
+						min={ 216 }
+						max={ 500 }
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -301,10 +357,10 @@ export default function FeedEdit( props ) {
 			<div { ...useBlockProps() }>
 				<div
 					className="atv-cams-list"
-					style={ { backgroundColor: bgColor } }
+					style={ { backgroundColor: bgColor, gap: columnGap } }
 				>
 					{ !! data &&
-						data.map( ( item, i ) => {
+						data.slice(0, count > 0 ? count : data.length).map( ( item, i ) => {
 							return (
 								<a
 									key={ i }
@@ -313,13 +369,14 @@ export default function FeedEdit( props ) {
 								>
 									<img
 										src={ item.image }
-										width="216"
-										height="115"
+										width={ imageWidth }
+										height={ imageHeight }
+										style={ { maxHeight: imageHeight } }
 									/>
 									{ !! displayLive && (
 										<span
 											className="atv-live"
-											style={ { color: liveColor } }
+											style={ { color: liveColor, backgroundColor: labelBgColor } }
 										>
 											{ __( 'Live', 'amateur-tv' ) }
 										</span>
@@ -327,22 +384,23 @@ export default function FeedEdit( props ) {
 									{ !! displayGenre && (
 										<span
 											className="atv-genre"
-											style={ { color: usernameColor } }
+											style={ { color: usernameColor, backgroundColor: labelBgColor } }
 										>
 											{ __( item.genre, 'amateur-tv' ) }
 										</span>
 									) }
 									{ !! displayUsers && (
 										<span
-											className="atv-viewers dashicons dashicons-visibility"
-											style={ { color: liveColor } }
+											className="atv-viewers"
+											style={ { color: liveColor, backgroundColor: labelBgColor } }
 										>
-											{ item.viewers }
+											<span className="dashicons dashicons-visibility"></span>
+											<span>{ item.viewers }</span>
 										</span>
 									) }
 									<span
 										className="atv-username"
-										style={ { color: usernameColor } }
+										style={ { color: usernameColor, backgroundColor: labelBgColor } }
 									>
 										{ item.username }
 									</span>

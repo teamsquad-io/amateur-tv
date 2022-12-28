@@ -1,180 +1,183 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: amateur tv\n"
 "POT-Creation-Date: 2022-12-28 09:23+0100\n"
-"PO-Revision-Date: 2022-12-28 09:22+0100\n"
+"PO-Revision-Date: 2022-12-28 09:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: amateur-tv.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
 #: amateur-tv.php:23 amateur-tv.php:40
 msgid "Amateur TV Settings"
-msgstr ""
+msgstr "Ajustes de Amateur TV"
 
 #: amateur-tv.php:23
 msgid "Amateur TV"
-msgstr ""
+msgstr "Amateur TV"
 
 #: amateur-tv.php:48
 msgid "Affiliate code"
-msgstr ""
+msgstr "Código de afiliado"
 
 #: amateur-tv.php:157 src/feed-edit.js:381
 msgid "Live"
-msgstr ""
+msgstr "En Directo"
 
 #: src/feed-edit.js:183 src/iframe-edit.js:101
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: src/feed-edit.js:187 src/iframe-edit.js:105
 msgid "Gender"
-msgstr ""
+msgstr "Género"
 
 #: src/feed-edit.js:191 src/iframe-edit.js:109
 msgid "Woman"
-msgstr ""
+msgstr "Mujer"
 
 #: src/feed-edit.js:192 src/iframe-edit.js:110
 msgid "Couple"
-msgstr ""
+msgstr "Pareja"
 
 #: src/feed-edit.js:193 src/iframe-edit.js:111
 msgid "Man"
-msgstr ""
+msgstr "Hombre"
 
 #: src/feed-edit.js:194 src/iframe-edit.js:112
 msgid "Trans"
-msgstr ""
+msgstr "Trans"
 
 #: src/feed-edit.js:199 src/iframe-edit.js:117
 msgid "Age"
-msgstr ""
+msgstr "Edad"
 
 #: src/feed-edit.js:211
 msgid "Number of cams"
-msgstr ""
+msgstr "Número de cams"
 
 #: src/feed-edit.js:221
 msgid "Display Settings"
-msgstr ""
+msgstr "Ajustes de visualización"
 
 #: src/feed-edit.js:225
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: src/feed-edit.js:229
 msgid "English"
-msgstr ""
+msgstr "Inglés"
 
 #: src/feed-edit.js:233
 msgid "Spanish"
-msgstr ""
+msgstr "Español"
 
 #: src/feed-edit.js:237
 msgid "French"
-msgstr ""
+msgstr "Francés"
 
 #: src/feed-edit.js:241
 msgid "German"
-msgstr ""
+msgstr "Alemán"
 
 #: src/feed-edit.js:249
 msgid "Show Live Label"
-msgstr ""
+msgstr "Mostrar etiqueta En Directo"
 
 #: src/feed-edit.js:254
 msgid "Show Gender"
-msgstr ""
+msgstr "Mostrar género"
 
 #: src/feed-edit.js:259
 msgid "Show Users"
-msgstr ""
+msgstr "Mostrar usuarios"
 
 #: src/feed-edit.js:264
 msgid "Show Topic"
-msgstr ""
+msgstr "Mostrar tema"
 
 #: src/feed-edit.js:272
 msgid "Link"
-msgstr ""
+msgstr "Enlace"
 
 #: src/feed-edit.js:276
 msgid "Absolute or relative URL. Leave blank to use the link of the cam"
 msgstr ""
+"URL absoluta o relativa. Dejar en blanco para usar el enlace de la cámara"
 
 #: src/feed-edit.js:284
 msgid "Open in new tab"
-msgstr ""
+msgstr "Abrir en nueva pestaña"
 
 #: src/feed-edit.js:295
 msgid "Color Settings"
-msgstr ""
+msgstr "Ajustes de color"
 
 #: src/feed-edit.js:301
 msgid "Username/Gender"
-msgstr ""
+msgstr "Nombre de usuario/Género"
 
 #: src/feed-edit.js:306
 msgid "Live Label"
-msgstr ""
+msgstr "Etiqueta En Directo"
 
 #: src/feed-edit.js:311
 msgid "Topic"
-msgstr ""
+msgstr "Tema"
 
 #: src/feed-edit.js:316
 msgid "Background"
-msgstr ""
+msgstr "Fondo"
 
 #: src/feed-edit.js:320
 msgid "Label Background"
-msgstr ""
+msgstr "Fondo de la etiqueta"
 
 #: src/feed-edit.js:325
 msgid "Column Gap"
-msgstr ""
+msgstr "Espaciado entre columnas"
 
 #: src/feed-edit.js:333
 msgid "Image Height"
-msgstr ""
+msgstr "Altura de la imagen"
 
 #: src/feed-edit.js:341
 msgid "Image Width"
-msgstr ""
+msgstr "Ancho de la imagen"
 
 #: src/feed-edit.js:354 src/iframe-edit.js:134
 msgid "Fetching..."
-msgstr ""
+msgstr "Buscando…"
 
 #: src/save.js:24
 msgid "Amateur Tv – hello from the saved content!"
-msgstr ""
+msgstr "Amateur Tv – hola por el contenido guardado!"
 
 #. Plugin Name of the plugin/theme
 msgid "amateur tv"
-msgstr ""
+msgstr "amateur tv"
 
 #. Description of the plugin/theme
 msgid ""
 "Create your own amateur cam affiliate site, thanks to amateur.tv. Online "
 "cams feed and live cams viewer ready to use."
 msgstr ""
+"Crea tu propio sitio de afiliados de cámaras amateur, gracias a amateur."
+"tv. Feed de cámaras en línea y visor de cámaras en vivo listo para usar."
 
 #. Author of the plugin/theme
 msgid "amateur.cash"
-msgstr ""
+msgstr "amateur.cash"

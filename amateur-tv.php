@@ -3,8 +3,10 @@
  * Plugin Name: amateur tv
  * Description: Create your own amateur cam affiliate site, thanks to amateur.tv. Online cams feed and live cams viewer ready to use.
  * Requires at least: 6.0
- * Requires PHP: 7.0
- * Version: 1.0.2
+ * Tested up to: 6.1
+ * Requires PHP: 7.2
+ * Tested PHP: 8.1
+ * Version: 1.0.3.b2
  * Author: amateur.cash
  * License: GPL 2.0
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -139,27 +141,31 @@ function amateurtv_render_feed($attributes) {
   }
 
   $template = '<a href="%s" target="%s" class="atv-cam">
-						<img src="%s" width="216" height="115"/>
+						<img src="%s" width="%d" height="%d" style="max-height: %dpx"/>/>
 						%s
 	</a>';
 
 
 $final = '';
-  foreach ( $cams as $cam ) {
+$final_cams = $cams;
+if ( $attributes['count'] > 0 ) {
+	$final_cams = array_slice( $final_cams, 0, $attributes['count'] );
+}
+  foreach ( $final_cams as $cam ) {
 	  $inner = '';
 	  if($attributes['displayLive'] ?? false){
-		  $inner .= sprintf( '<span class="atv-live" style="color: %s">%s</span>', $attributes['liveColor'] ?? '', __('Live', 'amateur-tv' ) );
+		  $inner .= sprintf( '<span class="atv-live" style="color: %s; background-color: %s;">%s</span>', $attributes['liveColor'] ?? '', $attributes['labelBgColor'] ?? '', __('Live', 'amateur-tv' ) );
 	  }
-	  if($attributes['displayGenres'] ?? false){
-		  $inner .= sprintf( '<span class="atv-genre" style="color: %s">%s</span>', $attributes['usernameColor'] ?? '', __( $cam['genre'], 'amateur-tv' ) );
+	  if($attributes['displayGenre'] ?? false){
+		  $inner .= sprintf( '<span class="atv-genre" style="color: %s; background-color: %s;">%s</span>', $attributes['usernameColor'] ?? '', $attributes['labelBgColor'] ?? '', __( $cam['genre'], 'amateur-tv' ) );
 	  }
 	  if($attributes['displayUsers'] ?? false){
-		  $inner .= sprintf( '<span class="atv-viewers dashicons dashicons-visibility" style="color: %s">%s</span>', $attributes['liveColor'] ?? '', $cam['viewers']);
+		  $inner .= sprintf( '<span class="atv-viewers" style="color: %s; background-color: %s;"><span class="dashicons dashicons-visibility"></span><span>%s</span></span>', $attributes['liveColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['viewers']);
 	  }
 	  if($attributes['displayTopic'] ?? false){
-		  $inner .= sprintf( '<div class="atv-topic" style="color: %s">%s</div>', $attributes['topicColor'] ?? '', $cam['topic'][$lang]);
+		  $inner .= sprintf( '<div class="atv-topic" style="color: %s; background-color: %s;">%s</div>', $attributes['topicColor'] ?? '', $cam['topic'][$lang]);
 	  }
-	  $inner .= sprintf( '<span class="atv-username" style="color: %s">%s</span>', $attributes['usernameColor'] ?? '', $cam['username'] );
+	  $inner .= sprintf( '<span class="atv-username" style="color: %s; background-color: %s;">%s</span>', $attributes['usernameColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['username'] );
 
 	  $url = $cam['url'];
 	  $target = '';
@@ -169,8 +175,60 @@ $final = '';
 	  if($attributes['link'] ?? false){
 		  $url = strpos( $attributes['link'], 'http' ) === 0 ? $attributes['link'] : site_url( $attributes['link'] );
 	  }
-	  $final .= sprintf( $template, $url, $target, $cam['image'], $inner );
+	  $final .= sprintf( $template, $url, $target, $cam['image'], $attributes['imageWidth'] ?? 216, $attributes['imageHeight'] ?? 115, $attributes['imageHeight'] ?? 115, $inner );
   }
 
-  return sprintf( '<div class="atv-cams-list atv-front" style="background-color: %s">%s</div>', $attributes['bgColor'] ?? '', $final );
+  $styles = $classes = array();
+
+  if ( ! empty( $attributes['columnGap'] ?? '' ) ) {
+	$styles[] = sprintf( 'gap: %dpx', $attributes['columnGap'] );
+  }
+  if ( ! empty( $attributes['bgColor'] ?? '' ) ) {
+	$styles[] = sprintf( 'background-color: %s', $attributes['bgColor'] );
+  }
+  if ( ! empty( $attributes['fontFamily'] ?? '' ) ) {
+	$classes[] = sprintf( 'has-%s-font-family', $attributes['fontFamily'] );
+  }
+  if ( ! empty( $attributes['fontSize'] ?? '' ) ) {
+	$classes[] = sprintf( 'has-%s-font-size', $attributes['fontSize'] );
+  }
+  if ( ! empty( $attributes['align'] ?? '' ) ) {
+	$classes[] = sprintf( 'align%s', $attributes['align'] );
+  }
+  if ( ! empty( $attributes['style'] ?? '' ) ) {
+	$padding = $attributes['style']['spacing']['padding'] ?? '';
+	if ( $padding ) {
+		foreach ( $attributes['style']['spacing']['padding'] as $on => $amount ) {
+			$amount = str_replace( array( ':', '|' ), array( '(--wp--', '--'), $amount ) . ')';
+			$styles[] = sprintf( 'padding-%s: %s', $on, $amount );
+		}
+	}
+
+	$margin = $attributes['style']['spacing']['margin'] ?? '';
+	if ( $margin ) {
+		foreach ( $attributes['style']['spacing']['margin'] as $on => $amount ) {
+			$amount = str_replace( array( ':', '|' ), array( '(--wp--', '--'), $amount ) . ')';
+			$styles[] = sprintf( 'margin-%s: %s', $on, $amount );
+		}
+	}
+
+	if ( ! empty( $attributes['style']['typography']['fontSize'] ?? '' ) ) {
+		$styles[] = sprintf( 'font-size: %s', $attributes['style']['typography']['fontSize'] );
+	}
+
+	if ( ! empty( $attributes['style']['typography']['fontStyle'] ?? '' ) ) {
+		$styles[] = sprintf( 'font-style: %s', $attributes['style']['typography']['fontStyle'] );
+	}
+
+	if ( ! empty( $attributes['style']['typography']['fontWeight'] ?? '' ) ) {
+		$styles[] = sprintf( 'font-weight: %s', $attributes['style']['typography']['fontWeight'] );
+	}
+  }
+
+/*
+  echo "<pre>";
+  print_r($attributes);
+  echo "</pre>";
+*/
+  return sprintf( '<div class="atv-cams-list atv-front %s" style="%s">%s</div>', implode( ' ', $classes ), implode( '; ', $styles ), $final );
 }

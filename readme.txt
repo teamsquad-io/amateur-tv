@@ -2,9 +2,10 @@
 Contributors: amateurtv, javiercasares
 Tags: affiliate, affiliate, affiliation, adult, cam, cams, webcam, amateur
 Requires at least: 6.0
-Requires PHP: 7.0
+Tested up to: 6.1
+Requires PHP: 7.2
 Tested PHP: 8.1
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPL 2.0
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,11 +17,13 @@ On the amateur.tv site you have available a series of tools for affiliates with 
 
 At present there are the following blocks:
 
-**Cam List**
+**Amateur TV Cams**
 
-By adding a list of cameras you can list all live broadcasts.
+By adding a list of cameras you can list all live broadcasts. Filter by gender, age, or language, and customize the elements you want to show, such as live stream or number of viewers. Set the color of the labels.
 
-Filter by gender, age, or language, and customize the elements you want to show, such as live stream or number of viewers. Set the color of the labels.
+**Amateur TV iFrame**
+
+Show the cam streaming and the chat. Filter by gender, age.
 
 = Third party dependency =
 
@@ -75,6 +78,15 @@ Our system scans the chat preventing the publication of URLs and filtering forbi
 We provide our users with a "denounce" button that sends an alert to the 24/7 Monorioting team who will review the reported channel immediately. They have the possibility to cancel the show in case of doubts about the compliance of the show. Or even block the issuer's account temporarily or permanently.
 
 == Changelog ==
+
+= 1.1.0 =
+
+* Gutenberg fixes
+* Color settings (Amateur TV Cams block)
+* Font settings (Amateur TV Cams block)
+* Spacing settings (Amateur TV Cams block)
+* Image size settings (Amateur TV Cams block)
+* Number of cams (Amateur TV Cams block)
 
 = 1.0.2 =
 
