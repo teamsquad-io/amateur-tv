@@ -141,7 +141,7 @@ function amateurtv_render_feed($attributes) {
   }
 
   $template = '<a href="%s" target="%s" class="atv-cam">
-						<img src="%s" width="%d" height="%d" style="max-height: %dpx"/>/>
+						<img src="%s" width="%d" height="%d" style="max-height: %dpx"/>
 						%s
 	</a>';
 
