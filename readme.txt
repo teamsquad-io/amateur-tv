@@ -5,7 +5,7 @@ Requires at least: 6.0
 Tested up to: 6.1
 Requires PHP: 7.2
 Tested PHP: 8.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPL 2.0
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,11 @@ Our system scans the chat preventing the publication of URLs and filtering forbi
 We provide our users with a "denounce" button that sends an alert to the 24/7 Monorioting team who will review the reported channel immediately. They have the possibility to cancel the show in case of doubts about the compliance of the show. Or even block the issuer's account temporarily or permanently.
 
 == Changelog ==
+
+
+= 1.1.1 =
+
+* Reorder everything.
 
 = 1.1.0 =
 
