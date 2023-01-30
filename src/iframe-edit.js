@@ -44,21 +44,19 @@ export default function IframeEdit( props ) {
 	const blockProps = useBlockProps();
 	const { attributes, setAttributes } = props;
 
-	const domain = 'yonkis'; // amateur for production
-
 	const [ loading, setLoading ] = useState( false );
 	const [ url, setURL ] = useState(
 		new URL(
-			'https://www.' + domain + '.tv/freecam/embed?width=890&height=580&lazyloadvideo=1&a_mute=1'
+			'https://www.amateur.tv/freecam/embed?width=890&height=580&lazyloadvideo=1&a_mute=1'
 		)
 	);
 	let iframe =
 		'<iframe width="890" height="580" src=' +
 		url.toString() +
-		' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.' + domain + '.tv/js/IntersectionObserverIframe.js"></script>';
+		' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
 	const [ html, setHTML ] = useState( iframe );
 
-	const { lang, genre, age } = attributes;
+	const { genre, age } = attributes;
 
 	const changeURL = ( args ) => {
 		let _url = url;
@@ -71,15 +69,11 @@ export default function IframeEdit( props ) {
 		setHTML(
 			'<iframe width="890" height="580" src=' +
 				url.toString() +
-				' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.' + domain + '.tv/js/IntersectionObserverIframe.js"></script>'
+				' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>'
 		);
 		//setLoading(false);
 	};
 
-	const onChangeLang = ( lang ) => {
-		setAttributes( { lang: lang } );
-		changeURL( { name: 'lang', val: lang, multiple: false } );
-	};
 	const onChangeGender = ( gender ) => {
 		setAttributes( { genre: gender } );
 		changeURL( { name: 'genre', val: gender, multiple: true } );
@@ -89,11 +83,7 @@ export default function IframeEdit( props ) {
 		changeURL( { name: 'age', val: age, multiple: true } );
 	};
 
-	const siteLang = useSelect( ( select ) => {
-		let lang = select( 'core' ).getSite()?.language;
-		return lang && lang.split( '_' )[ 0 ];
-	} );
-
+	
 	return (
 		<>
 			<InspectorControls>

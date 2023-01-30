@@ -41,20 +41,12 @@ import {
 	FlexBlock,
 	FlexItem,
 	TextControl,
-	RangeControl
+	RangeControl,
 } from '@wordpress/components';
 
 export default function FeedEdit( props ) {
 	const blockProps = useBlockProps();
 	const { attributes, setAttributes } = props;
-
-	const [ loading, setLoading ] = useState( true );
-	const [ data, setData ] = useState( null );
-	const [ url, setURL ] = useState(
-		new URL(
-			'https://public-api.amateur.cash/v3/cache/affiliates/promo/json'
-		)
-	);
 
 	const {
 		usernameColor,
@@ -74,8 +66,14 @@ export default function FeedEdit( props ) {
 		imageWidth,
 		imageHeight,
 		columnGap,
-		count
+		autoRefresh,
+		api,
+		count,
 	} = attributes;
+
+	const [ loading, setLoading ] = useState( true );
+	const [ data, setData ] = useState( null );
+	const [ url, setURL ] = useState( new URL( api ) );
 
 	const changeURL = ( args ) => {
 		let _url = url;
@@ -149,10 +147,12 @@ export default function FeedEdit( props ) {
 	const onChangeImageWidth = ( val ) => {
 		setAttributes( { imageWidth: val } );
 	};
+	const onChangeAutoRefresh = ( val ) => {
+		setAttributes( { autoRefresh: val } );
+	};
 	const onChangeCount = ( val ) => {
 		setAttributes( { count: val } );
 	};
-
 
 	const siteLang = useSelect( ( select ) => {
 		let lang = select( 'core' ).getSite()?.language;
@@ -273,7 +273,7 @@ export default function FeedEdit( props ) {
 									value={ link }
 									onChange={ onChangeLink }
 									help={ __(
-										'Absolute or relative URL. Leave blank to use the link of the cam',
+										'Absolute or relative URL. Leave blank to use the link of the cam. Placeholders supported: {camname}, {affiliate}',
 										'amateur-tv'
 									) }
 								/>
@@ -314,7 +314,8 @@ export default function FeedEdit( props ) {
 								value: bgColor,
 								onChange: onChangeBgColor,
 								label: __( 'Background', 'amateur-tv' ),
-							},{
+							},
+							{
 								value: labelBgColor,
 								onChange: onChangeLabelBgColor,
 								label: __( 'Label Background', 'amateur-tv' ),
@@ -345,6 +346,14 @@ export default function FeedEdit( props ) {
 						min={ 216 }
 						max={ 500 }
 					/>
+					<RangeControl
+						label={ __( 'Auto Refresh (minutes)', 'amateur-tv' ) }
+						value={ autoRefresh }
+						initialPosition={ 0 }
+						onChange={ onChangeAutoRefresh }
+						min={ 0 }
+						max={ 10 }
+					/>
 				</PanelBody>
 			</InspectorControls>
 
@@ -360,65 +369,89 @@ export default function FeedEdit( props ) {
 					style={ { backgroundColor: bgColor, gap: columnGap } }
 				>
 					{ !! data &&
-						data.slice(0, count > 0 ? count : data.length).map( ( item, i ) => {
-							return (
-								<a
-									key={ i }
-									target="_blank"
-									className="atv-cam"
-								>
-									<img
-										src={ item.image }
-										width={ imageWidth }
-										height={ imageHeight }
-										style={ { maxHeight: imageHeight } }
-									/>
-									{ !! displayLive && (
-										<span
-											className="atv-live"
-											style={ { color: liveColor, backgroundColor: labelBgColor } }
-										>
-											{ __( 'Live', 'amateur-tv' ) }
-										</span>
-									) }
-									{ !! displayGenre && (
-										<span
-											className="atv-genre"
-											style={ { color: usernameColor, backgroundColor: labelBgColor } }
-										>
-											{ __( item.genre, 'amateur-tv' ) }
-										</span>
-									) }
-									{ !! displayUsers && (
-										<span
-											className="atv-viewers"
-											style={ { color: liveColor, backgroundColor: labelBgColor } }
-										>
-											<span className="dashicons dashicons-visibility"></span>
-											<span>{ item.viewers }</span>
-										</span>
-									) }
-									<span
-										className="atv-username"
-										style={ { color: usernameColor, backgroundColor: labelBgColor } }
+						data
+							.slice( 0, count > 0 ? count : data.length )
+							.map( ( item, i ) => {
+								return (
+									<a
+										key={ i }
+										target="_blank"
+										className="atv-cam"
 									>
-										{ item.username }
-									</span>
-									{ !! displayTopic && (
-										<div
-											className="atv-topic"
-											style={ { color: topicColor } }
+										<img
+											src={ item.image }
+											width={ imageWidth }
+											height={ imageHeight }
+											style={ { maxHeight: imageHeight } }
+										/>
+										{ !! displayLive && (
+											<span
+												className="atv-live"
+												style={ {
+													color: liveColor,
+													backgroundColor:
+														labelBgColor,
+												} }
+											>
+												{ __( 'Live', 'amateur-tv' ) }
+											</span>
+										) }
+										{ !! displayGenre && (
+											<span
+												className="atv-genre"
+												style={ {
+													color: usernameColor,
+													backgroundColor:
+														labelBgColor,
+												} }
+											>
+												{ __(
+													item.genre,
+													'amateur-tv'
+												) }
+											</span>
+										) }
+										{ !! displayUsers && (
+											<span
+												className="atv-viewers"
+												style={ {
+													color: liveColor,
+													backgroundColor:
+														labelBgColor,
+												} }
+											>
+												<span className="dashicons dashicons-visibility"></span>
+												<span>{ item.viewers }</span>
+											</span>
+										) }
+										<span
+											className="atv-username"
+											style={ {
+												color: usernameColor,
+												backgroundColor: labelBgColor,
+											} }
 										>
-											{
-												item.topic[
-													!! lang ? lang : 'en'
-												]
-											}
-										</div>
-									) }
-								</a>
-							);
-						} ) }
+											{ item.username }
+										</span>
+										{ !! displayTopic && (
+											<div
+												className="atv-topic"
+												style={ {
+													color: topicColor,
+													backgroundColor:
+														labelBgColor,
+												} }
+											>
+												{
+													item.topic[
+														!! lang ? lang : 'en'
+													]
+												}
+											</div>
+										) }
+									</a>
+								);
+							} ) }
 				</div>
 			</div>
 		</>
