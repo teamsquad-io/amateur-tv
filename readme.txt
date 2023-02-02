@@ -5,7 +5,7 @@ Requires at least: 6.0
 Tested up to: 6.1
 Requires PHP: 7.2
 Tested PHP: 8.1
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPL 2.0
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,10 +79,13 @@ We provide our users with a "denounce" button that sends an alert to the 24/7 Mo
 
 == Changelog ==
 
+= 1.1.2 =
+
+* Stable versions without errors
 
 = 1.1.1 =
 
-* Reorder everything.
+* Reorganizing everything.
 
 = 1.1.0 =
 
