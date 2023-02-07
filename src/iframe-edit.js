@@ -125,7 +125,7 @@ export default function IframeEdit( props ) {
 				</div>
 			) }
 			<div { ...useBlockProps() }>
-				<RawHTML>{ html }</RawHTML>;
+				<RawHTML>{ html }</RawHTML>
 			</div>
 		</>
 	);
