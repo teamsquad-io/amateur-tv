@@ -384,6 +384,7 @@ export default function FeedEdit( props ) {
 											height={ imageHeight }
 											style={ { maxHeight: imageHeight } }
 										/>
+										<div className="atv-annotations">
 										{ !! displayLive && (
 											<span
 												className="atv-live"
@@ -449,6 +450,7 @@ export default function FeedEdit( props ) {
 												}
 											</div>
 										) }
+										</div>
 									</a>
 								);
 							} ) }

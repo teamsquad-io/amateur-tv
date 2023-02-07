@@ -229,7 +229,9 @@ function amateurtv_render_single_block( $attributes ) {
 
   	$template = '<a href="%s" target="%s" class="atv-cam">
 						<img src="%s" width="%d" height="%d" style="max-height: %dpx"/>
+						<div class="atv-annotations">
 						%s
+						</div>
 	</a>';
 
 

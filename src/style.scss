@@ -36,6 +36,14 @@ a.atv-cam img {
     height: auto;
 }
 
+div.atv-annotations {
+    position: absolute;
+    top: 2.5%;
+    left: 2.5%;
+    width: 95%;
+    height: 95%;
+}
+
 span.atv-username {
 	top: 0;
 	left: 0;
@@ -56,7 +64,7 @@ span.atv-live {
 }
 
 span.atv-genre {
-	top: 10px;
+	top: 15%;
 	left: 0;
 	padding: 1px 3px;
 	z-index: 2;
@@ -66,7 +74,7 @@ span.atv-genre {
 }
 
 span.atv-viewers {
-	top: 10px;
+	top: 15%;
 	right: 5px;
 	z-index: 2;
 	position: absolute;
