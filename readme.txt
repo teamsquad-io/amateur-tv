@@ -13,19 +13,19 @@ Create your own amateur cam affiliate site, thanks to amateur.tv. Online cams fe
 
 == Description ==
 
-On the amateur.tv site you have available a series of tools for affiliates with which you can monetize your site.
+You can send traffic to amateur.tv in order to increase your benefits.There are different tools available for affiliates and through this plugin you will be able to add amateur.tv content to your WordPress in the easiest way possible, no coding necessary.
 
-At present there are the following blocks:
+Currently, there are the following blocks:
 
-**Amateur TV Cams**
+**Amateur TV Cams List**
 
-By adding a list of cameras you can list all live broadcasts. Filter by gender, age, or language, and customize the elements you want to show, such as live stream or number of viewers. Set the color of the labels.
+By adding a list of cams you can share as many live shows as you wish. Filter by gender, age or language, as well as define the number of cams and the elements you want shown in the cams list.
 
-**Amateur TV iFrame**
+**Amateur TV Live Cam**
 
-Show the cam streaming and the chat. Filter by gender, age.
+Add a live cam show with real time video and chat. Choose a specific model or a random one based on gender, age or language with the highest conversion rate.
 
-= Third party dependency =
+= Third-Party dependency =
 
 This plugin depends on amateur.tv services and APIs.
 - [Terms and Conditions](https://www.amateur.tv/web/conditions)
@@ -49,33 +49,33 @@ Extract the contents of the ZIP and upload the contents to the `/wp-content/plug
 
 = Where do I get my affiliate code? =
 
-You can access into www.amateur.cash and get yout Affiliate ID.
+Enter [amateur.cash](https://amateur.cash/) and create an affiliate account. Once there, get your Affiliate tracking ID, which you will need to add in order to complete this plugin setup.
 
 = Content Management Policy and Procedures =
 
-The company is absolutely committed to ensure that no underage people participate in any of broadcasted or published materials through our websites. Also in this line, we have published a clear list of topics, items and vocabulary that cannot be present in the shows, pictures or videos distributed.
+The company is absolutely committed to ensuring that no underage people participate in any  broadcasted or published content on our websites. In accordance with this, we have published a clear list of topics, items and vocabulary that cannot be present in the shows, pictures or videos distributed.
 
-Our terms clearly inform the forbidden content. And this is also present at the signed agreement with the content creator. Every person who wants to distribute content must have the legal age verified by our expert 24/7 Monitoring Team, after providing a clear selfie picture including the ID / Passport.
+Our terms clearly inform the forbidden content. This is also mentioned in the signed agreement with the content creator. Every person who wants to distribute content must be of legal age verified by our expert 24/7 Monitoring Team, after providing a clear selfie picture holding up their ID / Passport among other verification photos we request.
 
-An alert of potential infringement of the authorized content or participants will cause the materials to be frozen immediately and not available to the public view. The 24/7 Monitoring Team will review the reported content carefully and after doing the necessary checks may release it again if it's fully compliant. In the case of confirming non-authorised situations, the data is recorded for periodic reporting and the content may be deleted or sent to the authorities.
+An alert of potential infringement of the authorized content or participants will cause the content to be frozen immediately and not available for public view. The 24/7 Monitoring Team reviews the reported content carefully and, after the necessary checks are completed, may release it again if fully compliant. In the event non-authorised content is confirmed, the data is kept private and the content may be deleted or sent to the authorities.
 
-Also the account owner is warned and the account may be blocked temporarily or even permanently.
+Also the account owner will be warned and the account may be blocked temporarily or even permanently.
 
 = Age and Identity Verification =
 
-To validate an account, any user must present online their Passport / National ID with a selfie picture, including a random sentence.
+To validate an account, a user must digitally submit their Passport / National ID with a selfie picture, and extra documents we request in order to determine that they are the person on the document and willingly accepting to broadcast.
 
-This is validated manually by our Monitoring Team to ensure that the picture is legit and has not been altered, the face matches the National ID and that the legal age is met by the person.
+The account is validated manually by our Monitoring Team to ensure that the picture is legitimate and has not been altered in any way, the face matches the National ID and that the person meets the legal age requirements.
 
-If there are doubts the account is not accepted and cannot publish or broadcast therefore.
+If the Monitoring Team reaches any doubts of the validity of the identification provided the account is not accepted and, therefore, the user will not be able to publish or broadcast.
 
 = Content Monitoring in real-time =
 
-Our 24/7 Monitoring Team reviews random broadcasts to ensure that prohibited content is not emitted. Special attention is paid to all new broadcasts during their first days until a positive track of compliant content is proven. Also the most visited virtual rooms are monitored more often.
+Our 24/7 Monitoring Team reviews all broadcasts at random to ensure that prohibited content is not broadcasted. All new broadcasts are closely monitored for a period of time until a positive track record of compliant content is proven.
 
 Our system scans the chat preventing the publication of URLs and filtering forbidden vocabulary.
 
-We provide our users with a "denounce" button that sends an alert to the 24/7 Monorioting team who will review the reported channel immediately. They have the possibility to cancel the show in case of doubts about the compliance of the show. Or even block the issuer's account temporarily or permanently.
+We provide our users with a "Report abuse" button that sends an alert to the 24/7 Monitoring Team who will review the reported channel immediately. They have the ability to cancel the show should there be any doubt of content compliance. They may even block the account temporarily or permanently.
 
 == Changelog ==
 
