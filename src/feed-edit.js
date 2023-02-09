@@ -387,7 +387,7 @@ export default function FeedEdit( props ) {
 										<div className="atv-annotations">
 										{ !! displayLive && (
 											<span
-												className="atv-live"
+												className="atv-live atv-padding"
 												style={ {
 													color: liveColor,
 													backgroundColor:
@@ -399,7 +399,7 @@ export default function FeedEdit( props ) {
 										) }
 										{ !! displayGenre && (
 											<span
-												className="atv-genre"
+												className="atv-genre atv-padding"
 												style={ {
 													color: usernameColor,
 													backgroundColor:
@@ -414,7 +414,7 @@ export default function FeedEdit( props ) {
 										) }
 										{ !! displayUsers && (
 											<span
-												className="atv-viewers"
+												className="atv-viewers atv-padding"
 												style={ {
 													color: liveColor,
 													backgroundColor:
@@ -426,7 +426,7 @@ export default function FeedEdit( props ) {
 											</span>
 										) }
 										<span
-											className="atv-username"
+											className="atv-username atv-padding"
 											style={ {
 												color: usernameColor,
 												backgroundColor: labelBgColor,
@@ -436,7 +436,7 @@ export default function FeedEdit( props ) {
 										</span>
 										{ !! displayTopic && (
 											<div
-												className="atv-topic"
+												className="atv-topic atv-padding"
 												style={ {
 													color: topicColor,
 													backgroundColor:

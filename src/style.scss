@@ -50,23 +50,24 @@ span.atv-username {
 	z-index: 2;
 	position: absolute;
 	text-decoration: none !important;
-	padding: 1px 3px;
 }
 
 span.atv-live {
 	top: 0;
 	right: 5px;
-	padding: 1px 3px;
 	z-index: 2;
 	position: absolute;
 	text-transform: uppercase;
 	text-decoration: none !important;
 }
 
+.atv-padding {
+	padding: 2px;
+}
+
 span.atv-genre {
 	top: 15%;
 	left: 0;
-	padding: 1px 3px;
 	z-index: 2;
 	position: absolute;
 	text-transform: lowercase;
@@ -98,7 +99,6 @@ div.atv-topic {
 	max-width: 100%;
 	text-decoration: none !important;
 	text-overflow: ellipsis;
-	padding: 1px 3px;
 	width: 80%;
 	white-space: nowrap;
 	overflow: hidden;
