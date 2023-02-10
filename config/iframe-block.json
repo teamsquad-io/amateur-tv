@@ -21,6 +21,9 @@
 		},
 		"age": {
 			"type": "array"
+		},
+		"align": {
+			"type": "string"
 		}
 	},
 	"textdomain": "amateur-tv"

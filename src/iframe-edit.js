@@ -51,7 +51,7 @@ export default function IframeEdit( props ) {
 		)
 	);
 	let iframe =
-		'<iframe width="890" height="580" src=' +
+		'<iframe width="100%" height="580" src=' +
 		url.toString() +
 		' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
 	const [ html, setHTML ] = useState( iframe );
@@ -67,7 +67,7 @@ export default function IframeEdit( props ) {
 		_url.searchParams.set( args.name, val );
 		setURL( url );
 		setHTML(
-			'<iframe width="890" height="580" src=' +
+			'<iframe width="100%" height="580" src=' +
 				url.toString() +
 				' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>'
 		);
@@ -125,7 +125,7 @@ export default function IframeEdit( props ) {
 				</div>
 			) }
 			<div { ...useBlockProps() }>
-				<RawHTML>{ html }</RawHTML>
+				<RawHTML className="atv-iframe">{ html }</RawHTML>
 			</div>
 		</>
 	);
