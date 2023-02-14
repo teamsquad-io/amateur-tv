@@ -21,6 +21,13 @@
 		},
 		"age": {
 			"type": "array"
+		},
+		"camType": {
+			"type": "string",
+			"default": "popular"
+		},
+		"camName": {
+			"type": "string"
 		}
 	},
 	"textdomain": "amateur-tv"

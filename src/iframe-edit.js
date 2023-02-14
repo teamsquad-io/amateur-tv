@@ -35,9 +35,8 @@ import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
 import {
 	Spinner,
 	SelectControl,
-	CheckboxControl,
 	PanelBody,
-	ToggleControl,
+	TextControl
 } from '@wordpress/components';
 
 export default function IframeEdit( props ) {
@@ -56,7 +55,7 @@ export default function IframeEdit( props ) {
 		' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
 	const [ html, setHTML ] = useState( iframe );
 
-	const { genre, age } = attributes;
+	const { genre, age, camType, camName } = attributes;
 
 	const changeURL = ( args ) => {
 		let _url = url;
@@ -64,7 +63,12 @@ export default function IframeEdit( props ) {
 		if ( !! args.multiple ) {
 			val = val.join( ',' );
 		}
-		_url.searchParams.set( args.name, val );
+		if ( !! val ) {
+			_url.searchParams.set( args.name, val );
+		} else {
+			_url.searchParams.delete( args.name );
+		}
+
 		setURL( url );
 		setHTML(
 			'<iframe width="890" height="580" src=' +
@@ -81,6 +85,14 @@ export default function IframeEdit( props ) {
 	const onChangeAge = ( age ) => {
 		setAttributes( { age: age } );
 		changeURL( { name: 'age', val: age, multiple: true } );
+	};
+	const onChangeCamType = ( type ) => {
+		setAttributes( { camType: type } );
+		changeURL( { name: 'livecam', val: '' } );
+	};
+	const onChangeCamName = ( name ) => {
+		setAttributes( { camName: name } );
+		changeURL( { name: 'livecam', val: name } );
 	};
 
 	
@@ -115,6 +127,23 @@ export default function IframeEdit( props ) {
 						] }
 						onChange={ onChangeAge }
 					/>
+					<SelectControl
+						label={ __( 'Cam Type', 'amateur-tv' ) }
+						value={ camType }
+						options={ [
+							{ label: __( 'Most Popular', 'amateur-tv' ), value: 'popular' },
+							{ label: __( 'Specific Camname', 'amateur-tv' ), value: 'camname' },
+							{ label: __( 'Camname Parameter', 'amateur-tv' ), value: 'camparam' },
+						] }
+						onChange={ onChangeCamType }
+					/>
+					{ ('camname' === camType) && (
+						<TextControl
+							label={ __( 'Camname', 'amateur-tv' ) }
+							value={ camName }
+							onChange={ onChangeCamName }
+						/>
+					)}
 				</PanelBody>
 			</InspectorControls>
 
