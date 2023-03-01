@@ -6,7 +6,7 @@
  * Tested up to: 6.1
  * Requires PHP: 7.2
  * Tested PHP: 8.1
- * Version: 1.1.2
+ * Version: 1.1.2-issue19
  * Author: amateur.cash
  * License: GPL 2.0
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
