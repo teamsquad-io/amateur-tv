@@ -57,6 +57,12 @@ export default function IframeEdit( props ) {
 
 	const { genre, age, camType, camName } = attributes;
 
+	const camTypeHelp = {
+		'popular': __( 'It will randomly show a live cam from the most popular cams according to your filters', 'amateur-tv' ),
+		'camname': __( 'It will show the cam of the below mentioned username, even if it is offline. If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
+		'camparam': __( 'It will show the cam from the parameter on the URL with the name "livecam". If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
+	};
+
 	const changeURL = ( args ) => {
 		let _url = url;
 		let val = args.val;
@@ -135,8 +141,10 @@ export default function IframeEdit( props ) {
 							{ label: __( 'Specific Camname', 'amateur-tv' ), value: 'camname' },
 							{ label: __( 'Camname Parameter', 'amateur-tv' ), value: 'camparam' },
 						] }
+						help={ camTypeHelp[camType] }
 						onChange={ onChangeCamType }
 					/>
+
 					{ ('camname' === camType) && (
 						<TextControl
 							label={ __( 'Camname', 'amateur-tv' ) }
