@@ -103,6 +103,7 @@ function amateurtv_render_iframe($attributes) {
 
 	$genre = $attributes['genre'] ?? array();
 	$age = $attributes['age'] ?? array();
+    $height = $attributes['iframeHeight'] ?? 580;
 
 	$args = array(
 		'a' => get_option( 'amateurtv_affiliate' )
@@ -138,11 +139,11 @@ function amateurtv_render_iframe($attributes) {
 		}		
 	}
 
-	$url = add_query_arg( $args, 'https://www.amateur.tv/freecam/embed?width=890&height=580&lazyloadvideo=1&a_mute=1' );
+	$url = add_query_arg( $args, 'https://www.amateur.tv/freecam/embed?width=890&height=%d&lazyloadvideo=1&a_mute=1' );
 
-	$iframe = '<iframe width="100%%" height="580" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe></div><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
+	$iframe = '<iframe width="100%%" height="%d" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe></div><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
 	
-	$html = sprintf( '<div class="atv-front-iframe %s" style="%s">' . $iframe . '</div>', implode( ' ', $classes ), implode( '; ', $styles ), $url );
+	$html = sprintf( '<div class="atv-front-iframe %s" style="%s">' . $iframe . '</div>', implode( ' ', $classes ), implode( '; ', $styles ), $height, $url, $height );
 
 	return $html;
 

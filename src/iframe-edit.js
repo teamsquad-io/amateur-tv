@@ -38,6 +38,7 @@ import {
 	CheckboxControl,
 	PanelBody,
 	ToggleControl,
+	RangeControl
 } from '@wordpress/components';
 
 export default function IframeEdit( props ) {
@@ -45,18 +46,20 @@ export default function IframeEdit( props ) {
 	const { attributes, setAttributes } = props;
 
 	const [ loading, setLoading ] = useState( false );
+	const { genre, age, iframeHeight } = attributes;
+
 	const [ url, setURL ] = useState(
 		new URL(
-			'https://www.amateur.tv/freecam/embed?width=890&height=580&lazyloadvideo=1&a_mute=1'
+			'https://www.amateur.tv/freecam/embed?width=890&height=' + iframeHeight + '&lazyloadvideo=1&a_mute=1'
 		)
 	);
+
 	let iframe =
-		'<iframe width="100%" height="580" src=' +
+		'<iframe width="100%" height="' + iframeHeight + '" src=' +
 		url.toString() +
 		' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
-	const [ html, setHTML ] = useState( iframe );
 
-	const { genre, age } = attributes;
+	const [ html, setHTML ] = useState( iframe );
 
 	const changeURL = ( args ) => {
 		let _url = url;
@@ -66,13 +69,17 @@ export default function IframeEdit( props ) {
 		}
 		_url.searchParams.set( args.name, val );
 		setURL( url );
+		resetIframe();
+	};
+
+	const resetIframe = () => {
 		setHTML(
-			'<iframe width="100%" height="580" src=' +
+			'<iframe width="100%" height="' + iframeHeight + '" src=' +
 				url.toString() +
 				' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>'
 		);
-		//setLoading(false);
 	};
+
 
 	const onChangeGender = ( gender ) => {
 		setAttributes( { genre: gender } );
@@ -82,7 +89,10 @@ export default function IframeEdit( props ) {
 		setAttributes( { age: age } );
 		changeURL( { name: 'age', val: age, multiple: true } );
 	};
-
+	const onChangeIframeHeight = ( height ) => {
+		setAttributes( { iframeHeight: height } );
+		resetIframe();
+	};
 	
 	return (
 		<>
@@ -114,6 +124,17 @@ export default function IframeEdit( props ) {
 							{ label: '40', value: '40' },
 						] }
 						onChange={ onChangeAge }
+					/>
+					<RangeControl
+						label={ __( 'Iframe Height', 'amateur-tv' ) }
+						value={ iframeHeight }
+						initialPosition={ 590 }
+						onChange={ onChangeIframeHeight }
+						min={ 200 }
+						max={ 1000 }
+						step={ 50 }
+						type={ "stepper" }
+						allowReset={ true }
 					/>
 				</PanelBody>
 			</InspectorControls>
