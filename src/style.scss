@@ -36,29 +36,38 @@ a.atv-cam img {
     height: auto;
 }
 
+div.atv-annotations {
+    position: absolute;
+    top: 2.5%;
+    left: 2.5%;
+    width: 95%;
+    height: 95%;
+}
+
 span.atv-username {
 	top: 0;
 	left: 0;
 	z-index: 2;
 	position: absolute;
 	text-decoration: none !important;
-	padding: 1px 3px;
 }
 
 span.atv-live {
 	top: 0;
 	right: 5px;
-	padding: 1px 3px;
 	z-index: 2;
 	position: absolute;
 	text-transform: uppercase;
 	text-decoration: none !important;
 }
 
+.atv-padding {
+	padding: 2px;
+}
+
 span.atv-genre {
-	top: 10px;
+	top: 15%;
 	left: 0;
-	padding: 1px 3px;
 	z-index: 2;
 	position: absolute;
 	text-transform: lowercase;
@@ -66,7 +75,7 @@ span.atv-genre {
 }
 
 span.atv-viewers {
-	top: 10px;
+	top: 15%;
 	right: 5px;
 	z-index: 2;
 	position: absolute;
@@ -90,8 +99,7 @@ div.atv-topic {
 	max-width: 100%;
 	text-decoration: none !important;
 	text-overflow: ellipsis;
-	padding: 1px 3px;
-	width: 80%;
+	max-width: 80%;
 	white-space: nowrap;
 	overflow: hidden;
 }
@@ -101,3 +109,6 @@ div.atv-front {
 	margin: auto;
 }
 
+div.atv-iframe {
+	pointer-events: none;
+}

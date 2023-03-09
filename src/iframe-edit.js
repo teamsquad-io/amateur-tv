@@ -44,16 +44,18 @@ export default function IframeEdit( props ) {
 	const { attributes, setAttributes } = props;
 
 	const [ loading, setLoading ] = useState( false );
+	const { genre, age, iframeHeight } = attributes;
+
 	const [ url, setURL ] = useState(
 		new URL(
-			'https://www.amateur.tv/freecam/embed?width=890&height=580&lazyloadvideo=1&a_mute=1'
+			'https://www.amateur.tv/freecam/embed?width=890&height=' + iframeHeight + '&lazyloadvideo=1&a_mute=1'
 		)
 	);
+
 	let iframe =
-		'<iframe width="890" height="580" src=' +
+		'<iframe width="100%" height="' + iframeHeight + '" src=' +
 		url.toString() +
 		' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
-	const [ html, setHTML ] = useState( iframe );
 
 	const { genre, age, camType, camName } = attributes;
 
@@ -76,13 +78,17 @@ export default function IframeEdit( props ) {
 		}
 
 		setURL( url );
+		resetIframe();
+	};
+
+	const resetIframe = () => {
 		setHTML(
-			'<iframe width="890" height="580" src=' +
+			'<iframe width="100%" height="' + iframeHeight + '" src=' +
 				url.toString() +
 				' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>'
 		);
-		//setLoading(false);
 	};
+
 
 	const onChangeGender = ( gender ) => {
 		setAttributes( { genre: gender } );
@@ -162,7 +168,7 @@ export default function IframeEdit( props ) {
 				</div>
 			) }
 			<div { ...useBlockProps() }>
-				<RawHTML>{ html }</RawHTML>;
+				<RawHTML className="atv-iframe">{ html }</RawHTML>
 			</div>
 		</>
 	);
