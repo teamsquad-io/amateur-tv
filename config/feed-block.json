@@ -17,8 +17,7 @@
 		"typography": {
 			"fontSize": true,
 			"__experimentalFontStyle": true,
-			"__experimentalFontFamily": true,
-			"__experimentalFontWeight": true
+			"__experimentalFontFamily": true
 		},
 		"reusable": false
 	},
@@ -90,6 +89,9 @@
 		},
 		"count": {
 			"type": "number"
+		},
+		"textShadowColor": {
+			"type": "string"
 		}
 	},
 	"textdomain": "amateur-tv",

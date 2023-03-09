@@ -228,6 +228,10 @@ function amateurtv_render_single_block( $attributes ) {
 
 	$genre = $attributes['genre'] ?? array();
 	$age = $attributes['age'] ?? array();
+	$textShadow = '';
+	if ( $attributes['textShadowColor'] ) {
+		$textShadow = sprintf( 'text-shadow: %s 1px 1px', $attributes['textShadowColor'] );
+	}
 
 	$args = array(
 		'a' => get_option( 'amateurtv_affiliate' ),
@@ -255,7 +259,9 @@ function amateurtv_render_single_block( $attributes ) {
 
   	$template = '<a href="%s" target="%s" class="atv-cam">
 						<img src="%s" width="%d" height="%d" style="max-height: %dpx"/>
+						<div class="atv-annotations">
 						%s
+						</div>
 	</a>';
 
 
@@ -268,18 +274,48 @@ function amateurtv_render_single_block( $attributes ) {
 	foreach ( $final_cams as $cam ) {
 		$inner = '';
 		if($attributes['displayLive'] === true || $attributes['displayLive'] === 'true'){
-			$inner .= sprintf( '<span class="atv-live" style="color: %s; background-color: %s;">%s</span>', $attributes['liveColor'] ?? '', $attributes['labelBgColor'] ?? '', __('Live', 'amateur-tv' ) );
+			$inner .= sprintf( 
+				'<span class="atv-live atv-padding" style="color: %s; background-color: %s; %s;">%s</span>',
+				$attributes['liveColor'] ?? '',
+				$attributes['labelBgColor'] ?? '',
+				$textShadow,
+				__('Live', 'amateur-tv' ) 
+			);
 		}
 		if($attributes['displayGenre'] === true || $attributes['displayGenre'] === 'true'){
-			$inner .= sprintf( '<span class="atv-genre" style="color: %s; background-color: %s;">%s</span>', $attributes['usernameColor'] ?? '', $attributes['labelBgColor'] ?? '', __( $cam['genre'], 'amateur-tv' ) );
+			$inner .= sprintf(
+				'<span class="atv-genre atv-padding" style="color: %s; background-color: %s; %s;">%s</span>',
+				$attributes['usernameColor'] ?? '', 
+				$attributes['labelBgColor'] ?? '', 
+				$textShadow,
+				__( $cam['genre'], 'amateur-tv' ) 
+			);
 		}
 		if($attributes['displayUsers'] === true || $attributes['displayUsers'] === 'true'){
-			$inner .= sprintf( '<span class="atv-viewers" style="color: %s; background-color: %s;"><span class="dashicons dashicons-visibility"></span><span>%s</span></span>', $attributes['liveColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['viewers']);
+			$inner .= sprintf( 
+				'<span class="atv-viewers atv-padding" style="color: %s; background-color: %s; %s;"><span class="dashicons dashicons-visibility"></span><span>%s</span></span>', 
+				$attributes['liveColor'] ?? '', 
+				$attributes['labelBgColor'] ?? '', 
+				$textShadow,
+				$cam['viewers']
+			);
 		}
 		if($attributes['displayTopic'] === true || $attributes['displayTopic'] === 'true'){
-			$inner .= sprintf( '<div class="atv-topic" style="color: %s; background-color: %s;">%s</div>', $attributes['topicColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['topic'][$lang]);
+			$inner .= sprintf( 
+				'<div class="atv-topic atv-padding" style="color: %s; background-color: %s; %s;">%s</div>', 
+				$attributes['topicColor'] ?? '', 
+				$attributes['labelBgColor'] ?? '', 
+				$textShadow,
+				$cam['topic'][$lang]
+			);
 		}
-		$inner .= sprintf( '<span class="atv-username" style="color: %s; background-color: %s;">%s</span>', $attributes['usernameColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['username'] );
+		$inner .= sprintf( 
+			'<span class="atv-username atv-padding" style="color: %s; background-color: %s; %s;">%s</span>', 
+			$attributes['usernameColor'] ?? '', 
+			$attributes['labelBgColor'] ?? '', 
+			$textShadow,
+			$cam['username'] 
+		);
 
 		$url = $cam['url'];
 		$target = '';
@@ -294,7 +330,16 @@ function amateurtv_render_single_block( $attributes ) {
 				$url
 			);
 		}
-		$final .= sprintf( $template, $url, $target, $cam['image'], $attributes['imageWidth'] ?? 216, $attributes['imageHeight'] ?? 115, $attributes['imageHeight'] ?? 115, $inner );
+		$final .= sprintf( 
+			$template,
+			$url, 
+			$target, 
+			$cam['image'], 
+			$attributes['imageWidth'] ?? 216, 
+			$attributes['imageHeight'] ?? 115, 
+			$attributes['imageHeight'] ?? 115, 
+			$inner 
+		);
 	}
 	return $final;
 }
