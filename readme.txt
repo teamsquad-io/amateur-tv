@@ -82,7 +82,9 @@ We provide our users with a "Report abuse" button that sends an alert to the 24/
 
 = 1.2.0 =
 
-* Pending information.
+* Improve the texts in lists.
+* Improve the position at LiveCam.
+* Allow to choose a LiveCam directly (via username).
 
 = 1.1.2 =
 
