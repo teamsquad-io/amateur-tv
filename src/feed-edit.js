@@ -69,7 +69,11 @@ export default function FeedEdit( props ) {
 		autoRefresh,
 		api,
 		count,
+		textShadowColor,
+		textShadowValue
 	} = attributes;
+
+	const textShadow = '1px 1px';
 
 	const [ loading, setLoading ] = useState( true );
 	const [ data, setData ] = useState( null );
@@ -105,6 +109,14 @@ export default function FeedEdit( props ) {
 	};
 	const onChangeLiveColor = ( color ) => {
 		setAttributes( { liveColor: color } );
+	};
+	const onChangeTextShadowColor = ( color ) => {
+		setAttributes( { textShadowColor: color } );
+		if(typeof color !== 'undefined'){
+			setAttributes( { textShadowValue: [ textShadow, color ].join(' ') } );
+		} else {
+			setAttributes( { textShadowValue: null } );
+		}
 	};
 
 	const onChangeLang = ( lang ) => {
@@ -299,26 +311,37 @@ export default function FeedEdit( props ) {
 								value: usernameColor,
 								onChange: onChangeUsernameColor,
 								label: __( 'Username/Gender', 'amateur-tv' ),
+								enableAlpha: true
 							},
 							{
 								value: liveColor,
 								onChange: onChangeLiveColor,
 								label: __( 'Live Label', 'amateur-tv' ),
+								enableAlpha: true
 							},
 							{
 								value: topicColor,
 								onChange: onChangeTopicColor,
 								label: __( 'Topic', 'amateur-tv' ),
+								enableAlpha: true
 							},
 							{
 								value: bgColor,
 								onChange: onChangeBgColor,
 								label: __( 'Background', 'amateur-tv' ),
+								enableAlpha: true
 							},
 							{
 								value: labelBgColor,
 								onChange: onChangeLabelBgColor,
 								label: __( 'Label Background', 'amateur-tv' ),
+								enableAlpha: true
+							},
+							{
+								value: textShadowColor,
+								onChange: onChangeTextShadowColor,
+								label: __( 'Text Shadow', 'amateur-tv' ),
+								enableAlpha: false
 							},
 						] }
 					/>
@@ -392,6 +415,7 @@ export default function FeedEdit( props ) {
 													color: liveColor,
 													backgroundColor:
 														labelBgColor,
+													textShadow: textShadowValue,
 												} }
 											>
 												{ __( 'Live', 'amateur-tv' ) }
@@ -404,6 +428,7 @@ export default function FeedEdit( props ) {
 													color: usernameColor,
 													backgroundColor:
 														labelBgColor,
+													textShadow: textShadowValue,
 												} }
 											>
 												{ __(
@@ -419,6 +444,7 @@ export default function FeedEdit( props ) {
 													color: liveColor,
 													backgroundColor:
 														labelBgColor,
+													textShadow: textShadowValue,
 												} }
 											>
 												<span className="dashicons dashicons-visibility"></span>
@@ -430,6 +456,7 @@ export default function FeedEdit( props ) {
 											style={ {
 												color: usernameColor,
 												backgroundColor: labelBgColor,
+												textShadow: textShadowValue,
 											} }
 										>
 											{ item.username }
@@ -441,6 +468,7 @@ export default function FeedEdit( props ) {
 													color: topicColor,
 													backgroundColor:
 														labelBgColor,
+													textShadow: textShadowValue,
 												} }
 											>
 												{

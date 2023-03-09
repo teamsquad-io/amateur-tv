@@ -99,7 +99,7 @@ div.atv-topic {
 	max-width: 100%;
 	text-decoration: none !important;
 	text-overflow: ellipsis;
-	width: 80%;
+	max-width: 80%;
 	white-space: nowrap;
 	overflow: hidden;
 }
