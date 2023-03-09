@@ -6,7 +6,7 @@
  * Tested up to: 6.1
  * Requires PHP: 7.2
  * Tested PHP: 8.1
- * Version: 1.1.2-issue17
+ * Version: 1.1.2-issue18
  * Author: amateur.cash
  * License: GPL 2.0
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -103,6 +103,7 @@ function amateurtv_render_iframe($attributes) {
 
 	$genre = $attributes['genre'] ?? array();
 	$age = $attributes['age'] ?? array();
+    $height = $attributes['iframeHeight'] ?? 580;
 
 	$args = array(
 		'a' => get_option( 'amateurtv_affiliate' )
@@ -115,11 +116,36 @@ function amateurtv_render_iframe($attributes) {
 		$args['age'] = implode(',', $age );
 	}
 
-	$url = add_query_arg( $args, 'https://www.amateur.tv/freecam/embed?width=890&height=580&lazyloadvideo=1&a_mute=1' );
+	$classes = $styles = array();
 
-	$iframe = sprintf( '<iframe width="890" height="580" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>', $url );
+	if ( ! empty( $attributes['align'] ?? '' ) ) {
+		$classes[] = sprintf( 'align%s', $attributes['align'] );
+	}
+	if ( ! empty( $attributes['style'] ?? '' ) ) {
+		$padding = $attributes['style']['spacing']['padding'] ?? '';
+		if ( $padding ) {
+			foreach ( $attributes['style']['spacing']['padding'] as $on => $amount ) {
+				$amount = str_replace( array( ':', '|' ), array( '(--wp--', '--'), $amount ) . ')';
+				$styles[] = sprintf( 'padding-%s: %s', $on, $amount );
+			}
+		}
 
-	return $iframe;
+		$margin = $attributes['style']['spacing']['margin'] ?? '';
+		if ( $margin ) {
+			foreach ( $attributes['style']['spacing']['margin'] as $on => $amount ) {
+				$amount = str_replace( array( ':', '|' ), array( '(--wp--', '--'), $amount ) . ')';
+				$styles[] = sprintf( 'margin-%s: %s', $on, $amount );
+			}
+		}		
+	}
+
+	$url = add_query_arg( $args, 'https://www.amateur.tv/freecam/embed?width=890&height=%d&lazyloadvideo=1&a_mute=1' );
+
+	$iframe = '<iframe width="100%%" height="%d" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe></div><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
+	
+	$html = sprintf( '<div class="atv-front-iframe %s" style="%s">' . $iframe . '</div>', implode( ' ', $classes ), implode( '; ', $styles ), $height, $url, $height );
+
+	return $html;
 
 }
 
