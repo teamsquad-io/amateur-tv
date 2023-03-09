@@ -6,13 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
 	*	Initializes the amateur TV iframe block and registers it with WordPress.
-  *  @since 1.0.0
+  *  @since 1.2.0
   *  @return void
 **/
 function amateurtv_init_iframe() {
 /**
   *  Registers the amateur TV iframe block with WordPress.
-  *  @since 1.0.0
+  *  @since 1.2.0
   *  @param string $block_path The file path of the block's JSON configuration file.
   *  @param array $args An array of block registration arguments.
 **/
@@ -24,7 +24,7 @@ add_action( 'init', 'amateurtv_init_iframe' );
 
 /**
 	* Renders the output for the amateur TV iframe block.
-	* @since 1.0.0
+	* @since 1.2.0
 	* @param array $attributes An array of block attributes.
   * @return string The HTML output for the amateur TV iframe block.
 **/
