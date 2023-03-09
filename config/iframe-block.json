@@ -22,12 +22,12 @@
 		"age": {
 			"type": "array"
 		},
-		"align": {
-			"type": "string"
+		"camType": {
+			"type": "string",
+			"default": "popular"
 		},
-		"iframeHeight": {
-			"type": "integer",
-			"default": 580
+		"camName": {
+			"type": "string"
 		}
 	},
 	"textdomain": "amateur-tv"

@@ -35,10 +35,8 @@ import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
 import {
 	Spinner,
 	SelectControl,
-	CheckboxControl,
 	PanelBody,
-	ToggleControl,
-	RangeControl
+	TextControl
 } from '@wordpress/components';
 
 export default function IframeEdit( props ) {
@@ -59,7 +57,13 @@ export default function IframeEdit( props ) {
 		url.toString() +
 		' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
 
-	const [ html, setHTML ] = useState( iframe );
+	const { genre, age, camType, camName } = attributes;
+
+	const camTypeHelp = {
+		'popular': __( 'It will randomly show a live cam from the most popular cams according to your filters', 'amateur-tv' ),
+		'camname': __( 'It will show the cam of the below mentioned username, even if it is offline. If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
+		'camparam': __( 'It will show the cam from the parameter on the URL with the name "livecam". If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
+	};
 
 	const changeURL = ( args ) => {
 		let _url = url;
@@ -67,7 +71,12 @@ export default function IframeEdit( props ) {
 		if ( !! args.multiple ) {
 			val = val.join( ',' );
 		}
-		_url.searchParams.set( args.name, val );
+		if ( !! val ) {
+			_url.searchParams.set( args.name, val );
+		} else {
+			_url.searchParams.delete( args.name );
+		}
+
 		setURL( url );
 		resetIframe();
 	};
@@ -89,10 +98,15 @@ export default function IframeEdit( props ) {
 		setAttributes( { age: age } );
 		changeURL( { name: 'age', val: age, multiple: true } );
 	};
-	const onChangeIframeHeight = ( height ) => {
-		setAttributes( { iframeHeight: height } );
-		resetIframe();
+	const onChangeCamType = ( type ) => {
+		setAttributes( { camType: type } );
+		changeURL( { name: 'livecam', val: '' } );
 	};
+	const onChangeCamName = ( name ) => {
+		setAttributes( { camName: name } );
+		changeURL( { name: 'livecam', val: name } );
+	};
+
 	
 	return (
 		<>
@@ -125,17 +139,25 @@ export default function IframeEdit( props ) {
 						] }
 						onChange={ onChangeAge }
 					/>
-					<RangeControl
-						label={ __( 'Iframe Height', 'amateur-tv' ) }
-						value={ iframeHeight }
-						initialPosition={ 590 }
-						onChange={ onChangeIframeHeight }
-						min={ 200 }
-						max={ 1000 }
-						step={ 50 }
-						type={ "stepper" }
-						allowReset={ true }
+					<SelectControl
+						label={ __( 'Cam Type', 'amateur-tv' ) }
+						value={ camType }
+						options={ [
+							{ label: __( 'Most Popular', 'amateur-tv' ), value: 'popular' },
+							{ label: __( 'Specific Camname', 'amateur-tv' ), value: 'camname' },
+							{ label: __( 'Camname Parameter', 'amateur-tv' ), value: 'camparam' },
+						] }
+						help={ camTypeHelp[camType] }
+						onChange={ onChangeCamType }
 					/>
+
+					{ ('camname' === camType) && (
+						<TextControl
+							label={ __( 'Camname', 'amateur-tv' ) }
+							value={ camName }
+							onChange={ onChangeCamName }
+						/>
+					)}
 				</PanelBody>
 			</InspectorControls>
 
