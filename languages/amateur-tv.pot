@@ -2,14 +2,14 @@
 # This file is distributed under the GPL 2.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: amateur tv 1.0.4.b2\n"
+"Project-Id-Version: amateur tv 1.1.2-issue17\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/amateur-tv\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-05T14:36:11+05:30\n"
+"POT-Creation-Date: 2023-03-06T19:12:56+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: amateur-tv\n"
@@ -39,177 +39,230 @@ msgstr ""
 msgid "Affiliate code"
 msgstr ""
 
-#: amateur-tv.php:245
-#: build/index.js:1
-#: src/feed-edit.js:396
+#: amateur-tv.php:256
+#: build/index.js:436
+#: src/feed-edit.js:421
+#: build/index.js:421
 msgid "Live"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:183
+#: build/index.js:254
+#: build/index.js:576
+#: src/feed-edit.js:195
 #: src/iframe-edit.js:91
+#: build/index.js:195
+#: build/index.js:581
 msgid "Filters"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:187
+#: build/index.js:257
+#: build/index.js:579
+#: src/feed-edit.js:199
 #: src/iframe-edit.js:95
+#: build/index.js:199
+#: build/index.js:585
 msgid "Gender"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:191
+#: build/index.js:261
+#: build/index.js:583
+#: src/feed-edit.js:203
 #: src/iframe-edit.js:99
+#: build/index.js:203
+#: build/index.js:589
 msgid "Woman"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:192
+#: build/index.js:264
+#: build/index.js:586
+#: src/feed-edit.js:204
 #: src/iframe-edit.js:100
+#: build/index.js:204
+#: build/index.js:590
 msgid "Couple"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:193
+#: build/index.js:267
+#: build/index.js:589
+#: src/feed-edit.js:205
 #: src/iframe-edit.js:101
+#: build/index.js:205
+#: build/index.js:591
 msgid "Man"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:194
+#: build/index.js:270
+#: build/index.js:592
+#: src/feed-edit.js:206
 #: src/iframe-edit.js:102
+#: build/index.js:206
 msgid "Trans"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:199
+#: build/index.js:275
+#: build/index.js:597
+#: src/feed-edit.js:211
 #: src/iframe-edit.js:107
+#: build/index.js:211
 msgid "Age"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:211
+#: build/index.js:293
+#: src/feed-edit.js:223
+#: build/index.js:223
 msgid "Number of cams"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:221
+#: build/index.js:300
+#: src/feed-edit.js:233
+#: build/index.js:233
 msgid "Display Settings"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:225
+#: build/index.js:303
+#: src/feed-edit.js:237
+#: build/index.js:237
 msgid "Language"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:229
+#: build/index.js:306
+#: src/feed-edit.js:241
+#: build/index.js:241
 msgid "English"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:233
+#: build/index.js:309
+#: src/feed-edit.js:245
+#: build/index.js:245
 msgid "Spanish"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:237
+#: build/index.js:312
+#: src/feed-edit.js:249
+#: build/index.js:249
 msgid "French"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:241
+#: build/index.js:315
+#: src/feed-edit.js:253
+#: build/index.js:253
 msgid "German"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:249
+#: build/index.js:320
+#: src/feed-edit.js:261
+#: build/index.js:261
 msgid "Show Live Label"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:254
+#: build/index.js:324
+#: src/feed-edit.js:266
+#: build/index.js:266
 msgid "Show Gender"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:259
+#: build/index.js:328
+#: src/feed-edit.js:271
+#: build/index.js:271
 msgid "Show Users"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:264
+#: build/index.js:332
+#: src/feed-edit.js:276
+#: build/index.js:276
 msgid "Show Topic"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:272
+#: build/index.js:336
+#: src/feed-edit.js:284
+#: build/index.js:284
 msgid "Link"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:275
+#: build/index.js:339
+#: src/feed-edit.js:287
+#: build/index.js:287
 msgid "Absolute or relative URL. Leave blank to use the link of the cam. Placeholders supported: {camname}, {affiliate}"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:283
+#: build/index.js:341
+#: src/feed-edit.js:295
+#: build/index.js:295
 msgid "Open in new tab"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:295
+#: build/index.js:345
+#: src/feed-edit.js:307
+#: build/index.js:307
 msgid "Color Settings"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:301
+#: build/index.js:350
+#: src/feed-edit.js:313
+#: build/index.js:313
 msgid "Username/Gender"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:306
+#: build/index.js:355
+#: src/feed-edit.js:319
+#: build/index.js:319
 msgid "Live Label"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:311
+#: build/index.js:360
+#: src/feed-edit.js:325
+#: build/index.js:325
 msgid "Topic"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:316
+#: build/index.js:365
+#: src/feed-edit.js:331
+#: build/index.js:331
 msgid "Background"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:321
+#: build/index.js:370
+#: src/feed-edit.js:337
+#: build/index.js:337
 msgid "Label Background"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:326
+#: build/index.js:375
+#: src/feed-edit.js:343
+#: build/index.js:343
+msgid "Text Shadow"
+msgstr ""
+
+#: build/index.js:379
+#: src/feed-edit.js:349
+#: build/index.js:349
 msgid "Column Gap"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:334
+#: build/index.js:386
+#: src/feed-edit.js:357
+#: build/index.js:357
 msgid "Image Height"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:342
+#: build/index.js:393
+#: src/feed-edit.js:365
+#: build/index.js:365
 msgid "Image Width"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:350
+#: build/index.js:400
+#: src/feed-edit.js:373
+#: build/index.js:373
 msgid "Auto Refresh (minutes)"
 msgstr ""
 
-#: build/index.js:1
-#: src/feed-edit.js:363
+#: build/index.js:409
+#: build/index.js:617
+#: src/feed-edit.js:386
 #: src/iframe-edit.js:124
+#: build/index.js:386
+#: build/index.js:614
 msgid "Fetching..."
 msgstr ""
 
