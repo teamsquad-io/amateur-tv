@@ -15,6 +15,8 @@
  * @package amateur-tv
  */
 
+defined( 'ABSPATH' ) || die( 'No script kiddies please!' );
+
 define( 'AMATEURTV_VERSION', '1.2.0');
 define( 'AMATEURTV_URL', plugin_dir_url( __FILE__ ) );
 define( 'AMATEURTV_DIR', dirname( plugin_basename( __FILE__ ) ) );
