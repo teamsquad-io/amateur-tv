@@ -2,10 +2,11 @@
 Contributors: amateurtv, javiercasares, rozroz
 Tags: affiliate, affiliate, affiliation, adult, cam, cams, webcam, amateur
 Requires at least: 6.0
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.2
 Tested PHP: 8.1
 Stable tag: 1.1.2
+Version: 1.2.0
 License: GPL 2.0
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,9 +80,13 @@ We provide our users with a "Report abuse" button that sends an alert to the 24/
 
 == Changelog ==
 
+= 1.2.0 =
+
+* Pending information.
+
 = 1.1.2 =
 
-* Stable versions without errors
+* Stable versions without errors.
 
 = 1.1.1 =
 
@@ -89,23 +94,23 @@ We provide our users with a "Report abuse" button that sends an alert to the 24/
 
 = 1.1.0 =
 
-* Gutenberg fixes
-* Color settings (Amateur TV Cams block)
-* Font settings (Amateur TV Cams block)
-* Spacing settings (Amateur TV Cams block)
-* Image size settings (Amateur TV Cams block)
-* Number of cams (Amateur TV Cams block)
+* Gutenberg fixes.
+* Color settings (Amateur TV Cams block).
+* Font settings (Amateur TV Cams block).
+* Spacing settings (Amateur TV Cams block).
+* Image size settings (Amateur TV Cams block).
+* Number of cams (Amateur TV Cams block).
 
 = 1.0.2 =
 
-* Added prefixes to names and functions
-* Added API / 3rd party information
+* Added prefixes to names and functions.
+* Added API / 3rd party information.
 
 = 1.0.1 =
 
-* Added Frequently Asked Questions
+* Added Frequently Asked Questions.
 
 = 1.0.0 =
 
-* Initial release
-* Block: Cam list
+* Initial release.
+* Block: Cam list.
