@@ -1,5 +1,5 @@
 === amateur tv ===
-Contributors: amateurtv, javiercasares
+Contributors: amateurtv, javiercasares, rozroz
 Tags: affiliate, affiliate, affiliation, adult, cam, cams, webcam, amateur
 Requires at least: 6.0
 Tested up to: 6.1
