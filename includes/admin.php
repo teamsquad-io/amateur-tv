@@ -1,4 +1,9 @@
 <?php
+// Make sure the file is not directly accessible.
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'We\'re sorry, but you cannot directly access this file.' );
+}
+
 
 add_action( 'admin_init', function () {
 	register_setting( 'amateurtv_header', 'amateurtv_affiliate' );

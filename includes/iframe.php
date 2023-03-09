@@ -1,4 +1,8 @@
 <?php
+// Make sure the file is not directly accessible.
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'We\'re sorry, but you cannot directly access this file.' );
+}
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
