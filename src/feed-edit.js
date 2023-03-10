@@ -334,7 +334,13 @@ export default function FeedEdit( props ) {
 							{
 								value: labelBgColor,
 								onChange: onChangeLabelBgColor,
-								label: __( 'Label Background', 'amateur-tv' ),
+								label: __( 'Username/Topic Background', 'amateur-tv' ),
+								colors: [
+									{ color: '#00000021' },
+									{ color: '#0000FF21' },
+									{ color: '#FF000021' },
+									{ color: '#00FF0021' },
+								],
 								enableAlpha: true
 							},
 							{
@@ -413,8 +419,6 @@ export default function FeedEdit( props ) {
 												className="atv-live atv-padding"
 												style={ {
 													color: liveColor,
-													backgroundColor:
-														labelBgColor,
 													textShadow: textShadowValue,
 												} }
 											>
@@ -426,8 +430,6 @@ export default function FeedEdit( props ) {
 												className="atv-genre atv-padding"
 												style={ {
 													color: usernameColor,
-													backgroundColor:
-														labelBgColor,
 													textShadow: textShadowValue,
 												} }
 											>
@@ -442,8 +444,6 @@ export default function FeedEdit( props ) {
 												className="atv-viewers atv-padding"
 												style={ {
 													color: liveColor,
-													backgroundColor:
-														labelBgColor,
 													textShadow: textShadowValue,
 												} }
 											>
@@ -452,7 +452,7 @@ export default function FeedEdit( props ) {
 											</span>
 										) }
 										<span
-											className="atv-username atv-padding"
+											className="atv-username atv-padding atv-rounded"
 											style={ {
 												color: usernameColor,
 												backgroundColor: labelBgColor,
@@ -463,7 +463,7 @@ export default function FeedEdit( props ) {
 										</span>
 										{ !! displayTopic && (
 											<div
-												className="atv-topic atv-padding"
+												className="atv-topic atv-padding atv-rounded"
 												style={ {
 													color: topicColor,
 													backgroundColor:

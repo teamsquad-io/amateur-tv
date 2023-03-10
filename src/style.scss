@@ -59,12 +59,16 @@ span.atv-live {
 	position: absolute;
 	text-transform: uppercase;
 	text-decoration: none !important;
+	font-size: smaller;
 }
 
 .atv-padding {
-	padding: 2px;
+	padding: 4px;
 }
 
+.atv-rounded {
+	border-radius: 25px;
+}
 span.atv-genre {
 	top: 15%;
 	left: 0;
