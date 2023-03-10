@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-02T22:19:38+05:30\n"
+"POT-Creation-Date: 2023-03-10T11:39:20+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: amateur-tv\n"
@@ -40,273 +40,285 @@ msgid "Affiliate code"
 msgstr ""
 
 #: includes/camlist.php:153
-#: build/index.js:406
-#: src/feed-edit.js:396
-#: build/index.js:396
+#: build/index.js:436
+#: src/feed-edit.js:421
+#: build/index.js:421
 msgid "Live"
 msgstr ""
 
-#: build/index.js:237
-#: build/index.js:571
-#: src/feed-edit.js:183
-#: src/iframe-edit.js:109
-#: build/index.js:183
-#: build/index.js:569
+#: build/index.js:254
+#: build/index.js:613
+#: src/feed-edit.js:195
+#: src/iframe-edit.js:119
+#: build/index.js:195
+#: build/index.js:609
 msgid "Filters"
 msgstr ""
 
-#: build/index.js:240
-#: build/index.js:574
-#: src/feed-edit.js:187
-#: src/iframe-edit.js:113
-#: build/index.js:187
-#: build/index.js:573
+#: build/index.js:257
+#: build/index.js:616
+#: src/feed-edit.js:199
+#: src/iframe-edit.js:123
+#: build/index.js:199
+#: build/index.js:613
 msgid "Gender"
 msgstr ""
 
-#: build/index.js:244
-#: build/index.js:578
-#: src/feed-edit.js:191
-#: src/iframe-edit.js:117
-#: build/index.js:191
-#: build/index.js:577
+#: build/index.js:261
+#: build/index.js:620
+#: src/feed-edit.js:203
+#: src/iframe-edit.js:127
+#: build/index.js:203
+#: build/index.js:617
 msgid "Woman"
 msgstr ""
 
-#: build/index.js:247
-#: build/index.js:581
-#: src/feed-edit.js:192
-#: src/iframe-edit.js:118
-#: build/index.js:192
-#: build/index.js:578
+#: build/index.js:264
+#: build/index.js:623
+#: src/feed-edit.js:204
+#: src/iframe-edit.js:128
+#: build/index.js:204
+#: build/index.js:618
 msgid "Couple"
 msgstr ""
 
-#: build/index.js:250
-#: build/index.js:584
-#: src/feed-edit.js:193
-#: src/iframe-edit.js:119
-#: build/index.js:193
-#: build/index.js:579
+#: build/index.js:267
+#: build/index.js:626
+#: src/feed-edit.js:205
+#: src/iframe-edit.js:129
+#: build/index.js:205
+#: build/index.js:619
 msgid "Man"
 msgstr ""
 
-#: build/index.js:253
-#: build/index.js:587
-#: src/feed-edit.js:194
-#: src/iframe-edit.js:120
-#: build/index.js:194
-#: build/index.js:580
+#: build/index.js:270
+#: build/index.js:629
+#: src/feed-edit.js:206
+#: src/iframe-edit.js:130
+#: build/index.js:206
+#: build/index.js:620
 msgid "Trans"
 msgstr ""
 
-#: build/index.js:258
-#: build/index.js:592
-#: src/feed-edit.js:199
-#: src/iframe-edit.js:125
-#: build/index.js:199
-#: build/index.js:585
+#: build/index.js:275
+#: build/index.js:634
+#: src/feed-edit.js:211
+#: src/iframe-edit.js:135
+#: build/index.js:211
+#: build/index.js:625
 msgid "Age"
 msgstr ""
 
-#: build/index.js:276
-#: src/feed-edit.js:211
-#: build/index.js:211
+#: build/index.js:293
+#: src/feed-edit.js:223
+#: build/index.js:223
 msgid "Number of cams"
 msgstr ""
 
-#: build/index.js:283
-#: src/feed-edit.js:221
-#: build/index.js:221
+#: build/index.js:300
+#: src/feed-edit.js:233
+#: build/index.js:233
 msgid "Display Settings"
 msgstr ""
 
-#: build/index.js:286
-#: src/feed-edit.js:225
-#: build/index.js:225
+#: build/index.js:303
+#: src/feed-edit.js:237
+#: build/index.js:237
 msgid "Language"
 msgstr ""
 
-#: build/index.js:289
-#: src/feed-edit.js:229
-#: build/index.js:229
+#: build/index.js:306
+#: src/feed-edit.js:241
+#: build/index.js:241
 msgid "English"
 msgstr ""
 
-#: build/index.js:292
-#: src/feed-edit.js:233
-#: build/index.js:233
+#: build/index.js:309
+#: src/feed-edit.js:245
+#: build/index.js:245
 msgid "Spanish"
 msgstr ""
 
-#: build/index.js:295
-#: src/feed-edit.js:237
-#: build/index.js:237
+#: build/index.js:312
+#: src/feed-edit.js:249
+#: build/index.js:249
 msgid "French"
 msgstr ""
 
-#: build/index.js:298
-#: src/feed-edit.js:241
-#: build/index.js:241
+#: build/index.js:315
+#: src/feed-edit.js:253
+#: build/index.js:253
 msgid "German"
 msgstr ""
 
-#: build/index.js:303
-#: src/feed-edit.js:249
-#: build/index.js:249
+#: build/index.js:320
+#: src/feed-edit.js:261
+#: build/index.js:261
 msgid "Show Live Label"
 msgstr ""
 
-#: build/index.js:307
-#: src/feed-edit.js:254
-#: build/index.js:254
+#: build/index.js:324
+#: src/feed-edit.js:266
+#: build/index.js:266
 msgid "Show Gender"
 msgstr ""
 
-#: build/index.js:311
-#: src/feed-edit.js:259
-#: build/index.js:259
+#: build/index.js:328
+#: src/feed-edit.js:271
+#: build/index.js:271
 msgid "Show Users"
 msgstr ""
 
-#: build/index.js:315
-#: src/feed-edit.js:264
-#: build/index.js:264
+#: build/index.js:332
+#: src/feed-edit.js:276
+#: build/index.js:276
 msgid "Show Topic"
 msgstr ""
 
-#: build/index.js:319
-#: src/feed-edit.js:272
-#: build/index.js:272
+#: build/index.js:336
+#: src/feed-edit.js:284
+#: build/index.js:284
 msgid "Link"
 msgstr ""
 
-#: build/index.js:322
-#: src/feed-edit.js:275
-#: build/index.js:275
+#: build/index.js:339
+#: src/feed-edit.js:287
+#: build/index.js:287
 msgid "Absolute or relative URL. Leave blank to use the link of the cam. Placeholders supported: {camname}, {affiliate}"
 msgstr ""
 
-#: build/index.js:324
-#: src/feed-edit.js:283
-#: build/index.js:283
+#: build/index.js:341
+#: src/feed-edit.js:295
+#: build/index.js:295
 msgid "Open in new tab"
 msgstr ""
 
-#: build/index.js:328
-#: src/feed-edit.js:295
-#: build/index.js:295
+#: build/index.js:345
+#: src/feed-edit.js:307
+#: build/index.js:307
 msgid "Color Settings"
 msgstr ""
 
-#: build/index.js:333
-#: src/feed-edit.js:301
-#: build/index.js:301
+#: build/index.js:350
+#: src/feed-edit.js:313
+#: build/index.js:313
 msgid "Username/Gender"
 msgstr ""
 
-#: build/index.js:337
-#: src/feed-edit.js:306
-#: build/index.js:306
+#: build/index.js:355
+#: src/feed-edit.js:319
+#: build/index.js:319
 msgid "Live Label"
 msgstr ""
 
-#: build/index.js:341
-#: src/feed-edit.js:311
-#: build/index.js:311
+#: build/index.js:360
+#: src/feed-edit.js:325
+#: build/index.js:325
 msgid "Topic"
 msgstr ""
 
-#: build/index.js:345
-#: src/feed-edit.js:316
-#: build/index.js:316
+#: build/index.js:365
+#: src/feed-edit.js:331
+#: build/index.js:331
 msgid "Background"
 msgstr ""
 
-#: build/index.js:349
-#: src/feed-edit.js:321
-#: build/index.js:321
+#: build/index.js:370
+#: src/feed-edit.js:337
+#: build/index.js:337
 msgid "Label Background"
 msgstr ""
 
-#: build/index.js:352
-#: src/feed-edit.js:326
-#: build/index.js:326
+#: build/index.js:375
+#: src/feed-edit.js:343
+#: build/index.js:343
+msgid "Text Shadow"
+msgstr ""
+
+#: build/index.js:379
+#: src/feed-edit.js:349
+#: build/index.js:349
 msgid "Column Gap"
 msgstr ""
 
-#: build/index.js:359
-#: src/feed-edit.js:334
-#: build/index.js:334
+#: build/index.js:386
+#: src/feed-edit.js:357
+#: build/index.js:357
 msgid "Image Height"
 msgstr ""
 
-#: build/index.js:366
-#: src/feed-edit.js:342
-#: build/index.js:342
+#: build/index.js:393
+#: src/feed-edit.js:365
+#: build/index.js:365
 msgid "Image Width"
 msgstr ""
 
+#: build/index.js:400
+#: src/feed-edit.js:373
 #: build/index.js:373
-#: src/feed-edit.js:350
-#: build/index.js:350
 msgid "Auto Refresh (minutes)"
 msgstr ""
 
-#: build/index.js:382
-#: build/index.js:631
-#: src/feed-edit.js:363
-#: src/iframe-edit.js:161
-#: build/index.js:363
-#: build/index.js:621
+#: build/index.js:409
+#: build/index.js:683
+#: src/feed-edit.js:386
+#: src/iframe-edit.js:184
+#: build/index.js:386
+#: build/index.js:674
 msgid "Fetching..."
 msgstr ""
 
-#: build/index.js:512
-#: src/iframe-edit.js:61
-#: build/index.js:521
+#: build/index.js:544
+#: src/iframe-edit.js:50
+#: build/index.js:540
 msgid "It will randomly show a live cam from the most popular cams according to your filters"
 msgstr ""
 
-#: build/index.js:513
-#: src/iframe-edit.js:62
-#: build/index.js:522
+#: build/index.js:545
+#: src/iframe-edit.js:51
+#: build/index.js:541
 msgid "It will show the cam of the below mentioned username, even if it is offline. If the name doesn't exist, it will show a random cam from the same genre"
 msgstr ""
 
-#: build/index.js:514
-#: src/iframe-edit.js:63
-#: build/index.js:523
+#: build/index.js:546
+#: src/iframe-edit.js:52
+#: build/index.js:542
 msgid "It will show the cam from the parameter on the URL with the name \"livecam\". If the name doesn't exist, it will show a random cam from the same genre"
 msgstr ""
 
-#: build/index.js:610
-#: src/iframe-edit.js:137
-#: build/index.js:597
+#: build/index.js:652
+#: src/iframe-edit.js:148
+#: build/index.js:638
+msgid "Iframe Height"
+msgstr ""
+
+#: build/index.js:662
+#: src/iframe-edit.js:160
+#: build/index.js:650
 msgid "Cam Type"
 msgstr ""
 
-#: build/index.js:613
-#: src/iframe-edit.js:140
-#: build/index.js:600
+#: build/index.js:665
+#: src/iframe-edit.js:163
+#: build/index.js:653
 msgid "Most Popular"
 msgstr ""
 
-#: build/index.js:616
-#: src/iframe-edit.js:141
-#: build/index.js:601
+#: build/index.js:668
+#: src/iframe-edit.js:164
+#: build/index.js:654
 msgid "Specific Camname"
 msgstr ""
 
-#: build/index.js:619
-#: src/iframe-edit.js:142
-#: build/index.js:602
+#: build/index.js:671
+#: src/iframe-edit.js:165
+#: build/index.js:655
 msgid "Camname Parameter"
 msgstr ""
 
-#: build/index.js:625
-#: src/iframe-edit.js:150
-#: build/index.js:610
+#: build/index.js:677
+#: src/iframe-edit.js:173
+#: build/index.js:663
 msgid "Camname"
 msgstr ""
 
