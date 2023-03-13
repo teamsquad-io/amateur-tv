@@ -39,12 +39,12 @@ function amateurtv_init_iframe() {
       switch ( $camType ){
         case 'camname':
             if ( ! empty( $camName ) ){
-                $args['livecam'] = $camName;
+                $args['livecam'] = sanitize_title( $camName );
             }
             break;
         case 'camparam':
             if ( ! empty( $_GET['livecam'] ) ) {
-                $args['livecam'] = $_GET['livecam'];
+                $args['livecam'] = sanitize_title( $_GET['livecam'] );
             }
             break;
         }
