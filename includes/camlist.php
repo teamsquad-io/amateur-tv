@@ -150,18 +150,18 @@ function amateurtv_render_single_block( $attributes ) {
 	foreach ( $final_cams as $cam ) {
 		$inner = '';
 		if($attributes['displayLive'] === true || $attributes['displayLive'] === 'true'){
-			$inner .= sprintf( '<span class="atv-live" style="color: %s; background-color: %s;">%s</span>', $attributes['liveColor'] ?? '', $attributes['labelBgColor'] ?? '', __('Live', 'amateur-tv' ) );
+			$inner .= sprintf( '<span class="atv-live atv-padding" style="color: %s; background-color: %s;">%s</span>', $attributes['liveColor'] ?? '', '', __('Live', 'amateur-tv' ) );
 		}
 		if($attributes['displayGenre'] === true || $attributes['displayGenre'] === 'true'){
-			$inner .= sprintf( '<span class="atv-genre" style="color: %s; background-color: %s;">%s</span>', $attributes['usernameColor'] ?? '', $attributes['labelBgColor'] ?? '', __( $cam['genre'], 'amateur-tv' ) );
+			$inner .= sprintf( '<span class="atv-genre atv-padding" style="color: %s; background-color: %s;">%s</span>', $attributes['usernameColor'] ?? '', '', __( $cam['genre'], 'amateur-tv' ) );
 		}
 		if($attributes['displayUsers'] === true || $attributes['displayUsers'] === 'true'){
-			$inner .= sprintf( '<span class="atv-viewers" style="color: %s; background-color: %s;"><span class="dashicons dashicons-visibility"></span><span>%s</span></span>', $attributes['liveColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['viewers']);
+			$inner .= sprintf( '<span class="atv-viewers atv-padding" style="color: %s; background-color: %s;"><span class="dashicons dashicons-visibility"></span><span>%s</span></span>', $attributes['liveColor'] ?? '', '', $cam['viewers']);
 		}
 		if($attributes['displayTopic'] === true || $attributes['displayTopic'] === 'true'){
-			$inner .= sprintf( '<div class="atv-topic" style="color: %s; background-color: %s;">%s</div>', $attributes['topicColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['topic'][$lang]);
+			$inner .= sprintf( '<div class="atv-topic atv-padding atv-rounded" style="color: %s; background-color: %s;">%s</div>', $attributes['topicColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['topic'][$lang]);
 		}
-		$inner .= sprintf( '<span class="atv-username" style="color: %s; background-color: %s;">%s</span>', $attributes['usernameColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['username'] );
+		$inner .= sprintf( '<span class="atv-username atv-padding atv-rounded" style="color: %s; background-color: %s;">%s</span>', $attributes['usernameColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['username'] );
 
 		$url = $cam['url'];
 		$target = '';

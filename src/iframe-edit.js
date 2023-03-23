@@ -36,7 +36,8 @@ import {
 	Spinner,
 	SelectControl,
 	PanelBody,
-	TextControl
+	TextControl,
+	RangeControl
 } from '@wordpress/components';
 
 export default function IframeEdit( props ) {
@@ -44,7 +45,12 @@ export default function IframeEdit( props ) {
 	const { attributes, setAttributes } = props;
 
 	const [ loading, setLoading ] = useState( false );
-	const { genre, age, iframeHeight } = attributes;
+	const { genre, age, iframeHeight, camType, camName } = attributes;
+	const camTypeHelp = {
+		'popular': __( 'It will randomly show a live cam from the most popular cams according to your filters', 'amateur-tv' ),
+		'camname': __( 'It will show the cam of the below mentioned username, even if it is offline. If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
+		'camparam': __( 'It will show the cam from the parameter on the URL with the name "livecam". If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
+	};
 
 	const [ url, setURL ] = useState(
 		new URL(
@@ -57,12 +63,15 @@ export default function IframeEdit( props ) {
 		url.toString() +
 		' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
 
-	const { genre, age, camType, camName } = attributes;
+	
+	const [ html, setHTML ] = useState( iframe );
 
-	const camTypeHelp = {
-		'popular': __( 'It will randomly show a live cam from the most popular cams according to your filters', 'amateur-tv' ),
-		'camname': __( 'It will show the cam of the below mentioned username, even if it is offline. If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
-		'camparam': __( 'It will show the cam from the parameter on the URL with the name "livecam". If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
+	const resetIframe = () => {
+		setHTML(
+			'<iframe width="100%" height="' + iframeHeight + '" src=' +
+				url.toString() +
+				' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>'
+		);
 	};
 
 	const changeURL = ( args ) => {
@@ -81,15 +90,6 @@ export default function IframeEdit( props ) {
 		resetIframe();
 	};
 
-	const resetIframe = () => {
-		setHTML(
-			'<iframe width="100%" height="' + iframeHeight + '" src=' +
-				url.toString() +
-				' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>'
-		);
-	};
-
-
 	const onChangeGender = ( gender ) => {
 		setAttributes( { genre: gender } );
 		changeURL( { name: 'genre', val: gender, multiple: true } );
@@ -105,6 +105,10 @@ export default function IframeEdit( props ) {
 	const onChangeCamName = ( name ) => {
 		setAttributes( { camName: name } );
 		changeURL( { name: 'livecam', val: name } );
+	};
+	const onChangeIframeHeight = ( height ) => {
+		setAttributes( { iframeHeight: height } );
+		resetIframe();
 	};
 
 	
@@ -139,6 +143,19 @@ export default function IframeEdit( props ) {
 						] }
 						onChange={ onChangeAge }
 					/>
+
+					<RangeControl
+						label={ __( 'Iframe Height', 'amateur-tv' ) }
+						value={ iframeHeight }
+						initialPosition={ 590 }
+						onChange={ onChangeIframeHeight }
+						min={ 200 }
+						max={ 1000 }
+						step={ 50 }
+						type={ "stepper" }
+						allowReset={ true }
+					/>
+
 					<SelectControl
 						label={ __( 'Cam Type', 'amateur-tv' ) }
 						value={ camType }

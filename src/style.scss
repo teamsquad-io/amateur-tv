@@ -26,6 +26,7 @@ a.atv-cam {
 	font-weight: inherit !important;
 	font-family: inherit !important;
 	font-size: inherit !important;
+	font-style: inherit !important;
 }
 
 a.atv-cam img {
@@ -59,12 +60,16 @@ span.atv-live {
 	position: absolute;
 	text-transform: uppercase;
 	text-decoration: none !important;
+	font-size: smaller;
 }
 
 .atv-padding {
-	padding: 2px;
+	padding: 4px;
 }
 
+.atv-rounded {
+	border-radius: 25px;
+}
 span.atv-genre {
 	top: 15%;
 	left: 0;
@@ -110,5 +115,5 @@ div.atv-front {
 }
 
 div.atv-iframe {
-	pointer-events: none;
+	pointer-events: none !important;
 }

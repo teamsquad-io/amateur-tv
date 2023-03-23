@@ -23,6 +23,7 @@ function amateurtv_init_iframe() {
       $age = $attributes['age'] ?? array();
       $camType = $attributes['camType'] ?? 'popular';
       $camName = $attributes['camName'] ?? '';
+      $height = $attributes['iframeHeight'] ?? 580;
   
       $args = array(
           'a' => get_option( 'amateurtv_affiliate' )
@@ -38,20 +39,44 @@ function amateurtv_init_iframe() {
       switch ( $camType ){
         case 'camname':
             if ( ! empty( $camName ) ){
-                $args['livecam'] = $camName;
+                $args['livecam'] = sanitize_title( $camName );
             }
             break;
         case 'camparam':
             if ( ! empty( $_GET['livecam'] ) ) {
-                $args['livecam'] = $_GET['livecam'];
+                $args['livecam'] = sanitize_title( $_GET['livecam'] );
             }
             break;
-      }
+        }
+
+        $classes = $styles = array();
+
+        if ( ! empty( $attributes['align'] ?? '' ) ) {
+            $classes[] = sprintf( 'align%s', $attributes['align'] );
+        }
+        if ( ! empty( $attributes['style'] ?? '' ) ) {
+            $padding = $attributes['style']['spacing']['padding'] ?? '';
+            if ( $padding ) {
+                foreach ( $attributes['style']['spacing']['padding'] as $on => $amount ) {
+                    $amount = str_replace( array( ':', '|' ), array( '(--wp--', '--'), $amount ) . ')';
+                    $styles[] = sprintf( 'padding-%s: %s', $on, $amount );
+                }
+            }
+
+            $margin = $attributes['style']['spacing']['margin'] ?? '';
+            if ( $margin ) {
+                foreach ( $attributes['style']['spacing']['margin'] as $on => $amount ) {
+                    $amount = str_replace( array( ':', '|' ), array( '(--wp--', '--'), $amount ) . ')';
+                    $styles[] = sprintf( 'margin-%s: %s', $on, $amount );
+                }
+            }		
+        }   
       
-      $url = add_query_arg( $args, 'https://www.amateur.tv/freecam/embed?width=890&height=580&lazyloadvideo=1&a_mute=1' );
-  
-      $iframe = sprintf( '<iframe width="890" height="580" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>', $url );
-  
-      return $iframe;
-  
+        $url = add_query_arg( $args, 'https://www.amateur.tv/freecam/embed?width=890&height=%d&lazyloadvideo=1&a_mute=1' );
+    
+        $iframe = '<iframe width="100%%" height="%d" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
+    
+        $html = sprintf( '<div class="atv-front-iframe %s" style="%s">' . $iframe . '</div>', implode( ' ', $classes ), implode( '; ', $styles ), $height, $url, $height );
+
+        return $html;
   }

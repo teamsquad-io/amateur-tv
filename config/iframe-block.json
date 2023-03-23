@@ -28,6 +28,13 @@
 		},
 		"camName": {
 			"type": "string"
+		},
+		"align": {
+			"type": "string"
+		},
+		"iframeHeight": {
+			"type": "integer",
+			"default": 580
 		}
 	},
 	"textdomain": "amateur-tv"
