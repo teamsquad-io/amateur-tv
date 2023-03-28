@@ -190,7 +190,7 @@ export default function IframeEdit( props ) {
 							},
 							{
 								label: __( 'Chinese' ),
-								value: 'zh',
+								value: 'cn',
 							},
 						] }
 						onChange={ onChangeCamLamg }
