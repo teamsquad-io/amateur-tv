@@ -42,6 +42,7 @@ import {
 	FlexItem,
 	TextControl,
 	RangeControl,
+	FormTokenField
 } from '@wordpress/components';
 
 export default function FeedEdit( props ) {
@@ -70,7 +71,10 @@ export default function FeedEdit( props ) {
 		api,
 		count,
 		textShadowColor,
-		textShadowValue
+		textShadowValue,
+		camLang,
+		tags,
+		order,
 	} = attributes;
 
 	const textShadow = '1px 1px';
@@ -136,6 +140,25 @@ export default function FeedEdit( props ) {
 	};
 	const onChangeTarget = ( target ) => {
 		setAttributes( { targetNew: target } );
+	};
+
+	const onChangeCamLamg = ( lang ) => {
+		setAttributes( { camLang: lang } );
+		changeURL( { name: 'camLang', val: lang, multiple: true } );
+	};
+	const onChangeTags = ( tags ) => {
+		const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
+		setAttributes( { tags: lowerCaseTags } );
+		changeURL( { name: 'tag', val: lowerCaseTags, multiple: true } );
+	};
+	const onChangeOrder = ( order ) => {
+		setAttributes( { order: order } );
+		changeURL( { name: 'order', val: order, multiple: false } );
+	};
+
+	// allow only Latin alphabets
+	const validateTag = ( tag ) => {
+		return /^[aA-zZ]+$/.test(tag)
 	};
 
 	const onChangeDisplayLive = ( val ) => {
@@ -227,6 +250,56 @@ export default function FeedEdit( props ) {
 						min={ 0 }
 						max={ !! data ? data.length : 0 }
 					/>
+
+					<SelectControl
+						label={ __( 'Language', 'amateur-tv' ) }
+						value={ camLang }
+						multiple={ true }
+						help={ __( 'Language spoken by model', 'amateur-tv' ) }
+						options={ [
+							{
+								label: __( 'English' ),
+								value: 'en',
+							},
+							{
+								label: __( 'Spanish' ),
+								value: 'es',
+							},
+							{
+								label: __( 'French' ),
+								value: 'fr',
+							},
+							{
+								label: __( 'German' ),
+								value: 'de',
+							},
+							{
+								label: __( 'Russian' ),
+								value: 'ru',
+							},
+							{
+								label: __( 'Italian' ),
+								value: 'it',
+							},
+							{
+								label: __( 'Portugese' ),
+								value: 'pt',
+							},
+							{
+								label: __( 'Chinese' ),
+								value: 'cn',
+							},
+						] }
+						onChange={ onChangeCamLamg }
+					/>
+
+					<FormTokenField
+						label={ __( 'Tags', 'amateur-tv' ) }
+						value={ tags }
+						tokenizeOnSpace={ true }
+						__experimentalValidateInput={ validateTag }
+						onChange={ onChangeTags }
+					/>
 				</PanelBody>
 
 				<PanelBody
@@ -255,6 +328,26 @@ export default function FeedEdit( props ) {
 							},
 						] }
 						onChange={ onChangeLang }
+					/>
+
+					<SelectControl
+						label={ __( 'Order', 'amateur-tv' ) }
+						value={ order }
+						options={ [
+							{
+								label: __( 'Featured', 'amateur-tv' ),
+								value: 'highlighted',
+							},
+							{
+								label: __( 'Viewers', 'amateur-tv' ),
+								value: 'realviewers',
+							},
+							{
+								label: __( 'New', 'amateur-tv' ),
+								value: 'new',
+							},
+						] }
+						onChange={ onChangeOrder }
 					/>
 
 					<ToggleControl
