@@ -37,7 +37,8 @@ import {
 	SelectControl,
 	PanelBody,
 	TextControl,
-	RangeControl
+	RangeControl,
+	FormTokenField
 } from '@wordpress/components';
 
 export default function IframeEdit( props ) {
@@ -45,18 +46,14 @@ export default function IframeEdit( props ) {
 	const { attributes, setAttributes } = props;
 
 	const [ loading, setLoading ] = useState( false );
-	const { genre, age, iframeHeight, camType, camName } = attributes;
+	const { genre, age, iframeHeight, camType, camName, iframeUrl, camLang, tags } = attributes;
 	const camTypeHelp = {
 		'popular': __( 'It will randomly show a live cam from the most popular cams according to your filters', 'amateur-tv' ),
 		'camname': __( 'It will show the cam of the below mentioned username, even if it is offline. If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
 		'camparam': __( 'It will show the cam from the parameter on the URL with the name "livecam". If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
 	};
 
-	const [ url, setURL ] = useState(
-		new URL(
-			'https://www.amateur.tv/freecam/embed?width=890&height=' + iframeHeight + '&lazyloadvideo=1&a_mute=1'
-		)
-	);
+	const [ url, setURL ] = useState( new URL( iframeUrl + iframeHeight ) );
 
 	let iframe =
 		'<iframe width="100%" height="' + iframeHeight + '" src=' +
@@ -106,11 +103,24 @@ export default function IframeEdit( props ) {
 		setAttributes( { camName: name } );
 		changeURL( { name: 'livecam', val: name } );
 	};
+	const onChangeCamLamg = ( lang ) => {
+		setAttributes( { camLang: lang } );
+		changeURL( { name: 'camLang', val: lang, multiple: true } );
+	};
+	const onChangeTags = ( tags ) => {
+		const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
+		setAttributes( { tags: lowerCaseTags } );
+		changeURL( { name: 'tag', val: lowerCaseTags, multiple: true } );
+	};
 	const onChangeIframeHeight = ( height ) => {
 		setAttributes( { iframeHeight: height } );
 		resetIframe();
 	};
 
+	// allow only Latin alphabets
+	const validateTag = ( tag ) => {
+		return /^[aA-zZ]+$/.test(tag)
+	};
 	
 	return (
 		<>
@@ -144,16 +154,54 @@ export default function IframeEdit( props ) {
 						onChange={ onChangeAge }
 					/>
 
-					<RangeControl
-						label={ __( 'Iframe Height', 'amateur-tv' ) }
-						value={ iframeHeight }
-						initialPosition={ 590 }
-						onChange={ onChangeIframeHeight }
-						min={ 200 }
-						max={ 1000 }
-						step={ 50 }
-						type={ "stepper" }
-						allowReset={ true }
+					<SelectControl
+						label={ __( 'Language', 'amateur-tv' ) }
+						value={ camLang }
+						multiple={ true }
+						help={ __( 'Language spoken by model', 'amateur-tv' ) }
+						options={ [
+							{
+								label: __( 'English' ),
+								value: 'en',
+							},
+							{
+								label: __( 'Spanish' ),
+								value: 'es',
+							},
+							{
+								label: __( 'French' ),
+								value: 'fr',
+							},
+							{
+								label: __( 'German' ),
+								value: 'de',
+							},
+							{
+								label: __( 'Russian' ),
+								value: 'ru',
+							},
+							{
+								label: __( 'Italian' ),
+								value: 'it',
+							},
+							{
+								label: __( 'Portugese' ),
+								value: 'pt',
+							},
+							{
+								label: __( 'Chinese' ),
+								value: 'cn',
+							},
+						] }
+						onChange={ onChangeCamLamg }
+					/>
+
+					<FormTokenField
+						label={ __( 'Tags', 'amateur-tv' ) }
+						value={ tags }
+						tokenizeOnSpace={ true }
+						__experimentalValidateInput={ validateTag }
+						onChange={ onChangeTags }
 					/>
 
 					<SelectControl
@@ -175,6 +223,23 @@ export default function IframeEdit( props ) {
 							onChange={ onChangeCamName }
 						/>
 					)}
+				</PanelBody>
+
+				<PanelBody
+					title={ __( 'Display Settings', 'amateur-tv' ) }
+					initialOpen={ true }
+				>
+					<RangeControl
+						label={ __( 'Iframe Height', 'amateur-tv' ) }
+						value={ iframeHeight }
+						initialPosition={ 590 }
+						onChange={ onChangeIframeHeight }
+						min={ 200 }
+						max={ 1000 }
+						step={ 50 }
+						type={ "stepper" }
+						allowReset={ true }
+					/>
 				</PanelBody>
 			</InspectorControls>
 
