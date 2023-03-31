@@ -311,19 +311,19 @@ export default function FeedEdit( props ) {
 						value={ !! lang ? lang : siteLang }
 						options={ [
 							{
-								label: __( 'English', 'amateur-tv' ),
+								label: __( 'English' ),
 								value: 'en',
 							},
 							{
-								label: __( 'Spanish', 'amateur-tv' ),
+								label: __( 'Spanish' ),
 								value: 'es',
 							},
 							{
-								label: __( 'French', 'amateur-tv' ),
+								label: __( 'French' ),
 								value: 'fr',
 							},
 							{
-								label: __( 'German', 'amateur-tv' ),
+								label: __( 'German' ),
 								value: 'de',
 							},
 						] }

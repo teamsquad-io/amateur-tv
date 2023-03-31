@@ -30,7 +30,7 @@
 			"type": "string"
 		},
 		"lang": {
-			"type": "array"
+			"type": "string"
 		},
 		"genre": {
 			"type": "array"
