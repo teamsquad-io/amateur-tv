@@ -36,6 +36,9 @@ class IframeBlock{
             return;
         }
    
+        $lang = explode( '-', get_bloginfo('language') );
+		$lang = reset($lang);
+
         $genre = $attributes['genre'] ?? array();
         $age = $attributes['age'] ?? array();
         $camLang = $attributes['camLang'] ?? array();
@@ -45,7 +48,8 @@ class IframeBlock{
         $height = $attributes['iframeHeight'] ?? 580;
     
         $args = array(
-            'a' => get_option( 'amateurtv_affiliate' )
+            'a' => get_option( 'amateurtv_affiliate' ),
+            'lang' => $attributes['lang'] ?? 'en',
         );
   
         if(!empty($genre)){

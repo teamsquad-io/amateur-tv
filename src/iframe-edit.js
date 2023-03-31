@@ -46,7 +46,7 @@ export default function IframeEdit( props ) {
 	const { attributes, setAttributes } = props;
 
 	const [ loading, setLoading ] = useState( false );
-	const { genre, age, iframeHeight, camType, camName, iframeUrl, camLang, tags } = attributes;
+	const { genre, age, iframeHeight, camType, camName, iframeUrl, camLang, tags, lang } = attributes;
 	const camTypeHelp = {
 		'popular': __( 'It will randomly show a live cam from the most popular cams according to your filters', 'amateur-tv' ),
 		'camname': __( 'It will show the cam of the below mentioned username, even if it is offline. If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
@@ -116,11 +116,20 @@ export default function IframeEdit( props ) {
 		setAttributes( { iframeHeight: height } );
 		resetIframe();
 	};
+	const onChangeLang = ( lang ) => {
+		setAttributes( { lang: lang } );
+		changeURL( { name: 'lang', val: lang, multiple: false } );
+	};
 
 	// allow only Latin alphabets
 	const validateTag = ( tag ) => {
 		return /^[aA-zZ]+$/.test(tag)
 	};
+
+	const siteLang = useSelect( ( select ) => {
+		let lang = select( 'core' ).getSite()?.language;
+		return lang && lang.split( '_' )[ 0 ];
+	} );
 	
 	return (
 		<>
@@ -229,6 +238,30 @@ export default function IframeEdit( props ) {
 					title={ __( 'Display Settings', 'amateur-tv' ) }
 					initialOpen={ true }
 				>
+					<SelectControl
+						label={ __( 'Language', 'amateur-tv' ) }
+						value={ !! lang ? lang : siteLang }
+						options={ [
+							{
+								label: __( 'English' ),
+								value: 'en',
+							},
+							{
+								label: __( 'Spanish' ),
+								value: 'es',
+							},
+							{
+								label: __( 'French' ),
+								value: 'fr',
+							},
+							{
+								label: __( 'German' ),
+								value: 'de',
+							},
+						] }
+						onChange={ onChangeLang }
+					/>
+
 					<RangeControl
 						label={ __( 'Iframe Height', 'amateur-tv' ) }
 						value={ iframeHeight }
