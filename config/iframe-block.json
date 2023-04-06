@@ -26,9 +26,6 @@
 		"age": {
 			"type": "array"
 		},
-		"lang": {
-			"type": "string"
-		},
 		"camType": {
 			"type": "string",
 			"default": "popular"
