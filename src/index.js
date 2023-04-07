@@ -5,6 +5,7 @@
  */
 import { registerBlockType } from '@wordpress/blocks';
 
+import { InnerBlocks } from '@wordpress/block-editor';
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * All files containing `style` keyword are bundled together. The code used
@@ -19,6 +20,7 @@ import './style.scss';
  */
 import FeedEdit from './feed-edit';
 import IframeEdit from './iframe-edit';
+import CamDetailsEdit from './details-edit';
 
 /**
  * Every block starts by registering a new block type definition.
@@ -36,5 +38,12 @@ registerBlockType( 'amateur-tv/iframe', {
 	edit: IframeEdit,
 	save: function ( props ) {
 		return null;
+	},
+} );
+
+registerBlockType( 'amateur-tv/camdetails', {
+	edit: CamDetailsEdit,
+	save: function ( props ) {
+		return <InnerBlocks.Content/>;
 	},
 } );

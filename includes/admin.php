@@ -1,25 +1,41 @@
 <?php
 
-add_action( 'admin_init', function () {
-	register_setting( 'amateurtv_header', 'amateurtv_affiliate' );
-} );
+namespace AmateurTv;
 
-add_action( 'admin_menu', function () {
-	add_options_page( __( 'Amateur TV Settings', 'amateur-tv'), __( 'Amateur TV', 'amateur-tv'), 'manage_options', 'amateurtv_header', 'amateurtv_settings' );
-} );
+class Admin {
 
-add_action( 'plugins_loaded', function() {
-		load_plugin_textdomain(
-			'amateur-tv',
-			false,
-			AMATEURTV_DIR . '/languages/'
-		);
-} );
+	public function __construct(){
+        $this->hooks();
+    }
 
-function amateurtv_settings() {
-	if ( ! current_user_can( 'manage_options' ) ) {
-		wp_die();
+    /**
+     * Register all the hooks.
+     */
+    function hooks(){
+        add_action( 'admin_init', array( $this, 'register_options' ) );
+		add_action( 'rest_api_init', array( $this, 'register_options' ) );
+
+		add_action( 'plugins_loaded', function() {
+			load_plugin_textdomain(
+				'amateur-tv',
+				false,
+				AMATEURTV_DIR . '/languages/'
+			);
+		} );
+
+		add_action( 'admin_menu', function () {
+			add_options_page( __( 'Amateur TV Settings', 'amateur-tv'), __( 'Amateur TV', 'amateur-tv'), 'manage_options', 'amateurtv_header', array( $this, 'settings' ) );
+		} );
+    }
+
+	function register_options() {
+		register_setting( 'amateurtv_header', 'amateurtv_affiliate', array( 'type' => 'string', 'show_in_rest' => true ) );
 	}
+
+	function settings() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die();
+		}
 ?>
 	<div class="wrap">
 		<h2><?php _e( 'Amateur TV Settings', 'amateur-tv');?></h2>
@@ -42,4 +58,7 @@ function amateurtv_settings() {
 		</form>
 	</div>
 	<?php
+	}
 }
+
+new \AmateurTv\Admin();
