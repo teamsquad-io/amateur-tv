@@ -1,18 +1,27 @@
 <?php
-
 namespace AmateurTv;
+defined( 'ABSPATH' ) || die( 'No script kiddies please!' );
 
+/**
+ * IframeBlock class to handle the rendering and registration of the iframe block.
+ */
 class IframeBlock{
 
+  /**
+	 * Initializes the class by setting up all hooks.
+	 */
     public function __construct(){
         $this->hooks();
     }
 
-    /**
-     * Register all the hooks.
-     */
-    function hooks(){
-        add_action( 'init', array( $this, 'register_block' ) );
+  /**
+	 * Register all the hooks required for this class.
+	 * Hooks `register_block` method to `init` action.
+	 *
+	 * @see https://developer.wordpress.org/reference/functions/add_action/
+	 */
+	 function hooks(){
+			add_action( 'init', array( $this, 'register_block' ) );
     }
 
     /**
@@ -22,89 +31,102 @@ class IframeBlock{
      *
      * @see https://developer.wordpress.org/reference/functions/register_block_type/
      */
-    function register_block() {
+		 function register_block() {
         register_block_type( AMATEURTV_DIR . '/config/iframe-block.json', array(
             'render_callback' => array( $this, 'render_iframe' ),
         ));
     }
   
-    /**
-     * Renders the iframe on the front end.
-     */
-    function render_iframe($attributes) {
-        if ( is_admin()){
-            return;
-        }
+/**
+ * Renders the iframe on the front end.
+ *
+ * @param array $attributes An array of block attributes.
+ * @return string Returns the HTML output of the iframe block.
+ */
+		function render_iframe($attributes) {
+			
+			// Check if the user is in the WordPress admin area.
+			if ( is_admin()){
+				return;
+			}
    
-        $genre = $attributes['genre'] ?? array();
-        $age = $attributes['age'] ?? array();
-        $camLang = $attributes['camLang'] ?? array();
-        $tags = $attributes['tags'] ?? array();
-        $camType = $attributes['camType'] ?? 'popular';
-        $camName = $attributes['camName'] ?? '';
-        $height = $attributes['iframeHeight'] ?? 580;
+			// Set default values for attributes that may not be present.
+			$genre = $attributes['genre'] ?? array();
+			$age = $attributes['age'] ?? array();
+			$camLang = $attributes['camLang'] ?? array();
+			$tags = $attributes['tags'] ?? array();
+			$camType = $attributes['camType'] ?? 'popular';
+			$camName = $attributes['camName'] ?? '';
+			$height = $attributes['iframeHeight'] ?? 580;
     
-        $args = array(
-            'a' => get_option( 'amateurtv_affiliate' )
-        );
-  
-        if(!empty($genre)){
-            $args['genre'] = implode(',', $genre );
-        }
-        if(!empty($age)){
-            $args['age'] = implode(',', $age );
-        }
-        if(!empty($camLang)){
-            $args['camLang'] = implode(',', $camLang );
-        }
-        if(!empty($tags)){
-            $args['tags'] = implode(',', $tags );
-        }
+			// Construct an array of query arguments for the iframe URL.
+			$args = array(
+				'a' => get_option( 'amateurtv_affiliate' )
+			);
+			if(!empty($genre)){
+				$args['genre'] = implode(',', $genre );
+			}
+			if(!empty($age)){
+				$args['age'] = implode(',', $age );
+			}
+			if(!empty($camLang)){
+				$args['camLang'] = implode(',', $camLang );
+			}
+			if(!empty($tags)){
+				$args['tags'] = implode(',', $tags );
+			}
 
-        switch ( $camType ){
-            case 'camname':
-                if ( ! empty( $camName ) ){
-                    $args['livecam'] = sanitize_title( $camName );
-                }
-                break;
-            case 'camparam':
-                if ( ! empty( $_GET['livecam'] ) ) {
-                    $args['livecam'] = sanitize_title( $_GET['livecam'] );
-                }
-                break;
-        }
+			// Depending on the type of camera, add an appropriate query argument.
+			switch ( $camType ){
+				case 'camname':
+					if ( ! empty( $camName ) ){
+						$args['livecam'] = sanitize_title( $camName );
+					}
+					break;
+				case 'camparam':
+					if ( ! empty( $_GET['livecam'] ) ) {
+						$args['livecam'] = sanitize_title( $_GET['livecam'] );
+					}
+					break;
+			}
 
-        $classes = $styles = array();
+			// Set up arrays to hold any classes or styles for the iframe container.
+			$classes = $styles = array();
 
-        if ( ! empty( $attributes['align'] ?? '' ) ) {
-            $classes[] = sprintf( 'align%s', $attributes['align'] );
-        }
-        if ( ! empty( $attributes['style'] ?? '' ) ) {
-            $padding = $attributes['style']['spacing']['padding'] ?? '';
-            if ( $padding ) {
-                foreach ( $attributes['style']['spacing']['padding'] as $on => $amount ) {
-                    $amount = str_replace( array( ':', '|' ), array( '(--wp--', '--'), $amount ) . ')';
-                    $styles[] = sprintf( 'padding-%s: %s', $on, $amount );
-                }
-            }
+			// If the "align" attribute is present, add an appropriate class.
+			if ( ! empty( $attributes['align'] ?? '' ) ) {
+				$classes[] = sprintf( 'align%s', $attributes['align'] );
+			}
 
-            $margin = $attributes['style']['spacing']['margin'] ?? '';
-            if ( $margin ) {
-                foreach ( $attributes['style']['spacing']['margin'] as $on => $amount ) {
-                    $amount = str_replace( array( ':', '|' ), array( '(--wp--', '--'), $amount ) . ')';
-                    $styles[] = sprintf( 'margin-%s: %s', $on, $amount );
-                }
-            }		
-        }   
-      
-        $url = add_query_arg( $args, sprintf( $attributes['iframeUrl'] . '%d', $height ) );
-    
-        $iframe = '<iframe width="100%%" height="%d" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
-    
-        $html = sprintf( '<div class="atv-front-iframe %s" style="%s">' . $iframe . '</div>', implode( ' ', $classes ), implode( '; ', $styles ), $height, $url );
+			// If the "style" attribute is present, parse the padding and margin styles.
+			if ( ! empty( $attributes['style'] ?? '' ) ) {
+				$padding = $attributes['style']['spacing']['padding'] ?? '';
+				if ( $padding ) {
+					foreach ( $attributes['style']['spacing']['padding'] as $on => $amount ) {
+						$amount = str_replace( array( ':', '|' ), array( '(--wp--', '--'), $amount ) . ')';
+						$styles[] = sprintf( 'padding-%s: %s', $on, $amount );
+						}
+				}
 
-        return $html;
-    }
+				$margin = $attributes['style']['spacing']['margin'] ?? '';
+				if ( $margin ) {
+					foreach ( $attributes['style']['spacing']['margin'] as $on => $amount ) {
+						$amount = str_replace( array( ':', '|' ), array( '(--wp--', '--'), $amount ) . ')';
+						$styles[] = sprintf( 'margin-%s: %s', $on, $amount );
+					}
+				}		
+			}   
+
+			// Construct the iframe URL with the query arguments.
+			$url = add_query_arg( $args, sprintf( $attributes['iframeUrl'] . '%d', $height ) );
+
+			// Construct the HTML for the iframe.
+			$iframe = '<iframe width="100%%" height="%d" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
+
+			$html = sprintf( '<div class="atv-front-iframe %s" style="%s">' . $iframe . '</div>', implode( ' ', $classes ), implode( '; ', $styles ), $height, $url );
+
+			return $html;
+	}
 }
 
 new \AmateurTv\IframeBlock();
