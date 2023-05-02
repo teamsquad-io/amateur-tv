@@ -5,7 +5,7 @@ Requires at least: 6.0
 Tested up to: 6.1
 Requires PHP: 7.2
 Tested PHP: 8.1
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 License: GPL 2.0
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,16 @@ Our system scans the chat preventing the publication of URLs and filtering forbi
 We provide our users with a "Report abuse" button that sends an alert to the 24/7 Monitoring Team who will review the reported channel immediately. They have the ability to cancel the show should there be any doubt of content compliance. They may even block the account temporarily or permanently.
 
 == Changelog ==
+
+= 1.2.0 =
+
+* Theatre mode 
+* Language filter
+* Order options
+* Tag filters
+* Improved code documentation
+* Improved code quality
+* Improved code security
 
 = 1.1.2 =
 
