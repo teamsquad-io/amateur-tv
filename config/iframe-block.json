@@ -16,6 +16,10 @@
 		}
 	},
 	"attributes": {
+		"iframeUrl": {
+			"type": "string",
+			"default": "https://www.amateur.tv/freecam/embed?width=890&lazyloadvideo=1&a_mute=1&theatre=1&height="
+		},
 		"genre": {
 			"type": "array"
 		},
@@ -35,6 +39,12 @@
 		"iframeHeight": {
 			"type": "integer",
 			"default": 580
+		},
+		"camLang": {
+			"type": "array"
+		},
+		"tags": {
+			"type": "array"
 		}
 	},
 	"textdomain": "amateur-tv"

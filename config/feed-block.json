@@ -30,7 +30,7 @@
 			"type": "string"
 		},
 		"lang": {
-			"type": "array"
+			"type": "string"
 		},
 		"genre": {
 			"type": "array"
@@ -92,6 +92,16 @@
 		},
 		"textShadowColor": {
 			"type": "string"
+		},
+		"camLang": {
+			"type": "array"
+		},
+		"tags": {
+			"type": "array"
+		},
+		"order":{
+			"type": "string",
+			"default": "highlighted"
 		}
 	},
 	"textdomain": "amateur-tv",
