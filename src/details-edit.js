@@ -71,6 +71,23 @@ export default function CamDetailsEdit( props ) {
 		'camparam': __( 'It will show the details from the parameter on the URL with the name "livecam"', 'amateur-tv' ),
 	};
 
+	const MOCK_VALUES = {
+		'username':  'Suzie Q',
+		'profilePicture': 'https://cdn.vtsmedia.com/96937fb6a/r/static/media/logoLive@2x.30e42e3c.png',
+		'followers': '7113',
+		'rating': '50',
+		'genre': 'Woman',
+		'seniority': '9 months',
+		'age': '26',
+		'languages': 'English, Esperanto, Spanish',
+		'location': 'Madrid, Spain',
+		'interestedIn': 'Women, Men',
+		'tags': 'young,blonde',
+		'lastShow': 'Yesterday',
+		'aboutMe': 'I\'m nice',
+		'nextShow': 'Tomorrow',
+	}
+
 	const KEY_LABELS = [
 		{ value: 'username', label: __( 'Username', 'amateur-tv' ) },
 		{ value: 'profilePicture', label: __( 'Profile Picture', 'amateur-tv' ), type: 'image' },
@@ -85,6 +102,7 @@ export default function CamDetailsEdit( props ) {
 		{ value: 'tags', label: __( 'Tags', 'amateur-tv' ) },
 		{ value: 'lastShow', label: __( 'Last Show', 'amateur-tv' ) },
 		{ value: 'aboutMe', label: __( 'About Me', 'amateur-tv' ) },
+		{ value: 'nextShow', label: __( 'Next Show', 'amateur-tv' ) },
 	];
 
 	const changeURL = ( args ) => {
@@ -144,8 +162,9 @@ export default function CamDetailsEdit( props ) {
 
 		let template = [];
 
+		// the atv-{key} class will allow the front end to replace content
+		// for camparam type cases
 		!!fields && fields.map( (key, index) => {
-			let displayBlock = [ 'core/paragraph', { content: String(data[key]), "data-something": key } ];
 			let label, type = null;
 			
 			KEY_LABELS.forEach( (item) => {
@@ -155,16 +174,18 @@ export default function CamDetailsEdit( props ) {
 				}
 			});
 
+			let displayBlock = [ 'core/paragraph', { placeholder: label, content: String(data[key]), className: [ `atv-${key}`, "camparam" ] } ];
+
 			switch ( type ) {
 				case 'image':
-					displayBlock = [ 'core/image', { url: String(data[key]), "data-something": key } ];
+					displayBlock = [ 'core/image', { url: String(data[key]), className: [ `atv-${key}`, "camparam" ] } ];
 					break;
 			}
 
 			template.push(
 				[ 'core/columns', {}, [
 				[ 'core/column', {}, [
-					[ 'core/paragraph', { content: label } ],
+					[ 'core/paragraph', { content: label, placeholder: label } ],
 				]],
 				[ 'core/column', {}, [
 					displayBlock,
@@ -187,7 +208,7 @@ export default function CamDetailsEdit( props ) {
 		let data = [];
 		
 		KEY_LABELS.forEach( (item) => {
-			data[ item.value ] = item.type === 'image' ? '' : __( 'Value for the given cam', 'amateur-tv' );
+			data[ item.value ] = MOCK_VALUES[ item.value ];
 		});
 		setData(true);
 		updateTemplate(data);

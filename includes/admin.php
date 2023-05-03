@@ -23,10 +23,20 @@ class Admin {
 			);
 		} );
 
+		add_filter( 'plugin_action_links', array( $this, 'add_links'), 10, 2 );
+
 		add_action( 'admin_menu', function () {
 			add_options_page( __( 'Amateur TV Settings', 'amateur-tv'), __( 'Amateur TV', 'amateur-tv'), 'manage_options', 'amateurtv_header', array( $this, 'settings' ) );
 		} );
     }
+
+
+	function add_links( $actions, $plugin_file ) {
+		if ( $plugin_file === basename( AMATEURTV_DIR ) . '/amateur-tv.php' ) {
+			$actions['atv_settings'] = sprintf( __( '<a href="%s">Settings</a>', 'app-translation' ), esc_url( admin_url( 'options-general.php?page=amateurtv_header' ) ) );
+		}
+		return $actions;
+	}
 
 	function register_options() {
 		register_setting( 'amateurtv_header', 'amateurtv_affiliate', array( 'type' => 'string', 'show_in_rest' => true ) );

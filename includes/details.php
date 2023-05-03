@@ -35,7 +35,99 @@ class CamDetailsBlock{
         if ( is_admin()){
             return;
         }
+
+        switch ( $attributes['camType'] ) {
+            case 'camparam':
+                $cam = sanitize_title( $_GET['livecam'] ?? false );
+                if ( $cam ) {
+                    $url = add_query_arg( 'camname', $cam, $attributes['api'] );
+                    $details = null;
+                    $response = wp_remote_get( $url );
+                    if ( ( !is_wp_error($response)) && (200 === wp_remote_retrieve_response_code( $response ) ) ) {
+                        $responseBody = json_decode($response['body'], true);
+                        $details = $responseBody['body'] ?? null;
+                        if ( $details ) {
+                           $content = $this->replace_data( $content, $details );
+                        }
+                    }
+                }
+                break;
+        }
+
         return $content;
+    }
+
+    /**
+     * Replace the values in the placeholders with the values from the API.
+     */
+    function replace_data( $content, $details ) {
+        $domDocument = new \DOMDocument();
+        $domContent = $domDocument->loadHTML( $content, LIBXML_HTML_NODEFDTD | LIBXML_NOERROR | LIBXML_NOWARNING );
+
+        $xpath = new \DOMXpath( $domDocument, false );
+
+        // text elements
+        foreach ( $xpath->evaluate('//p[contains(@class, "camparam")]') as $p ) {
+            foreach ( $p->attributes as $name => $node ) {
+                $key = null;
+                
+                // the element has at least one class corresponding to the key in the API
+                if ( 'class' === $name ) {
+                    $classes = explode( ' ', $node->value );
+                    foreach ( $classes as $class ) {
+                        if ( strpos( $class, 'atv-' ) !== false ) {
+                            $key = str_replace( 'atv-', '', $class );
+                            break;
+                        }
+                    }
+                    if ( $key ) {
+                        break;
+                    }
+                }
+            }
+
+            // only if the key in the API is found.
+            if ( $key ) {
+                $p->nodeValue = esc_html( $details[ $key ] );
+            }
+        }
+
+        // image elements
+        foreach ( $xpath->evaluate('//figure[contains(@class, "camparam")]') as $img ) {
+            foreach ( $img->attributes as $name => $node ) {
+                $key = null;
+                
+                // the element has at least one class corresponding to the key in the API
+                if ( 'class' === $name ) {
+                    $classes = explode( ' ', $node->value );
+                    foreach ( $classes as $class ) {
+                        if ( strpos( $class, 'atv-' ) !== false ) {
+                            $key = str_replace( 'atv-', '', $class );
+                            break;
+                        }
+                    }
+                    if ( $key ) {
+                        break;
+                    }
+                }
+            }
+
+            // only if the key in the API is found.
+            if ( $key ) {
+                foreach( $img->childNodes as $child ) {
+                    if ( 'img' === $child->nodeName ){
+                        foreach ( $child->attributes as $name => $node ) {
+                            if ( 'src' === $name ) {
+                                $node->nodeValue = esc_attr( $details[ $key ] );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $domDocument->saveHTML();
+
     }
 }
 

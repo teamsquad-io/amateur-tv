@@ -18,7 +18,7 @@
 	"attributes": {
 		"api": {
 			"type": "string",
-			"default": "https://api.a00s.net/v3/cache/affiliates/camapi/json?cuuid=69e5bc4c-656e-47f2-87e1-50c8555f03f4&"
+			"default": "https://api.a00s.net/v3/cache/affiliates/camapi/json?"
 		},
 		"lang": {
 			"type": "string",
