@@ -24,7 +24,7 @@
 	"attributes": {
 		"api": {
 			"type": "string",
-			"default": "https://public-api.amateur.cash/v3/cache/affiliates/promo/json"
+			"default": "https://api.a00s.net/v3/cache/affiliates/camsfeed/json"
 		},
 		"align": {
 			"type": "string"
