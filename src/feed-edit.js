@@ -32,6 +32,7 @@ import './editor.scss';
 import { useEffect, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
+import { useEntityProp } from '@wordpress/core-data';
 import {
 	Spinner,
 	SelectControl,
@@ -81,19 +82,26 @@ export default function FeedEdit( props ) {
 
 	const [ loading, setLoading ] = useState( true );
 	const [ data, setData ] = useState( null );
-	const [ url, setURL ] = useState( new URL( api ) );
+	const [ whiteLabel ] = useEntityProp( 'root', 'site', 'amateurtv_whitelabel' );
+
+	const apiUrl = new URL( api );
+	if ( !! whiteLabel ) {
+		apiUrl.searchParams.set( 'wl', whiteLabel );
+	}
+
+	const [ url, setURL ] = useState( apiUrl );
 
 	const changeURL = ( args ) => {
-		let _url = url;
 		let val = args.val;
 		if ( !! args.multiple ) {
 			val = val.join( ',' );
 		}
 		if ( !! val ) {
-			_url.searchParams.set( args.name, val );
+			url.searchParams.set( args.name, val );
 		} else {
-			_url.searchParams.delete( args.name );
+			url.searchParams.delete( args.name );
 		}
+
 		setData( null );
 		setURL( url );
 		setLoading( true );

@@ -29,9 +29,9 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-import { useEffect, useState, RawHTML } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
+import { useState } from '@wordpress/element';
+import { InspectorControls } from '@wordpress/block-editor';
+import { useEntityProp } from '@wordpress/core-data';
 import {
 	Spinner,
 	SelectControl,
@@ -42,11 +42,11 @@ import {
 } from '@wordpress/components';
 
 export default function IframeEdit( props ) {
-	const blockProps = useBlockProps();
-	const { attributes, setAttributes } = props;
 
-	const [ loading, setLoading ] = useState( false );
-	const { genre, age, iframeHeight, camType, camName, iframeUrl, camLang, tags } = attributes;
+	const { attributes, setAttributes } = props;
+	const [ whiteLabel ] = useEntityProp( 'root', 'site', 'amateurtv_whitelabel' );
+
+	const { genre, age, iframeHeight, camType, camName, camLang, tags, iframeUrl } = attributes;
 	const camTypeHelp = {
 		'popular': __( 'It will randomly show a live cam from the most popular cams according to your filters', 'amateur-tv' ),
 		'camname': __( 'It will show the cam of the below mentioned username, even if it is offline. If the name doesn\'t exist, it will show a random cam from the same genre', 'amateur-tv' ),
@@ -55,21 +55,14 @@ export default function IframeEdit( props ) {
 
 	const [ url, setURL ] = useState( new URL( iframeUrl + iframeHeight ) );
 
-	let iframe =
-		'<iframe width="100%" height="' + iframeHeight + '" src=' +
-		url.toString() +
-		' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
+	const getIframeURL = () => {
+		return !!whiteLabel ? url.toString().replace('www.amateur.tv', whiteLabel) : url.toString();
+	}
 
-	
-	const [ html, setHTML ] = useState( iframe );
-
-	const resetIframe = () => {
-		setHTML(
-			'<iframe width="100%" height="' + iframeHeight + '" src=' +
-				url.toString() +
-				' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>'
-		);
-	};
+	const getScriptURL = () => {
+		let _url = 'https://www.amateur.tv/js/IntersectionObserverIframe.js';
+		return !!whiteLabel ? _url.replace('www.amateur.tv', whiteLabel) : _url;
+	}
 
 	const changeURL = ( args ) => {
 		let _url = url;
@@ -84,7 +77,6 @@ export default function IframeEdit( props ) {
 		}
 
 		setURL( url );
-		resetIframe();
 	};
 
 	const onChangeGender = ( gender ) => {
@@ -114,7 +106,6 @@ export default function IframeEdit( props ) {
 	};
 	const onChangeIframeHeight = ( height ) => {
 		setAttributes( { iframeHeight: height } );
-		resetIframe();
 	};
 
 	// allow only Latin alphabets
@@ -243,14 +234,11 @@ export default function IframeEdit( props ) {
 				</PanelBody>
 			</InspectorControls>
 
-			{ !! loading && (
-				<div key="loading" className="wp-block-embed is-loading">
-					<Spinner />
-					<p>{ __( 'Fetching...', 'amateur-tv' ) }</p>
-				</div>
-			) }
 			<div { ...useBlockProps() }>
-				<RawHTML className="atv-iframe">{ html }</RawHTML>
+				<div className="atv-iframe">
+					<iframe width="100%" height={iframeHeight} src={getIframeURL()} frameborder="0" className="atv_lazy_load_iframe"></iframe>
+					<script src={getScriptURL()}></script>
+				</div>
 			</div>
 		</>
 	);

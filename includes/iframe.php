@@ -49,7 +49,7 @@ class IframeBlock{
 			if ( is_admin()){
 				return;
 			}
-   
+  
 			// Set default values for attributes that may not be present.
 			$genre = $attributes['genre'] ?? array();
 			$age = $attributes['age'] ?? array();
@@ -58,6 +58,15 @@ class IframeBlock{
 			$camType = $attributes['camType'] ?? 'popular';
 			$camName = $attributes['camName'] ?? '';
 			$height = $attributes['iframeHeight'] ?? 580;
+			$src = $attributes['iframeUrl'];
+			$script = 'https://www.amateur.tv/js/IntersectionObserverIframe.js';
+
+			// change the domain depending on the white label
+			$whiteLabel = get_option( 'amateurtv_whitelabel' );
+			if ( ! empty( $whiteLabel ) ) {
+				$src = str_replace( 'www.amateur.tv', untrailingslashit( $whiteLabel ), $src );
+				$script = str_replace( 'www.amateur.tv', untrailingslashit( $whiteLabel ), $script );
+			}
     
 			// Construct an array of query arguments for the iframe URL.
 			$args = array(
@@ -118,12 +127,13 @@ class IframeBlock{
 			}   
 
 			// Construct the iframe URL with the query arguments.
-			$url = add_query_arg( $args, sprintf( $attributes['iframeUrl'] . '%d', $height ) );
+			$url = add_query_arg( $args, sprintf( $src . '%d', $height ) );
 
 			// Construct the HTML for the iframe.
-			$iframe = '<iframe width="100%%" height="%d" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
+			$iframe = '<iframe width="100%%" height="%d" src="%s" frameborder="0" class="atv_lazy_load_iframe"></iframe>
+			<script src="%s"></script>';
 
-			$html = sprintf( '<div class="atv-front-iframe %s" style="%s">' . $iframe . '</div>', implode( ' ', $classes ), implode( '; ', $styles ), $height, $url );
+			$html = sprintf( '<div class="atv-front-iframe %s" style="%s">' . $iframe . '</div>', implode( ' ', $classes ), implode( '; ', $styles ), $height, $url, $script );
 
 			return $html;
 	}
