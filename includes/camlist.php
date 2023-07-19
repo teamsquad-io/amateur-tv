@@ -222,6 +222,7 @@ class CamlistBlock {
 			$final_cams = array_slice( $final_cams, 0, intval( $attributes['count'] ) );
 		}
 		
+		
 		// Iterate over the cams and generate HTML output for each cam.
 		foreach ( $final_cams as $cam ) {
 
@@ -244,7 +245,7 @@ class CamlistBlock {
 			
 			// Add HTML output for the topic of the cam.
 			if($attributes['displayTopic'] === true || $attributes['displayTopic'] === 'true'){
-				$inner .= sprintf( '<div class="atv-topic atv-padding atv-rounded" style="color: %s; background-color: %s;">%s</div>', $attributes['topicColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['topic'][$lang]);
+				$inner .= sprintf( '<div class="atv-topic atv-padding atv-rounded" style="color: %s; background-color: %s;">%s</div>', $attributes['topicColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['topic']);
 			}
 			
 			// Add HTML output for the username of the cam.

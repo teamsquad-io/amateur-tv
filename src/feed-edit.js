@@ -88,7 +88,26 @@ export default function FeedEdit( props ) {
 	if ( !! whiteLabel ) {
 		apiUrl.searchParams.set( 'wl', whiteLabel );
 	}
-
+	if ( !! genre ) {
+		apiUrl.searchParams.set( 'genre', genre.join( ',' ) );
+	}
+	if ( !! lang ) {
+		apiUrl.searchParams.set( 'lang', lang );
+	}
+	if ( !! age ) {
+		apiUrl.searchParams.set( 'age', age.join( ',' ) );
+	}
+	if ( !! camLang ) {
+		apiUrl.searchParams.set( 'camLang', camLang.join( ',' ) );
+	}
+	if ( !! tags ) {
+		const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
+		apiUrl.searchParams.set( 'tag', lowerCaseTags.join( ',' ) );
+	}
+	if ( !! order ) {
+		apiUrl.searchParams.set( 'order', order );
+	}
+	
 	const [ url, setURL ] = useState( apiUrl );
 
 	const changeURL = ( args ) => {
@@ -573,9 +592,7 @@ export default function FeedEdit( props ) {
 												} }
 											>
 												{
-													item.topic[
-														!! lang ? lang : 'en'
-													]
+													item.topic
 												}
 											</div>
 										) }
