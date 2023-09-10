@@ -25,16 +25,22 @@ import IframeEdit from './iframe-edit';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-registerBlockType( 'amateur-tv/feed', {
-	edit: FeedEdit,
-	save: function ( props ) {
-		return null;
-	},
-} );
+registerBlockType(
+	'amateur-tv/feed',
+	{
+		edit: FeedEdit,
+		save: function ( props ) {
+			return null;
+		},
+	}
+);
 
-registerBlockType( 'amateur-tv/iframe', {
-	edit: IframeEdit,
-	save: function ( props ) {
-		return null;
-	},
-} );
+registerBlockType(
+	'amateur-tv/iframe',
+	{
+		edit: IframeEdit,
+		save: function ( props ) {
+			return null;
+		},
+	}
+);

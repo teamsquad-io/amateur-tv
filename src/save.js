@@ -20,8 +20,8 @@ export default function save( { attributes } ) {
 	const blockProps = useBlockProps.save();
 
 	return (
-		<p style={ { backgroundColor: attributes.usernameColor } }>
+		< p style = { { backgroundColor: attributes.usernameColor } } >
 			{ __( 'Amateur Tv – hello from the saved content!', 'amateur-tv' ) }
-		</p>
+		< / p >
 	);
 }

@@ -42,7 +42,7 @@ import {
 } from '@wordpress/components';
 
 export default function IframeEdit( props ) {
-	const blockProps = useBlockProps();
+	const blockProps                    = useBlockProps();
 	const { attributes, setAttributes } = props;
 
 	const [ loading, setLoading ] = useState( false );
@@ -60,7 +60,6 @@ export default function IframeEdit( props ) {
 		url.toString() +
 		' frameborder="0" class="atv_lazy_load_iframe"></iframe><script src="https://www.amateur.tv/js/IntersectionObserverIframe.js"></script>';
 
-	
 	const [ html, setHTML ] = useState( iframe );
 
 	const resetIframe = () => {
@@ -72,12 +71,12 @@ export default function IframeEdit( props ) {
 	};
 
 	const changeURL = ( args ) => {
-		let _url = url;
-		let val = args.val;
-		if ( !! args.multiple ) {
+		let _url    = url;
+		let val     = args.val;
+		if ( ! ! args.multiple ) {
 			val = val.join( ',' );
 		}
-		if ( !! val ) {
+		if ( ! ! val ) {
 			_url.searchParams.set( args.name, val );
 		} else {
 			_url.searchParams.delete( args.name );
@@ -87,28 +86,28 @@ export default function IframeEdit( props ) {
 		resetIframe();
 	};
 
-	const onChangeGender = ( gender ) => {
+	const onChangeGender       = ( gender ) => {
 		setAttributes( { genre: gender } );
 		changeURL( { name: 'genre', val: gender, multiple: true } );
 	};
-	const onChangeAge = ( age ) => {
+	const onChangeAge          = ( age ) => {
 		setAttributes( { age: age } );
 		changeURL( { name: 'age', val: age, multiple: true } );
 	};
-	const onChangeCamType = ( type ) => {
+	const onChangeCamType      = ( type ) => {
 		setAttributes( { camType: type } );
 		changeURL( { name: 'livecam', val: '' } );
 	};
-	const onChangeCamName = ( name ) => {
+	const onChangeCamName      = ( name ) => {
 		setAttributes( { camName: name } );
 		changeURL( { name: 'livecam', val: name } );
 	};
-	const onChangeCamLamg = ( lang ) => {
+	const onChangeCamLamg      = ( lang ) => {
 		setAttributes( { camLang: lang } );
 		changeURL( { name: 'camLang', val: lang, multiple: true } );
 	};
-	const onChangeTags = ( tags ) => {
-		const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
+	const onChangeTags         = ( tags ) => {
+		const lowerCaseTags    = tags.map( (tag) => tag.toLowerCase() );
 		setAttributes( { tags: lowerCaseTags } );
 		changeURL( { name: 'tag', val: lowerCaseTags, multiple: true } );
 	};
@@ -119,47 +118,47 @@ export default function IframeEdit( props ) {
 
 	// allow only Latin alphabets
 	const validateTag = ( tag ) => {
-		return /^[aA-zZ]+$/.test(tag)
+		return /^[aA-zZ]+$/.test( tag )
 	};
-	
+
 	return (
-		<>
-			<InspectorControls>
-				<PanelBody
-					title={ __( 'Filters', 'amateur-tv' ) }
-					initialOpen={ true }
+		< >
+			< InspectorControls >
+				< PanelBody
+					title        = { __( 'Filters', 'amateur-tv' ) }
+					initialOpen  = { true }
 				>
-					<SelectControl
-						label={ __( 'Gender', 'amateur-tv' ) }
-						value={ genre }
+					< SelectControl
+						label    = { __( 'Gender', 'amateur-tv' ) }
+						value    = { genre }
 						multiple
-						options={ [
+						options  = { [
 							{ label: __( 'Woman', 'amateur-tv' ), value: 'W' },
 							{ label: __( 'Couple', 'amateur-tv' ), value: 'C' },
 							{ label: __( 'Man', 'amateur-tv' ), value: 'M' },
 							{ label: __( 'Trans', 'amateur-tv' ), value: 'T' },
-						] }
-						onChange={ onChangeGender }
-					/>
-					<SelectControl
-						label={ __( 'Age', 'amateur-tv' ) }
-						value={ age }
+							] }
+						onChange = { onChangeGender }
+					/ >
+					< SelectControl
+						label    = { __( 'Age', 'amateur-tv' ) }
+						value    = { age }
 						multiple
-						options={ [
+						options  = { [
 							{ label: '18-22', value: '18-22' },
 							{ label: '23-29', value: '23-29' },
 							{ label: '29-39', value: '29-39' },
 							{ label: '40', value: '40' },
-						] }
-						onChange={ onChangeAge }
-					/>
+							] }
+						onChange = { onChangeAge }
+					/ >
 
-					<SelectControl
-						label={ __( 'Language', 'amateur-tv' ) }
-						value={ camLang }
-						multiple={ true }
-						help={ __( 'Language spoken by model', 'amateur-tv' ) }
-						options={ [
+					< SelectControl
+						label    = { __( 'Language', 'amateur-tv' ) }
+						value    = { camLang }
+						multiple = { true }
+						help     = { __( 'Language spoken by model', 'amateur-tv' ) }
+						options  = { [
 							{
 								label: __( 'English' ),
 								value: 'en',
@@ -192,66 +191,66 @@ export default function IframeEdit( props ) {
 								label: __( 'Chinese' ),
 								value: 'cn',
 							},
-						] }
-						onChange={ onChangeCamLamg }
-					/>
+							] }
+						onChange = { onChangeCamLamg }
+					/ >
 
-					<FormTokenField
-						label={ __( 'Tags', 'amateur-tv' ) }
-						value={ tags }
-						tokenizeOnSpace={ true }
-						__experimentalValidateInput={ validateTag }
-						onChange={ onChangeTags }
-					/>
+					< FormTokenField
+						label                       = { __( 'Tags', 'amateur-tv' ) }
+						value                       = { tags }
+						tokenizeOnSpace             = { true }
+						__experimentalValidateInput = { validateTag }
+						onChange                    = { onChangeTags }
+					/ >
 
-					<SelectControl
-						label={ __( 'Cam Type', 'amateur-tv' ) }
-						value={ camType }
-						options={ [
+					< SelectControl
+						label    = { __( 'Cam Type', 'amateur-tv' ) }
+						value    = { camType }
+						options  = { [
 							{ label: __( 'Most Popular', 'amateur-tv' ), value: 'popular' },
 							{ label: __( 'Specific Camname', 'amateur-tv' ), value: 'camname' },
 							{ label: __( 'Camname Parameter', 'amateur-tv' ), value: 'camparam' },
-						] }
-						help={ camTypeHelp[camType] }
-						onChange={ onChangeCamType }
-					/>
+							] }
+						help     = { camTypeHelp[camType] }
+						onChange = { onChangeCamType }
+					/ >
 
 					{ ('camname' === camType) && (
-						<TextControl
-							label={ __( 'Camname', 'amateur-tv' ) }
-							value={ camName }
-							onChange={ onChangeCamName }
-						/>
+						< TextControl
+							label    = { __( 'Camname', 'amateur-tv' ) }
+							value    = { camName }
+							onChange = { onChangeCamName }
+						/ >
 					)}
-				</PanelBody>
+				< / PanelBody >
 
-				<PanelBody
-					title={ __( 'Display Settings', 'amateur-tv' ) }
-					initialOpen={ true }
+				< PanelBody
+					title               = { __( 'Display Settings', 'amateur-tv' ) }
+					initialOpen         = { true }
 				>
-					<RangeControl
-						label={ __( 'Iframe Height', 'amateur-tv' ) }
-						value={ iframeHeight }
-						initialPosition={ 590 }
-						onChange={ onChangeIframeHeight }
-						min={ 200 }
-						max={ 1000 }
-						step={ 50 }
-						type={ "stepper" }
-						allowReset={ true }
-					/>
-				</PanelBody>
-			</InspectorControls>
+					< RangeControl
+						label           = { __( 'Iframe Height', 'amateur-tv' ) }
+						value           = { iframeHeight }
+						initialPosition = { 590 }
+						onChange        = { onChangeIframeHeight }
+						min             = { 200 }
+						max             = { 1000 }
+						step            = { 50 }
+						type            = { "stepper" }
+						allowReset      = { true }
+					/ >
+				< / PanelBody >
+			< / InspectorControls >
 
-			{ !! loading && (
-				<div key="loading" className="wp-block-embed is-loading">
-					<Spinner />
-					<p>{ __( 'Fetching...', 'amateur-tv' ) }</p>
-				</div>
+			{ ! ! loading && (
+				< div key = "loading" className = "wp-block-embed is-loading" >
+					< Spinner / >
+					< p > { __( 'Fetching...', 'amateur-tv' ) } < / p >
+				< / div >
 			) }
-			<div { ...useBlockProps() }>
-				<RawHTML className="atv-iframe">{ html }</RawHTML>
-			</div>
-		</>
+			< div { ...useBlockProps() } >
+				< RawHTML className = "atv-iframe" > { html } < / RawHTML >
+			< / div >
+		< / >
 	);
 }

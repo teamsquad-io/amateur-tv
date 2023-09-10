@@ -6,46 +6,52 @@ defined( 'ABSPATH' ) || die( 'No script kiddies please!' );
  *
  * @since 1.0.0
  */
-add_action( 'admin_init', function () {
+add_action(
+	'admin_init',
+	function () {
 
-	// Register the 'amateurtv_affiliate' setting.
-	register_setting( 'amateurtv_header', 'amateurtv_affiliate' );
-
-} );
+		// Register the 'amateurtv_affiliate' setting.
+		register_setting( 'amateurtv_header', 'amateurtv_affiliate' );
+	}
+);
 
 /**
  * This function adds an options page to the WordPress admin menu for the 'Amateur TV' plugin.
  *
  * @since 1.0.0
  */
-add_action( 'admin_menu', function () {
+add_action(
+	'admin_menu',
+	function () {
 
-	// Add an options page to the WordPress admin menu.
-	add_options_page(
-		__( 'Amateur TV Settings', 'amateur-tv' ), // Page title.
-		__( 'Amateur TV', 'amateur-tv' ), // Menu title.
-		'manage_options', // Capability required to access the page.
-		'amateurtv_header', // Menu slug.
-		'amateurtv_settings' // Callback function to render the page content.
-	);
-
-} );
+		// Add an options page to the WordPress admin menu.
+		add_options_page(
+			__( 'Amateur TV Settings', 'amateur-tv' ), // Page title.
+			__( 'Amateur TV', 'amateur-tv' ), // Menu title.
+			'manage_options', // Capability required to access the page.
+			'amateurtv_header', // Menu slug.
+			'amateurtv_settings' // Callback function to render the page content.
+		);
+	}
+);
 
 /**
  * This function loads the translation files for the 'Amateur TV' plugin.
  *
  * @since 1.0.0
  */
-add_action( 'plugins_loaded', function() {
+add_action(
+	'plugins_loaded',
+	function () {
 
-	// Load the translation files for the 'Amateur TV' plugin.
-	load_plugin_textdomain(
-		'amateur-tv', // Text domain.
-		false, // Deprecated argument. Should always be false.
-		AMATEURTV_DIR . '/languages/' // Path to the languages directory.
-	);
-
-} );
+		// Load the translation files for the 'Amateur TV' plugin.
+		load_plugin_textdomain(
+			'amateur-tv', // Text domain.
+			false, // Deprecated argument. Should always be false.
+			AMATEURTV_DIR . '/languages/' // Path to the languages directory.
+		);
+	}
+);
 
 /**
  * This function generates the HTML for the 'Amateur TV' settings page.
@@ -61,12 +67,12 @@ function amateurtv_settings() {
 
 	// Create a nonce for the settings form.
 	$nonce_action = 'amateurtv_settings_nonce';
-	$nonce_name = 'amateurtv_settings_nonce';
+	$nonce_name   = 'amateurtv_settings_nonce';
 	wp_nonce_field( $nonce_action, $nonce_name );
 
-?>
+	?>
 	<div class="wrap">
-		<h2><?php _e( 'Amateur TV Settings', 'amateur-tv' );?></h2>
+		<h2><?php _e( 'Amateur TV Settings', 'amateur-tv' ); ?></h2>
 		<form action="options.php" method="post">
 		<?php
 
@@ -80,7 +86,7 @@ function amateurtv_settings() {
 		?>
 			<table class="form-table">
 				<tr valign="top">
-					<th scope="row"><label><?php _e( 'Affiliate code', 'amateur-tv');?></label></th>
+					<th scope="row"><label><?php _e( 'Affiliate code', 'amateur-tv' ); ?></label></th>
 					<td><input type="text" name="amateurtv_affiliate" value="<?php echo esc_attr( get_option( 'amateurtv_affiliate' ) ); ?>"></td>
 				</tr>
 			</table>
@@ -92,5 +98,5 @@ function amateurtv_settings() {
 			?>
 		</form>
 	</div>
-<?php
+	<?php
 }
