@@ -1,3 +1,9 @@
+/**
+ * Frontend
+ *
+ * @package amateur-tv
+ */
+
 ( function ( $, config ) {
 	$( document ).ready(
 		function () {

@@ -1,4 +1,10 @@
 <?php
+/**
+ * WP-Admin Module
+ *
+ * @package amateur-tv
+ */
+
 defined( 'ABSPATH' ) || die( 'No script kiddies please!' );
 
 /**

@@ -1,4 +1,10 @@
 <?php
+/**
+ * CamList Module
+ *
+ * @package amateur-tv
+ */
+
 namespace AmateurTv;
 
 defined( 'ABSPATH' ) || die( 'No script kiddies please!' );

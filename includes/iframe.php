@@ -1,4 +1,10 @@
 <?php
+/**
+ * The iFrame Module
+ *
+ * @package amateur-tv
+ */
+
 namespace AmateurTv;
 
 defined( 'ABSPATH' ) || die( 'No script kiddies please!' );
@@ -21,7 +27,7 @@ class IframeBlock {
 	 *
 	 * @see https://developer.wordpress.org/reference/functions/add_action/
 	 */
-	function hooks() {
+	public function hooks() {
 			add_action( 'init', array( $this, 'register_block' ) );
 	}
 
@@ -32,7 +38,7 @@ class IframeBlock {
 	 *
 	 * @see https://developer.wordpress.org/reference/functions/register_block_type/
 	 */
-	function register_block() {
+	public function register_block() {
 		register_block_type(
 			AMATEURTV_DIR . '/config/iframe-block.json',
 			array(
@@ -47,7 +53,7 @@ class IframeBlock {
 	 * @param array $attributes An array of block attributes.
 	 * @return string Returns the HTML output of the iframe block.
 	 */
-	function render_iframe( $attributes ) {
+	public function render_iframe( $attributes ) {
 
 		// Check if the user is in the WordPress admin area.
 		if ( is_admin() ) {
@@ -55,13 +61,13 @@ class IframeBlock {
 		}
 
 		// Set default values for attributes that may not be present.
-		$genre   = $attributes['genre'] ?? array();
-		$age     = $attributes['age'] ?? array();
-		$camLang = $attributes['camLang'] ?? array();
-		$tags    = $attributes['tags'] ?? array();
-		$camType = $attributes['camType'] ?? 'popular';
-		$camName = $attributes['camName'] ?? '';
-		$height  = $attributes['iframeHeight'] ?? 580;
+		$genre    = $attributes['genre'] ?? array();
+		$age      = $attributes['age'] ?? array();
+		$cam_lang = $attributes['camLang'] ?? array();
+		$tags     = $attributes['tags'] ?? array();
+		$cam_type = $attributes['camType'] ?? 'popular';
+		$cam_name = $attributes['camName'] ?? '';
+		$height   = $attributes['iframeHeight'] ?? 580;
 
 		// Construct an array of query arguments for the iframe URL.
 		$args = array(
@@ -73,29 +79,30 @@ class IframeBlock {
 		if ( ! empty( $age ) ) {
 			$args['age'] = implode( ',', $age );
 		}
-		if ( ! empty( $camLang ) ) {
-			$args['camLang'] = implode( ',', $camLang );
+		if ( ! empty( $cam_lang ) ) {
+			$args['camLang'] = implode( ',', $cam_lang );
 		}
 		if ( ! empty( $tags ) ) {
 			$args['tags'] = implode( ',', $tags );
 		}
 
 		// Depending on the type of camera, add an appropriate query argument.
-		switch ( $camType ) {
+		switch ( $cam_type ) {
 			case 'camname':
-				if ( ! empty( $camName ) ) {
-					$args['livecam'] = sanitize_title( $camName );
+				if ( ! empty( $cam_name ) ) {
+					$args['livecam'] = sanitize_title( $cam_name );
 				}
 				break;
 			case 'camparam':
 				if ( ! empty( $_GET['livecam'] ) ) {
-					$args['livecam'] = sanitize_title( $_GET['livecam'] );
+					$args['livecam'] = sanitize_title( wp_unslash( $_GET['livecam'] ) );
 				}
 				break;
 		}
 
 		// Set up arrays to hold any classes or styles for the iframe container.
-		$classes = $styles = array();
+		$classes = array();
+		$styles  = array();
 
 		// If the "align" attribute is present, add an appropriate class.
 		if ( ! empty( $attributes['align'] ?? '' ) ) {
