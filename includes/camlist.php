@@ -9,6 +9,11 @@ namespace AmateurTv;
 
 defined( 'ABSPATH' ) || die( 'No script kiddies please!' );
 
+/**
+ * The class to create a Cam List
+ *
+ * @since 1.0.0
+ */
 class CamlistBlock {
 
 	/**
@@ -22,7 +27,7 @@ class CamlistBlock {
 	/**
 	 * Hooks up all the actions and filters for this class.
 	 */
-	function hooks() {
+	public function hooks() {
 		add_action(
 			'rest_api_init',
 			function () {
@@ -69,7 +74,7 @@ class CamlistBlock {
 	 *
 	 * @see https://developer.wordpress.org/reference/functions/register_block_type/
 	 */
-	function register_block() {
+	public function register_block() {
 		register_block_type(
 			AMATEURTV_DIR . '/config/feed-block.json',
 			array(
@@ -85,7 +90,7 @@ class CamlistBlock {
 	 *
 	 * @return string The HTML to render the feed.
 	 */
-	function render_feed( $attributes ) {
+	public function render_feed( $attributes ) {
 
 		// If the current request is in the admin panel, return an empty string to prevent rendering.
 		if ( is_admin() ) {
@@ -96,7 +101,7 @@ class CamlistBlock {
 		$final = $this->render_single_block( $attributes );
 
 		// Initialize empty arrays to store the styles and classes to be applied to the feed container.
-		$styles  = $classes = array();
+		$styles  = array();
 		$classes = array();
 
 		// Add styles for the column gap if it's set in the attributes.
@@ -161,7 +166,7 @@ class CamlistBlock {
 			}
 		}
 
-		return sprintf( '<div data-refresh="%d" data-attributes="%s" class="atv-cams-list atv-front %s" style="%s">%s</div>', esc_attr( $attributes['autoRefresh'] ), esc_attr( json_encode( $attributes ) ), implode( ' ', $classes ), implode( '; ', $styles ), $final );
+		return sprintf( '<div data-refresh="%d" data-attributes="%s" class="atv-cams-list atv-front %s" style="%s">%s</div>', esc_attr( $attributes['autoRefresh'] ), esc_attr( wp_json_encode( $attributes ) ), implode( ' ', $classes ), implode( '; ', $styles ), $final );
 	}
 
 	/**
@@ -170,7 +175,7 @@ class CamlistBlock {
 	 * @param \WP_REST_Request $request The REST request object.
 	 * @return \WP_REST_Response The REST response object containing the rendered block.
 	 */
-	function render_single_block_ajax( \WP_REST_Request $request ) {
+	public function render_single_block_ajax( \WP_REST_Request $request ) {
 
 		// Get the attributes passed in the request.
 		$attributes = $request->get_params( 'attributes' )['attributes'];
@@ -193,18 +198,18 @@ class CamlistBlock {
 	 * @param array $attributes An array of attributes for the block.
 	 * @return string The HTML to render the block.
 	 */
-	function render_single_block( $attributes ) {
+	public function render_single_block( $attributes ) {
 
 		// Get the language code from the blog settings.
 		$lang = explode( '-', get_bloginfo( 'language' ) );
 		$lang = reset( $lang );
 
 		// Get the filters and options from the attributes.
-		$genre   = $attributes['genre'] ?? array();
-		$age     = $attributes['age'] ?? array();
-		$camLang = $attributes['camLang'] ?? array();
-		$tags    = $attributes['tags'] ?? array();
-		$order   = $attributes['order'] ?? '';
+		$genre    = $attributes['genre'] ?? array();
+		$age      = $attributes['age'] ?? array();
+		$cam_lang = $attributes['camLang'] ?? array();
+		$tags     = $attributes['tags'] ?? array();
+		$order    = $attributes['order'] ?? '';
 
 		// Set up the API query args based on the attributes.
 		$args = array(
@@ -218,8 +223,8 @@ class CamlistBlock {
 		if ( ! empty( $age ) ) {
 			$args['age'] = implode( ',', $age );
 		}
-		if ( ! empty( $camLang ) ) {
-			$args['camLang'] = implode( ',', $camLang );
+		if ( ! empty( $cam_lang ) ) {
+			$args['camLang'] = implode( ',', $cam_lang );
 		}
 		if ( ! empty( $tags ) ) {
 			$args['tags'] = implode( ',', $tags );
@@ -235,8 +240,8 @@ class CamlistBlock {
 		$cams     = null;
 		$response = wp_remote_get( $url );
 		if ( ( ! is_wp_error( $response ) ) && ( 200 === wp_remote_retrieve_response_code( $response ) ) ) {
-			$responseBody = json_decode( $response['body'], true );
-			$cams         = $responseBody['body'] ?? null;
+			$response_body = json_decode( $response['body'], true );
+			$cams          = $response_body['body'] ?? null;
 		}
 		if ( ! $cams ) {
 			return $final;
@@ -258,22 +263,22 @@ class CamlistBlock {
 			$inner = '';
 
 			// Add HTML output for the live status of the cam.
-			if ( $attributes['displayLive'] === true || $attributes['displayLive'] === 'true' ) {
+			if ( true === $attributes['displayLive'] || 'true' === $attributes['displayLive'] ) {
 				$inner .= sprintf( '<span class="atv-live atv-padding" style="color: %s; background-color: %s;">%s</span>', $attributes['liveColor'] ?? '', '', __( 'Live', 'amateur-tv' ) );
 			}
 
 			// Add HTML output for the genre of the cam.
-			if ( $attributes['displayGenre'] === true || $attributes['displayGenre'] === 'true' ) {
+			if ( true === $attributes['displayGenre'] || 'true' === $attributes['displayGenre'] ) {
 				$inner .= sprintf( '<span class="atv-genre atv-padding" style="color: %s; background-color: %s;">%s</span>', $attributes['usernameColor'] ?? '', '', __( $cam['genre'], 'amateur-tv' ) );
 			}
 
 			// Add HTML output for the number of viewers of the cam.
-			if ( $attributes['displayUsers'] === true || $attributes['displayUsers'] === 'true' ) {
+			if ( true === $attributes['displayUsers'] || 'true' === $attributes['displayUsers'] ) {
 				$inner .= sprintf( '<span class="atv-viewers atv-padding" style="color: %s; background-color: %s;"><span class="dashicons dashicons-visibility"></span><span>%s</span></span>', $attributes['liveColor'] ?? '', '', $cam['viewers'] );
 			}
 
 			// Add HTML output for the topic of the cam.
-			if ( $attributes['displayTopic'] === true || $attributes['displayTopic'] === 'true' ) {
+			if ( true === $attributes['displayTopic'] || 'true' === $attributes['displayTopic'] ) {
 				$inner .= sprintf( '<div class="atv-topic atv-padding atv-rounded" style="color: %s; background-color: %s;">%s</div>', $attributes['topicColor'] ?? '', $attributes['labelBgColor'] ?? '', $cam['topic'][ $lang ] );
 			}
 
@@ -283,7 +288,7 @@ class CamlistBlock {
 			// Generate the URL and target for the cam.
 			$url    = $cam['url'];
 			$target = '';
-			if ( $attributes['targetNew'] === true || $attributes['targetNew'] === 'true' ) {
+			if ( true === $attributes['targetNew'] || 'true' === $attributes['targetNew'] ) {
 				$target = '_blank';
 			}
 			if ( $attributes['link'] ?? false ) {
@@ -294,7 +299,7 @@ class CamlistBlock {
 					$url
 				);
 			}
-			// Generate the HTML output for the cam
+			// Generate the HTML output for the cam.
 			$final .= sprintf( $template, $url, $target, $cam['image'], $attributes['imageWidth'] ?? 216, $attributes['imageHeight'] ?? 115, $attributes['imageHeight'] ?? 115, $inner );
 		}
 		return $final;

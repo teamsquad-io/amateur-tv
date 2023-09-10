@@ -51,11 +51,7 @@ add_action(
 	function () {
 
 		// Load the translation files for the 'Amateur TV' plugin.
-		load_plugin_textdomain(
-			'amateur-tv', // Text domain.
-			false, // Deprecated argument. Should always be false.
-			AMATEURTV_DIR . '/languages/' // Path to the languages directory.
-		);
+		load_plugin_textdomain( 'amateur-tv', false, AMATEURTV_DIR . '/languages/' );
 	}
 );
 
@@ -78,7 +74,7 @@ function amateurtv_settings() {
 
 	?>
 	<div class="wrap">
-		<h2><?php _e( 'Amateur TV Settings', 'amateur-tv' ); ?></h2>
+		<h2><?php __( 'Amateur TV Settings', 'amateur-tv' ); ?></h2>
 		<form action="options.php" method="post">
 		<?php
 
@@ -92,7 +88,7 @@ function amateurtv_settings() {
 		?>
 			<table class="form-table">
 				<tr valign="top">
-					<th scope="row"><label><?php _e( 'Affiliate code', 'amateur-tv' ); ?></label></th>
+					<th scope="row"><label><?php __( 'Affiliate code', 'amateur-tv' ); ?></label></th>
 					<td><input type="text" name="amateurtv_affiliate" value="<?php echo esc_attr( get_option( 'amateurtv_affiliate' ) ); ?>"></td>
 				</tr>
 			</table>
