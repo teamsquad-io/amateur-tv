@@ -1,6 +1,6 @@
 <?php
 /**
- * WP-Admin Module
+ * The WP-Admin Module
  *
  * @package amateur-tv
  */
