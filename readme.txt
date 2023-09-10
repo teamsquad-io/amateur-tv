@@ -2,7 +2,7 @@
 Contributors: amateurtv, javiercasares, rozroz
 Tags: affiliate, affiliate, affiliation, adult, cam, cams, webcam, amateur
 Requires at least: 6.0
-Tested up to: 6.1
+Tested up to: 6.3
 Requires PHP: 7.2
 Tested PHP: 8.1
 Stable tag: 1.2.0
