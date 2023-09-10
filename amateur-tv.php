@@ -4,7 +4,7 @@
  * Description: Create your own amateur cam affiliate site, thanks to amateur.tv. Online cams feed and live cams viewer ready to use.
  * Requires at least: 6.0
  * Tested up to: 6.3
- * Requires PHP: 7.2
+ * Requires PHP: 7.0
  * Tested PHP: 8.2
  * Version: 1.2.0
  * Author: amateur.cash
