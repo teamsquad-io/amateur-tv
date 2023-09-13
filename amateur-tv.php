@@ -22,5 +22,5 @@ define( 'AMATEURTV_URL', plugin_dir_url( __FILE__ ) );
 define( 'AMATEURTV_DIR', __DIR__ );
 
 require_once AMATEURTV_DIR . '/includes/admin.php';
-require_once AMATEURTV_DIR . '/includes/camlist.php';
-require_once AMATEURTV_DIR . '/includes/iframe.php';
+require_once AMATEURTV_DIR . '/includes/class-camlistblock.php';
+require_once AMATEURTV_DIR . '/includes/class-iframeblock.php';

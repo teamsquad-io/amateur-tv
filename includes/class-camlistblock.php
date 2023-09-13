@@ -51,7 +51,7 @@ class CamlistBlock {
 			'enqueue_block_assets',
 			function () {
 				if ( has_block( 'amateur-tv/feed' ) ) {
-					wp_enqueue_script( 'amateur-tv/feed', AMATEURTV_URL . 'src/frontend.js', array( 'jquery' ), AMATEURTV_VERSION );
+					wp_enqueue_script( 'amateur-tv/feed', AMATEURTV_URL . 'src/frontend.js', array( 'jquery' ), AMATEURTV_VERSION, false );
 
 					// Set up the configuration for the frontend script.
 					wp_localize_script(
